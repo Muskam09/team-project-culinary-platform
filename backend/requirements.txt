@@ -9,3 +9,5 @@ isort
 flake8
 pytest
 pytest-django
+django-cors-headers
+python-dotenv
