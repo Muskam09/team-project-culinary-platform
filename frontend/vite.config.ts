@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/team-project-culinary-platform/",
   plugins: [react()],
   optimizeDeps: {
     // исключаем пакеты с нативными модулями, которые ломаются на этапе оптимизации
