@@ -1,0 +1,82 @@
+// Header.module.scss
+.header {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(243, 243, 243, 1);
+  box-sizing: border-box;
+
+  .searchWrapper {
+    position: relative;
+    flex: 1 1 300px; // растягивается, минимум 300px
+    max-width: 680px;
+
+    input {
+      width: 100%;
+      height: 48px;
+      padding: 0.5rem 1rem 0.5rem 2.5rem;
+      border: 1.5px solid rgba(235, 235, 235, 1);
+      border-radius: 12px;
+      background: #fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+
+      &:focus {
+        border-color: #0d9488;
+        box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2);
+      }
+    }
+
+    .searchIcon {
+      position: absolute;
+      top: 50%;
+      left: 1rem;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      font-size: 1rem;
+      pointer-events: none;
+    }
+  }
+
+  .rightSection {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-shrink: 0;
+
+    .bellButton {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.25rem;
+      color: #374151;
+
+      &:hover {
+        color: #0d9488;
+      }
+    }
+
+    .avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      background-color: #d1d5db;
+      border-radius: 50%;
+    }
+  }
+
+  // Адаптив для маленьких экранов
+  @media (max-width: 768px) {
+    .searchWrapper {
+      flex: 1 1 100%;
+      max-width: 100%;
+      order: 1;
+    }
+
+    .rightSection {
+      order: 2;
+    }
+  }
+}

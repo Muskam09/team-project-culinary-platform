@@ -1,0 +1,92 @@
+.authorCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    background-color: #d1d5db;
+    border-radius: 50%;
+  }
+
+  .authorInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.5rem;
+    gap: 0.25rem;
+  }
+
+  .name {
+    font-family: Noto Sans;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 25px;
+    text-align: center;
+    margin: 0;
+    color: rgba(0, 0, 0, 1);
+  }
+
+  .profession {
+color: rgba(114, 114, 114, 1);
+font-family: Noto Sans;
+font-size: 14px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0%;
+text-align: center;
+  }
+
+  .stats {
+    color: rgba(0, 0, 0, 1);
+font-family: Noto Sans;
+font-size: 12px;
+font-weight: 400;
+line-height: 16px;
+text-align: center;
+  }
+
+  .subscribeButton {
+    color: rgba(37, 48, 62, 1);
+font-family: Noto Sans;
+font-size: 14px;
+font-weight: 600;
+line-height: 19px;
+    width: 208px;
+  height: 48px;
+  margin-top: 8px;
+  padding: 4px 12px;
+  border: none;
+  box-sizing: border-box;
+  border: 2px solid rgba(240, 240, 241, 1);
+  border-radius: 12px;
+  background: rgba(239, 239, 239, 1);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: #e0a800;
+  }
+}
+
+.subscribed {
+  background-color: #6b7280;
+  &:hover {
+    background-color: #4b5563;
+  }
+}
+
+}

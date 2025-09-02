@@ -1,0 +1,83 @@
+.banner {
+ height: 225px;
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fefefe;
+  border-radius: 12px;
+  padding: 32px; // общий padding
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // равномерное вертикальное выравнивание
+    gap: 16px; // отступ между заголовком, текстом и кнопкой
+
+    h2 {
+      width: 344px;
+      height: 38px;
+      margin: 0; // убрать дополнительные отступы
+    }
+
+    p {
+      font-size: 1rem;
+      color: #555;
+      margin: 0; // убрать default margin
+    }
+
+    .orderButton {
+      margin-top: 32px;
+      width: 212px;
+height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; // расстояние между текстом и иконкой
+  padding: 0.5rem 1rem;
+  border: 2px solid rgba(240, 240, 241, 1);
+  border-radius: 12px;
+  background: rgba(249, 249, 249, 1);
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #095958;
+    color: #fff;
+  }
+
+  .buttonIcon {
+    font-size: 1.2rem;
+    color: inherit; // наследует цвет текста
+  }
+}
+  }
+
+  .imagePlaceholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #ccc;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px; // меньше padding на мобильных
+
+    .text,
+    .imagePlaceholder {
+      max-width: 100%;
+    }
+
+    .imagePlaceholder {
+      margin-top: 1rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .text .orderButton {
+      width: 100%;
+    }
+  }
+}

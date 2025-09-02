@@ -1,0 +1,158 @@
+.recipeCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem; // rounded-lg
+  padding: 1rem; // p-4
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+ .image {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  height: 180px;
+  background-color: #e5e7eb; // gray-200
+  border-radius: 0.5rem;
+  position: relative; // для абсолютного позиционирования флага
+
+  .complexity {
+    width: 69px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 0, 1);
+    font-family: Noto Sans;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+  }
+
+  .flag {
+    position: absolute; // делаем абсолютным
+    top: 8px;           // отступ сверху
+    right: 8px;         // отступ справа
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.1);
+    }
+    img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+    }
+  }
+}
+
+   
+
+  .title {
+height: 52px;
+    color: rgba(36, 36, 36, 1);
+   font-family: Noto Sans;
+   font-size: 18px;
+   font-weight: 600;
+   line-height: 25px;
+   text-align: left;
+  }
+
+  .cardInfo{
+height: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2.5rem;
+  
+
+  .time {
+  color: rgba(161, 161, 161, 1);
+  font-family: Noto Sans;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+text-align: left;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.star {
+  color: #d1d5db; // серая по умолчанию
+  transition: color 0.2s;
+  cursor: pointer;
+  &:hover{
+    color: #fbbf24;
+  }
+}
+
+.ratingValue {
+  color: rgba(161, 161, 161, 1);
+font-family: Noto Sans;
+font-size: 12px;
+font-weight: 500;
+line-height: 16px;
+text-align: left;
+}
+  }
+
+  hr {
+      border: none;
+      height: 1px;
+      width: 100%;
+      background-color: #e5e7eb;
+    }
+    
+  .authorBlock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; // расстояние между аватаром и именем
+}
+
+.avatar {
+  /* Ellipse 2 */
+width: 24px;
+height: 24px;
+  border-radius: 50%; // круг
+  background-color: #d1d5db; // серый цвет
+  flex-shrink: 0; // чтобы не сжимался
+}
+
+.author {
+  color: rgba(0, 0, 0, 1);
+
+font-family: Noto Sans;
+font-size: 14px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0%;
+text-align: left;
+  margin: 0; // убрать стандартный margin p
+}
+
+}
+
+.titleLink { 
+  text-decoration: none; 
+  color: inherit; }

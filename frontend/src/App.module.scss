@@ -1,0 +1,25 @@
+.app {
+   display: flex;          // sidebar + content в ряд
+  height: 100%;      // растягиваем на всю высоту окна
+ background: rgba(243, 243, 243, 1);
+}
+
+.content {
+    flex: 1;                // занимает оставшееся пространство
+  display: flex;
+  flex-direction: column;
+  height: 100%; // чтобы дочерние элементы знали высоту
+}
+
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#root {       // если React, корневой элемент
+  height: 100%;
+}
