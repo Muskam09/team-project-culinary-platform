@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
     {
       title: "Основне",
       items: [
-        { label: "Головна", icon: FaHome, path: "/" },
+        { label: "Головна", icon: FaHome, path: " " },
         { label: "Рецепти", icon: FaBook, path: "/recipes" },
         { label: "Збережене", icon: FaBookmark, path: "/saved" },
       ],
@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
       title: "Планування",
       items: [
         { label: "Планувальник страв", icon: FaCalendarAlt, path: "/planner" },
-        { label: "Список покупок", icon: FaShoppingCart, path: "/shopping" },
+        { label: "Список покупок", icon: FaShoppingCart, path: "/shopping-list" },
       ],
     },
     {
@@ -85,7 +85,7 @@ const Sidebar: React.FC = () => {
       <div className={styles.premiumBlock}>
         <div className={styles.premiumTextBlock}>
         <h1 className={styles.premiumTitle}>Отримати преміум</h1>
-        <p className={styles.premiumText}>Ексклюзивні рецепти та додаткові можливості </p>
+        <p className={styles.premiumText}>Ексклюзивні рецепти та <br/> додаткові можливості </p>
         <button className={styles.premiumButton}>
   Оновити
   <span className={styles.buttonIcon}>

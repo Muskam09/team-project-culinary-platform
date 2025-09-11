@@ -6,6 +6,8 @@ interface AuthorCardProps {
   profession?: string;
   recipesCount?: number;
   followers?: number;
+  email?: string;
+  className?: string; // новый пропс для кастомного класса
 }
 
 const formatFollowers = (num: number | undefined) => {
@@ -17,24 +19,33 @@ const formatFollowers = (num: number | undefined) => {
   return num.toString();
 };
 
-const AuthorCard: React.FC<AuthorCardProps> = ({ name, profession, recipesCount, followers }) => {
+const AuthorCard: React.FC<AuthorCardProps> = ({
+  name,
+  profession,
+  recipesCount,
+  followers,
+  email,
+  className, // получаем пропс
+}) => {
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = () => {
-    setSubscribed(!subscribed);
-  };
+  const handleSubscribe = () => setSubscribed(!subscribed);
 
   return (
-    <div className={styles.authorCard}>
+    <div className={`${styles.authorCard} ${className || ""}`}>
       <div className={styles.avatar}></div>
       <div className={styles.authorInfo}>
         <p className={styles.name}>{name}</p>
+        {email && <p>{email}</p>}
         {profession && <p className={styles.profession}>{profession}</p>}
         <p className={styles.stats}>
-          {recipesCount} рецепт{recipesCount === 1 ? "" : "ів"} • {formatFollowers(followers)} підписник{followers === 1 ? "" : "ів"}
+          {recipesCount} рецепт{recipesCount === 1 ? "" : "ів"} •{" "}
+          {formatFollowers(followers)} підписник{followers === 1 ? "" : "ів"}
         </p>
         <button
-          className={`${styles.subscribeButton} ${subscribed ? styles.subscribed : ""}`}
+          className={`${styles.subscribeButton} ${
+            subscribed ? styles.subscribed : ""
+          }`}
           onClick={handleSubscribe}
         >
           {subscribed ? "Підписано" : "Підписатись"}

@@ -1,25 +1,29 @@
+/* App.module.scss */
+
 .app {
-   display: flex;          // sidebar + content в ряд
-  height: 100%;      // растягиваем на всю высоту окна
- background: rgba(243, 243, 243, 1);
+  display: flex;             // sidebar + content в ряд
+  height: 100%;             // растягиваем на всю высоту окна
+  background: rgba(243, 243, 243, 1);
+  overflow: hidden;          // запрещаем скролл у app
 }
 
 .content {
-    flex: 1;                // занимает оставшееся пространство
+  flex: 1;                   // занимает оставшееся пространство
   display: flex;
   flex-direction: column;
-  height: 100%; // чтобы дочерние элементы знали высоту
+  height: 100%;             
 }
 
 
-
+/* Если есть глобальные стили */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  box-sizing: border-box;
+  overflow: hidden;
+  font-family: 'Noto Sans', sans-serif;
 }
 
-#root {       // если React, корневой элемент
+#root {
   height: 100%;
 }

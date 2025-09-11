@@ -1,0 +1,7 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24.000000" height="24.000000" fill="none">
+	<rect id="icon-park-outline:transaction-order" width="24.000000" height="24.000000" x="0.000000" y="0.000000" fill="rgb(255,255,255)" fill-opacity="0" />
+	<g id="Group">
+		<path id="Vector" d="M18.5 4C19.0523 4 19.5 4.44772 19.5 5L19.5 21C19.5 21.5523 19.0523 22 18.5 22L5.5 22C4.94772 22 4.5 21.5523 4.5 21L4.5 5C4.5 4.44772 4.94772 4 5.5 4L18.5 4Z" stroke="rgb(37,48,62)" stroke-linejoin="round" stroke-width="2" />
+		<path id="Vector" d="M9 2L9 5M15 2L15 5M8 9.5L16 9.5M8 13.5L14 13.5M8 17.5L12 17.5" fill-rule="nonzero" stroke="rgb(37,48,62)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+	</g>
+</svg>

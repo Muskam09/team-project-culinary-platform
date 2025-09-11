@@ -12,16 +12,26 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
- .image {
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: row;
-  height: 180px;
-  background-color: #e5e7eb; // gray-200
+.image {
+  width: 100%;
+  aspect-ratio: 16/9;       // всегда 16:9
   border-radius: 0.5rem;
-  position: relative; // для абсолютного позиционирования флага
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
+
 
   .complexity {
+    margin-top: 8px;
+    margin-left: 8px;
     width: 69px;
     height: 25px;
     display: flex;
@@ -156,3 +166,12 @@ text-align: left;
 .titleLink { 
   text-decoration: none; 
   color: inherit; }
+
+.collectionCard {
+   transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.03);
+    cursor: pointer; 
+  }
+}

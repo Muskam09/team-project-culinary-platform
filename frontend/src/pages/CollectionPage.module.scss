@@ -1,0 +1,159 @@
+.main {
+   flex: 1;
+  height: 100vh;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.customSearchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  color: #888;
+  pointer-events: none; // чтобы иконка не мешала клику по input
+}
+
+.customSearch {
+  width: 100%;
+  padding: 8px 12px 8px 36px; // padding-left увеличен, чтобы текст не накладывался на иконку
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+
+  &:focus {
+    border-color: #aaa;
+  }
+}
+
+
+.collectionInfoLine {
+  margin-top: 55px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.collectionName {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.recipeCount {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Сетка с рецептами */
+.recipesGrid {
+   margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+
+  // Если только 1 карточка
+  > *:only-child {
+    grid-column: 1 / -1; // растянуть на весь контейнер
+  }
+
+  // Если только 2 карточки
+  > *:first-child:nth-last-child(2),
+  > *:nth-child(2):last-child {
+    grid-column: span 1; // каждая по одной колонке
+  }
+
+  // Центрируем 2 карточки в сетке
+  &:has(> *:first-child:nth-last-child(2)) {
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+  }
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  margin-top: 40px;
+  font-size: 16px;
+}
+
+.recipeCountBlock{
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}
+
+.collectionNameBlock{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.SortButtonBlock{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.SortButton   {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 168px;
+    height: 48px;
+    color: rgba(37, 48, 62, 1);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    box-sizing: border-box;
+    border: 2px solid rgba(240, 240, 241, 1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+  }
+
+  .filterButton{
+        display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 116px;
+    height: 48px;
+    color: rgba(37, 48, 62, 1);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    box-sizing: border-box;
+    border: 2px solid rgba(240, 240, 241, 1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+  }
