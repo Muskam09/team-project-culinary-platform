@@ -1,4 +1,4 @@
-name: Frontend CI
+name: Frontend CI/CD
 
 on:
   push:
@@ -12,7 +12,7 @@ env:
   NodeVersion: 20.19.1
 
 jobs:
-  js-ci:
+  ci_pipeline:
     runs-on: ubuntu-latest
   defaults:
     run:
@@ -44,4 +44,23 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: frontend-artifacts
-        path: .
+        path: ./frontend
+  cd_pipeline:
+    runs-on: ubuntu-latest
+    needs: ci_pipeline
+
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download frontend artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-artifacts
+          path: ./frontend
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'culinary-frontend'
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_FRONTEND }}
+          package: ./frontend
