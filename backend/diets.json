@@ -1,0 +1,5 @@
+[
+  {"model": "api.diet", "pk": 1, "fields": {"slug": "vegan", "title": "Vegan"}},
+  {"model": "api.diet", "pk": 2, "fields": {"slug": "keto", "title": "Keto"}},
+  {"model": "api.diet", "pk": 3, "fields": {"slug": "gluten-free", "title": "Gluten Free"}}
+]

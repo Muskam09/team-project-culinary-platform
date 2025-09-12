@@ -1,0 +1,5 @@
+[
+  {"model": "api.tag", "pk": 1, "fields": {"slug": "seasonal", "title": "Seasonal"}},
+  {"model": "api.tag", "pk": 2, "fields": {"slug": "budget", "title": "Budget"}},
+  {"model": "api.tag", "pk": 3, "fields": {"slug": "kid-friendly", "title": "Kid-friendly"}}
+]
