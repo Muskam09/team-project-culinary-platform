@@ -1,0 +1,7 @@
+[
+  {"model": "api.unit", "pk": 1, "fields": {"key": "g", "name": "grams"}},
+  {"model": "api.unit", "pk": 2, "fields": {"key": "ml", "name": "milliliters"}},
+  {"model": "api.unit", "pk": 3, "fields": {"key": "pcs", "name": "pieces"}},
+  {"model": "api.unit", "pk": 4, "fields": {"key": "tsp", "name": "teaspoon"}},
+  {"model": "api.unit", "pk": 5, "fields": {"key": "tbsp", "name": "tablespoon"}}
+]

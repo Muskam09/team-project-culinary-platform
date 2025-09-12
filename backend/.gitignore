@@ -1,14 +1,34 @@
-# Python cache
+@'
+# Python
 __pycache__/
-*.pyc
-
-# Virtual env
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
 .venv/
+venv/
+env/
+ENV/
 
-# Environment
-.env
-db.sqlite3
+# Django
+*.log
+backend/db.sqlite3
+backend/media/
+backend/staticfiles/
 
-# IDE
+# IDE / OS
 .idea/
 .vscode/
+.DS_Store
+Thumbs.db
+
+# Tests / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Env files
+.env
+!.env.example
+'@ | Set-Content .gitignore

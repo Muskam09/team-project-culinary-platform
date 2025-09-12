@@ -1,0 +1,73 @@
+[
+  {
+    "model": "api.recipe",
+    "pk": 1,
+    "fields": {
+      "author": null,
+      "title": "Spaghetti al Pomodoro",
+      "preview_image": null,
+      "cook_time_min": 25,
+      "difficulty": 2,
+      "servings": 2,
+      "cuisine": 1,
+      "rating_avg": 4.8,
+      "rating_count": 12,
+      "saves_count": 3,
+      "is_published": true,
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z",
+      "diets": [],
+      "tags": [1, 2]
+    }
+  },
+  {
+    "model": "api.recipestep",
+    "pk": 1,
+    "fields": {"recipe": 1, "order": 1, "text": "Boil spaghetti until al dente", "image": null}
+  },
+  {
+    "model": "api.recipestep",
+    "pk": 2,
+    "fields": {"recipe": 1, "order": 2, "text": "Sauté garlic in olive oil, add tomatoes and cook 10 min", "image": null}
+  },
+  {
+    "model": "api.recipestep",
+    "pk": 3,
+    "fields": {"recipe": 1, "order": 3, "text": "Mix pasta with sauce, add basil, salt and pepper", "image": null}
+  },
+  {
+    "model": "api.recipeingredient",
+    "pk": 1,
+    "fields": {"recipe": 1, "ingredient": 1, "qty": 200, "unit": 1, "note": ""}
+  },
+  {
+    "model": "api.recipeingredient",
+    "pk": 2,
+    "fields": {"recipe": 1, "ingredient": 2, "qty": 300, "unit": 1, "note": "chopped"}
+  },
+  {
+    "model": "api.recipeingredient",
+    "pk": 3,
+    "fields": {"recipe": 1, "ingredient": 3, "qty": 2, "unit": 3, "note": "cloves, minced"}
+  },
+  {
+    "model": "api.recipeingredient",
+    "pk": 4,
+    "fields": {"recipe": 1, "ingredient": 4, "qty": 2, "unit": 5, "note": ""}
+  },
+  {
+    "model": "api.recipeingredient",
+    "pk": 5,
+    "fields": {"recipe": 1, "ingredient": 5, "qty": 5, "unit": 3, "note": "leaves"}
+  },
+  {
+    "model": "api.recipeingredient",
+    "pk": 6,
+    "fields": {"recipe": 1, "ingredient": 6, "qty": 1, "unit": null, "note": "to taste"}
+  },
+  {
+    "model": "api.recipeingredient",
+    "pk": 7,
+    "fields": {"recipe": 1, "ingredient": 7, "qty": 1, "unit": null, "note": "to taste"}
+  }
+]

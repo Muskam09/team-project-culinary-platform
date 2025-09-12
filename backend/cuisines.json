@@ -1,0 +1,5 @@
+[
+  {"model": "api.cuisine", "pk": 1, "fields": {"name": "Italian"}},
+  {"model": "api.cuisine", "pk": 2, "fields": {"name": "Japanese"}},
+  {"model": "api.cuisine", "pk": 3, "fields": {"name": "Ukrainian"}}
+]
