@@ -48,6 +48,9 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: terraform plan -var-file="${{ inputs.environment }}.tfvars"
+        env:
+          TF_VAR_db_login: ${{ secrets.DBLOGIN }}
+          TF_VAR_db_password: ${{ secrets.DBPASSWORD }}
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -var-file="${{ inputs.environment }}.tfvars"
