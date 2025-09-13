@@ -17,3 +17,4 @@ flake8
 # ── Tests ──
 pytest
 pytest-django
+djangorestframework-simplejwt
