@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: frontend-artifacts
-          path: ./frontend
+          path: ./frontend/dist
   cd_pipeline:
     runs-on: ubuntu-latest
     needs: ci_pipeline
@@ -56,11 +56,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontend-artifacts
-          path: ./frontend
+          path: ./dist
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'culinary-frontend'
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_FRONTEND }}
-          package: ./frontend
+          package: ./dist
