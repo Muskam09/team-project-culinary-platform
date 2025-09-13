@@ -5,7 +5,7 @@ resource "azurerm_resource_group" "rg" {
 
 
 resource "azurerm_service_plan" "app_plan" {
-  name                = "my-web-app-plan"
+  name                = var.azurerm_service_plan_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   os_type             = "Linux"
@@ -14,7 +14,7 @@ resource "azurerm_service_plan" "app_plan" {
 
 #App Service для беку
 resource "azurerm_linux_web_app" "backend" {
-  name                = "culinary-backend"
+  name                = var.azurerm_linux_web_app_name_backend_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   service_plan_id     = azurerm_service_plan.app_plan.id
@@ -24,7 +24,7 @@ resource "azurerm_linux_web_app" "backend" {
 
 #App Service для фронту
 resource "azurerm_linux_web_app" "frontend" {
-  name                      = "culinary-frontend"
+  name                      = var.azurerm_linux_web_app_name_frontend_name
   resource_group_name       = azurerm_resource_group.rg.name
   location                  = azurerm_resource_group.rg.location
   service_plan_id           = azurerm_service_plan.app_plan.id
@@ -36,7 +36,7 @@ resource "azurerm_linux_web_app" "frontend" {
 
 # --- PostgreSQL Flexible Server ---
 resource "azurerm_postgresql_flexible_server" "db_server" {
-  name                          = "culinary-db"
+  name                          = var.azurerm_postgresql_flexible_server_name
   resource_group_name           = azurerm_resource_group.rg.name
   location                      = azurerm_resource_group.rg.location
   version                       = "14"
