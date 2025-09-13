@@ -13,8 +13,9 @@ drf-spectacular-sidecar
 black
 isort
 flake8
+djangorestframework-simplejwt
+Pillow
 
 # ── Tests ──
 pytest
 pytest-django
-djangorestframework-simplejwt
