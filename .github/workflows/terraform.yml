@@ -1,21 +1,28 @@
-name: Terraform Apply
+name: Terraform CI/CD
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - '**/*.tf'
-      - '**/*.tfvars'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        type: choice
+        required: true
+        options:
+          - staging
+          - production
 
-permissions:
-  contents: 'read'
-  id-token: 'write'
 
 jobs:
   terraform:
     name: 'Terraform Apply'
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
 
     steps:
       - name: Checkout
@@ -40,10 +47,10 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan
+        run: terraform plan -var-file="${{ inputs.environment }}.tfvars"
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var-file="${{ inputs.environment }}.tfvars"
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
