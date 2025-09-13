@@ -5,6 +5,9 @@ from django.db.models import Avg, Count, UniqueConstraint
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.conf import settings
+from django.conf import settings
+from django.core.validators import MinValueValidator
+from decimal import Decimal
 
 User = get_user_model()
 
@@ -180,9 +183,9 @@ class Review(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["-created_at"]
         constraints = [
-            UniqueConstraint(fields=["recipe", "author"], name="uniq_review_per_user_recipe"),
+            models.UniqueConstraint(fields=["author", "recipe"], name="unique_review_per_user_recipe"),
+            models.CheckConstraint(check=models.Q(rating__gte=1, rating__lte=5), name="rating_between_1_5"),
         ]
 
     def __str__(self):
@@ -206,3 +209,59 @@ def _on_review_saved(sender, instance: "Review", **kwargs):
 @receiver(post_delete, sender=Review)
 def _on_review_deleted(sender, instance: "Review", **kwargs):
     _recalc_recipe_rating(instance.recipe_id)
+
+class MealEntry(models.Model):
+    """Запись плана питания на конкретный день/приём пищи."""
+    class MealType(models.TextChoices):
+        BREAKFAST = "breakfast", "Завтрак"
+        LUNCH     = "lunch",     "Обед"
+        DINNER    = "dinner",    "Ужин"
+        SNACK     = "snack",     "Перекус"
+        DESSERT   = "dessert",   "Десерт"
+        DRINK     = "drink",     "Напиток"
+
+    owner     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="meal_entries")
+    date      = models.DateField()
+    meal_type = models.CharField(max_length=16, choices=MealType.choices)
+    recipe    = models.ForeignKey("Recipe", on_delete=models.CASCADE, related_name="planned_in")
+    servings  = models.PositiveSmallIntegerField(null=True, blank=True, validators=[MinValueValidator(1)])
+    note      = models.CharField(max_length=255, blank=True)
+
+    class Meta:
+        ordering = ["date", "meal_type", "id"]
+        indexes  = [models.Index(fields=["owner", "date"])]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["owner", "date", "meal_type", "recipe"],
+                name="uniq_owner_day_meal_recipe",
+            ),
+        ]
+
+    def __str__(self):
+        return f"{self.owner} {self.date} {self.meal_type} → {self.recipe}"
+
+
+# --- Shopping List ------------------------------------------------------------
+class ShoppingList(models.Model):
+    owner      = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="shopping_lists")
+    title      = models.CharField(max_length=120)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at", "id"]
+
+    def __str__(self):
+        return f"{self.title} ({self.owner})"
+
+
+class ShoppingItem(models.Model):
+    shopping_list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE, related_name="items")
+    ingredient    = models.ForeignKey("Ingredient", on_delete=models.PROTECT)
+    qty           = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal("0.01"))])
+    unit          = models.ForeignKey("Unit", on_delete=models.PROTECT, null=True, blank=True)
+    is_checked    = models.BooleanField(default=False)
+    note          = models.CharField(max_length=255, blank=True)
+    category      = models.CharField(max_length=50, blank=True)
+
+    class Meta:
+        ordering = ["ingredient__name", "id"]

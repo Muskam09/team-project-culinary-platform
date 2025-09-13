@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     "django_filters",
 
     # Local
-    "api",
+    "api.apps.ApiConfig",
 ]
 
 # ── Middleware (важно: CorsMiddleware до CommonMiddleware) ─────────────────────
@@ -103,11 +103,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 
-    # Аутентификация: JWT + (Session/Basic — удобно в админке/на dev)
+    # Аутентификация
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",  # удобно в админке/на dev
+        "rest_framework.authentication.BasicAuthentication",    # удобно в админке/на dev
     ),
 
     # Разрешения по умолчанию: читать всем, писать авторизованным
@@ -126,11 +126,17 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 20,
 
-    # Парсеры (JSON, формы и файлы — для ImageField upload)
+    # Парсеры (JSON, формы и файлы — для upload картинок и т.п.)
     "DEFAULT_PARSER_CLASSES": (
         "rest_framework.parsers.JSONParser",
         "rest_framework.parsers.FormParser",
         "rest_framework.parsers.MultiPartParser",
+    ),
+
+    # Рендеры (оставь Browsable для dev; в проде обычно выключают)
+    "DEFAULT_RENDERER_CLASSES": (
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
     ),
 }
 
@@ -149,7 +155,29 @@ SPECTACULAR_SETTINGS = {
     "TITLE": "Culinary Platform API",
     "DESCRIPTION": "Backend for recipes, collections, planner, shopping lists",
     "VERSION": "0.1.0",
+    # Не встраивать /api/schema/ внутрь себя же
     "SERVE_INCLUDE_SCHEMA": False,
+    # Схемы авторизации, чтобы в Swagger работала кнопка Authorize
+    "SECURITY_SCHEMES": {
+        "jwtAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT",
+        },
+        "basicAuth": {
+            "type": "http",
+            "scheme": "basic",
+        },
+        "cookieAuth": {          # чтобы можно было логиниться сессией (админка/dev)
+            "type": "apiKey",
+            "in": "cookie",
+            "name": "sessionid",
+        },
+    },
+    # По умолчанию требуем JWT, но можно переключать в UI
+    "SECURITY": [{"jwtAuth": []}],
+    # Красивые oneOf для body при разных serializer-ах
+    "COMPONENT_SPLIT_REQUEST": True,
 }
 
 # ── CORS / CSRF ────────────────────────────────────────────────────────────────
@@ -195,8 +223,15 @@ CSRF_COOKIE_SECURE = os.getenv("CSRF_COOKIE_SECURE", "False") == "True"
 # DB_HOST=postgres
 # DB_PORT=5432
 
+
+from datetime import timedelta
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": False,
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
     "AUTH_HEADER_TYPES": ("Bearer",),
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }
