@@ -1,4 +1,4 @@
-name: Backend CI/CD
+name: Backend CI/CD Production
 
 on:
   push:
@@ -12,7 +12,7 @@ env:
   PythonVersion: 3.11.9
 
 jobs:
-  ci_pipeline:
+  ci_pipeline_prod:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -62,9 +62,9 @@ jobs:
           name: python-artifacts
           path: ./backend
 #-------------------
-  cd_pipeline:
+  cd_pipeline_prod:
     runs-on: ubuntu-latest
-    needs: ci_pipeline
+    needs: ci_pipeline_prod
 
     if: github.ref == 'refs/heads/main'
 
@@ -78,6 +78,6 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'culinary-backend'
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_BACKEND }}
+          app-name: 'culinary-backend-app-production'
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_BACKEND_PROD }}
           package: ./backend
