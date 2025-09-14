@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: frontend-build
-          path: frontend/dist
+          path:  ./frontend/dist
 
   cd_pipeline_staging:
     runs-on: ubuntu-latest
@@ -55,7 +55,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontend-build
-          path: .
+          path: ./frontend-build
+
+      - name: Debugging - list files in artifact
+        run: ls -R ./frontend-build/
 
       - name: Deploy to Azure Staging
         uses: azure/webapps-deploy@v3
