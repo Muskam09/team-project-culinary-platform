@@ -1,0 +1,17 @@
+<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40.000000" height="40.000000" fill="none" customFrame="url(#clipPath_4)">
+	<defs>
+		<clipPath id="clipPath_4">
+			<rect width="40.000000" height="40.000000" x="0.000000" y="0.000000" rx="20.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+		<clipPath id="clipPath_5">
+			<rect width="20.000000" height="20.000000" x="10.000000" y="10.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+	</defs>
+	<rect id="Frame 296" width="40.000000" height="40.000000" x="0.000000" y="0.000000" rx="20.000000" fill="rgb(217,217,217)" />
+	<g id="icon-park-outline:circle-double-down" clip-path="url(#clipPath_5)" customFrame="url(#clipPath_5)">
+		<rect id="icon-park-outline:circle-double-down" width="20.000000" height="20.000000" x="10.000000" y="10.000000" fill="rgb(255,255,255)" fill-opacity="0" />
+		<g id="Group">
+			<path id="Vector" d="M28.3327 20C28.3327 15.3975 24.6018 11.6667 19.9993 11.6667C15.3968 11.6667 11.666 15.3975 11.666 20C11.666 24.6025 15.3968 28.3334 19.9993 28.3334C24.6018 28.3334 28.3327 24.6025 28.3327 20Z" fill-rule="nonzero" stroke="rgb(0,0,0)" stroke-linejoin="round" stroke-width="2" />
+		</g>
+	</g>
+</svg>

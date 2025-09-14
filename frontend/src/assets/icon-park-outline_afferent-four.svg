@@ -1,0 +1,7 @@
+<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20.000000" height="20.000000" fill="none">
+	<rect id="icon-park-outline:afferent-four" width="20.000000" height="20.000000" x="0.000000" y="0.000000" fill="rgb(255,255,255)" fill-opacity="0" />
+	<g id="Group">
+		<path id="Vector" d="M8.75065 2.08334L4.16732 2.08334C3.9463 2.08334 3.73434 2.17114 3.57806 2.32742C3.42178 2.4837 3.33398 2.69566 3.33398 2.91668L3.33398 17.0833C3.33398 17.3044 3.42178 17.5163 3.57806 17.6726C3.73434 17.8289 3.9463 17.9167 4.16732 17.9167L15.834 17.9167C16.055 17.9167 16.267 17.8289 16.4232 17.6726C16.5795 17.5163 16.6673 17.3044 16.6673 17.0833L16.6673 10.3125" fill-rule="nonzero" stroke="rgb(95.625,95.625,95.625)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+		<path id="Vector" d="M5 7.5L0 7.5L0 2.5M0 7.5L7.5 0" fill-rule="nonzero" stroke="rgb(95.625,95.625,95.625)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" transform="matrix(0,1,1,0,10,2.91666)" />
+	</g>
+</svg>

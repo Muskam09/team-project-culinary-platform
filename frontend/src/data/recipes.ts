@@ -1,5 +1,12 @@
 // src/data/recipes.ts
 import image1 from "../assets/recepes/image_1.png";
+import image2 from "../assets/recepes/recept_2.webp";
+import image3 from "../assets/recepes/recept_3.webp";
+import image4 from "../assets/recepes/recept_4.webp";
+import image5 from "../assets/recepes/recept_5.webp";
+import image6 from "../assets/recepes/recept_6.webp";
+import image7 from "../assets/recepes/recept_7.webp";
+import image8 from "../assets/recepes/recept_8.webp";
 
 export interface Recipe {
   id: string;
@@ -28,20 +35,20 @@ export interface Section {
 
 // --- Рецепты ---
 export const recommendedRecipes: Recipe[] = [
-  { id: "r1", title: " Молода капуста з куркою, томатами та сиром", author: "Лілія Климчук", complexity: "Легко", time: "45 хв", rating: 4.7,  image: image1   },
-  { id: "r2", title: "Сирна шарлотка з яблуками", author: "Марія Шевченко", complexity: "Складно", time: "1 год 30 хв", rating: 4.3 },
-  { id: "r3", title: "Перець з куркою у духовці", author: "Юлія Романенко", complexity: "Помірно", time: "1 год 15 хв", rating: 4.9 },
+  { id: "r1", title: " Ідеальний гарбузовий пиріг", author: "Лілія Климчук", complexity: "Легко", time: "2 год 45 хв", rating: 4.7,  image: image1   },
+  { id: "r2", title: "Полуничне сирне морозиво з крихтами", author: "Марія Шевченко", complexity: "Помірно", time: "4 год 15 хв", rating: 4.3,  image: image2  },
+  { id: "r3", title: "Швидкий тортилья-кіш", author: "Юлія Романенко", complexity: "Легко", time: "17 хв", rating: 4.9 , image: image3},
 ];
 
 export const popularRecipes: Recipe[] = [
-  { id: "r4", title: "Лазанья з овочами для всієї родини", author: "Дмитро Савченко", complexity: "Легко", time: "45 хв", rating: 4.7 },
-  { id: "r5", title: "Суп-пюре з броколі та сиром", author: "Юлія Мельник", complexity: "Складно", time: "1 год 30 хв", rating: 4.3 },
-  { id: "r6", title: "Швидка паста з куркою та овочами", author: "Софія Дорошенко", complexity: "Помірно", time: "1 год 15 хв", rating: 4.9 },
+  { id: "r4", title: "Песто і смаженим свиним фаршем", author: "Дмитро Савченко", complexity: "Легко", time: "20 хв", rating: 4.7, image: image4 },
+  { id: "r5", title: "Курка ескабече з халапеньйо, золотим родзинком та м’ятою", author: "Юлія Мельник", complexity: "Легко", time: "46 хв", rating: 4.3, image: image5 },
+  { id: "r6", title: "Оливкові мафіни з чорним шоколадом", author: "Софія Дорошенко", complexity: "Помірно", time: "45 хв", rating: 4.9, image: image6 },
 ];
 
 export const summerOffers: Recipe[] = [
-  { id: "r7", title: "Фруктовий салат із полуницею та персиками", author: "Лілія Климчук", complexity: "Легко", time: "45 хв", rating: 4.7 },
-  { id: "r8", title: "Печені персики з медом і горіхами", author: "Марія Шевченко", complexity: "Складно", time: "1 год 30 хв", rating: 4.3 },
+  { id: "r7", title: "Грецький салат з нутом", author: "Лілія Климчук", complexity: "Легко", time: "20 хв", rating: 4.7, image: image7 },
+  { id: "r8", title: "Суші «Грецький салат»", author: "Марія Шевченко", complexity: "Складно", time: "10 хв", rating: 4.3, image: image8 },
   { id: "r9", title: "Кабачкові оладки з зеленню", author: "Юлія Романенко", complexity: "Помірно", time: "1 год 15 хв", rating: 4.9 },
 ];
 

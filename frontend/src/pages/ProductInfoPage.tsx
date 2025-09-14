@@ -335,11 +335,9 @@ const handleAddToShoppingList = () => {
 
                 <p className={styles.stepDescription}>{step.description}</p>
 
-                {step.image ? (
-                  <img src={step.image} alt={step.title} className={styles.stepImage} />
-                ) : (
-                  <div className={styles.stepPlaceholder}></div>
-                )}
+                {step.image && (
+               <img src={step.image} alt={step.title} className={styles.stepImage} />
+                 )}
               </li>
             ))}
           </ol>
