@@ -11,8 +11,9 @@ import SavedPage from "./pages/SavedPage";
 import CollectionPage from "./pages/CollectionPage";
 import ShoppingListPage from "./pages/ShoppingListPage";
 import ShoppingListDetailPage from "./pages/ShoppingListDetailPage";
-import SettingsPage from "./pages/SettingsPage"; // если добавим страницу настроек
+import SettingsPage from "./pages/SettingsPage"; 
 import styles from "./App.module.scss";
+import HelpPage from "./pages/HelpPage";
 
 const App: React.FC = () => {
   return (
@@ -31,7 +32,8 @@ const App: React.FC = () => {
               <Route path="/collection/:id" element={<CollectionPage />} />
               <Route path="/shopping-list" element={<ShoppingListPage />} />
               <Route path="/shopping-list/:id" element={<ShoppingListDetailPage />} />
-              <Route path="/settings" element={<SettingsPage />} /> {/* новая страница */}
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/help" element={<HelpPage />} />
             </Routes>
           </main>
         </div>

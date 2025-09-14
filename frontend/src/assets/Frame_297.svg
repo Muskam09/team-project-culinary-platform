@@ -1,0 +1,15 @@
+<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40.000000" height="40.000000" fill="none" customFrame="url(#clipPath_2)">
+	<defs>
+		<clipPath id="clipPath_2">
+			<rect width="40.000000" height="40.000000" x="0.000000" y="0.000000" rx="20.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+		<clipPath id="clipPath_3">
+			<rect width="20.000000" height="20.000000" x="10.000000" y="10.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+	</defs>
+	<rect id="Frame 296" width="40.000000" height="40.000000" x="0.000000" y="0.000000" rx="20.000000" fill="rgb(217,217,217)" />
+	<g id="icon-park-outline:book-open" clip-path="url(#clipPath_3)" customFrame="url(#clipPath_3)">
+		<rect id="icon-park-outline:book-open" width="20.000000" height="20.000000" x="10.000000" y="10.000000" fill="rgb(255,255,255)" fill-opacity="0" />
+		<path id="Vector" d="M20.0007 27.5C20.0007 26.837 19.7373 26.2011 19.2684 25.7323C18.7996 25.2634 18.1637 25 17.5007 25L12.084 25L12.084 12.9167L16.6673 12.9167C17.5514 12.9167 18.3992 13.2679 19.0243 13.893C19.6495 14.5181 20.0007 15.366 20.0007 16.25L20.0007 27.5M20.0007 27.5C20.0007 26.837 20.264 26.2011 20.7329 25.7323C21.2017 25.2634 21.8376 25 22.5007 25L27.9173 25L27.9173 12.9167L23.334 12.9167C22.4499 12.9167 21.6021 13.2679 20.977 13.893C20.3518 14.5181 20.0007 15.366 20.0007 16.25" fill-rule="nonzero" stroke="rgb(0,0,0)" stroke-linejoin="round" stroke-width="2" />
+	</g>
+</svg>
