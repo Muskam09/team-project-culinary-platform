@@ -39,11 +39,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Copy web.config to dist
+        run: cp ./frontend/web.config ./frontend/dist/web.config
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: frontend-build
-          path:  ./frontend
+          path:  ./frontend/dist
 
   cd_pipeline_staging:
     runs-on: ubuntu-latest
@@ -55,14 +58,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontend-build
-          path: ./frontend
+          path: ./frontend/dist
 
       - name: Debugging - list files in artifact
-        run: ls -R ./frontend 
+        run: ls -R ./frontend/dist
 
       - name: Deploy to Azure Staging
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'culinary-frontend-app-staging'
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_FRONTEND_STAGING }}
-          package: ./frontend
+          package: ./frontend/dist
+          clean: true
