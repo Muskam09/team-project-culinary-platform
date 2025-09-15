@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: frontend-build
-          path:  ./frontend/dist
+          path:  ./frontend
 
   cd_pipeline_staging:
     runs-on: ubuntu-latest
@@ -55,15 +55,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontend-build
-          path: ./
+          path: ./frontend
 
       - name: Debugging - list files in artifact
-        run: ls -R .
+        run: ls -R ./frontend 
 
       - name: Deploy to Azure Staging
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'culinary-frontend-app-staging'
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_FRONTEND_STAGING }}
-          package: ./
-          clean: true
+          package: ./frontend
