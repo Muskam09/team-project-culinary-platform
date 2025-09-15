@@ -40,6 +40,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Copy web.config to dist
+        run: cp ./web.config ./dist/web.config
+
       - name: Upload Frontend artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -56,12 +59,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontend-artifacts
-          path: .
+          path: ./frontend/dist
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'culinary-frontend-app-production'
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_FRONTEND_PROD }}
-          package: .
-          clean: true
+          package: ./frontend/dist
