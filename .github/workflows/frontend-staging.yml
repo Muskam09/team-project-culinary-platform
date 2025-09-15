@@ -17,6 +17,7 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -60,13 +61,9 @@ jobs:
           name: frontend-build
           path: ./frontend/dist
 
-      - name: Debugging - list files in artifact
-        run: ls -R ./frontend/dist
-
       - name: Deploy to Azure Staging
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'culinary-frontend-app-staging'
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_FRONTEND_STAGING }}
           package: ./frontend/dist
-          clean: true
