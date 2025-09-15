@@ -55,7 +55,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: frontend-build
-          path: .
+          path: ./
 
       - name: Debugging - list files in artifact
         run: ls -R .
@@ -65,5 +65,5 @@ jobs:
         with:
           app-name: 'culinary-frontend-app-staging'
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_FRONTEND_STAGING }}
-          package: .
+          package: ./frontend/dist
           clean: true
