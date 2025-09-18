@@ -1,4 +1,4 @@
-resource_group_name = "culinary-platform-production"
+resource_group_name = "smachno-production"
 # Назва плану служби додатків Azure (Azure App Service Plan)
 azurerm_service_plan_name = "culinary-service-plan-production"
 
