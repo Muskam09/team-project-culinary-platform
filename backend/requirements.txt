@@ -1,21 +1,16 @@
 # ── Core ──
-Django>=5.0
-djangorestframework
-django-filter
-django-cors-headers
-python-dotenv
+Django>=5.2.6,<6
+djangorestframework>=3.16.1,<4
+django-filter>=25.1
+django-cors-headers>=4.3
+python-dotenv>=1.0
+
+# ── Auth ──
+djangorestframework-simplejwt>=5.4.0
 
 # ── API Docs ──
-drf-spectacular
-drf-spectacular-sidecar
+drf-spectacular>=0.28.0
+drf-spectacular-sidecar>=2024.6.1
 
-# ── Dev tools ──
-black
-isort
-flake8
-djangorestframework-simplejwt
-Pillow
-
-# ── Tests ──
-pytest
-pytest-django
+# ── Media ──
+Pillow>=10.0.0
