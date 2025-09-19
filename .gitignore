@@ -36,3 +36,10 @@ __pycache__/
 # Optional: Python virtual environments
 venv/
 env/
+
+# Local env
+.venv/
+backend/.env
+__pycache__/
+*.pyc
+.idea/
