@@ -55,4 +55,3 @@ resource "azurerm_postgresql_flexible_server" "db_server" {
     azurerm_subnet.postgresql_subnet,
   ]
 }
-

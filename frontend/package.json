@@ -9,8 +9,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "test": "echo \"No tests specified\" && exit 0",
-    "lint": "echo \"No linting configured\" && exit 0",
-    "start": "node server.js"
+    "lint": "echo \"No linting configured\" && exit 0"
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.3.3",
