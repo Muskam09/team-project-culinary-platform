@@ -9,7 +9,7 @@ resource "azurerm_service_plan" "app_plan" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   os_type             = "Linux"
-  sku_name            = "F1"
+  sku_name            = "B1"
 }
 
 #App Service для беку
@@ -30,7 +30,7 @@ resource "azurerm_linux_web_app" "frontend" {
   service_plan_id           = azurerm_service_plan.app_plan.id
   virtual_network_subnet_id = azurerm_subnet.app_subnet.id
   site_config {
-    always_on = false
+    always_on = true
   }
 }
 
