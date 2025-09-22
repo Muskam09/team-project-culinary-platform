@@ -44,7 +44,7 @@ resource "azurerm_postgresql_flexible_server" "db_server" {
   administrator_password        = var.db_password
   private_dns_zone_id           = azurerm_private_dns_zone.privat_dns.id
   sku_name                      = "B_Standard_B1ms"
-  storage_mb                    = 524288
+  storage_mb                    = 32768
   public_network_access_enabled = false
   delegated_subnet_id           = azurerm_subnet.postgresql_subnet.id
 
@@ -55,4 +55,3 @@ resource "azurerm_postgresql_flexible_server" "db_server" {
     azurerm_subnet.postgresql_subnet,
   ]
 }
-

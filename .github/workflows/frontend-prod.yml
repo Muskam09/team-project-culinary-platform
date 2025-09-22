@@ -64,6 +64,6 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'culinary-frontend-app-production'
+          app-name: 'smachno-frontend-app-production'
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_FRONTEND_PROD }}
           package: ./frontend/dist
