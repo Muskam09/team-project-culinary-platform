@@ -3,7 +3,7 @@ variable "resource_group_name" {
 }
 variable "location" {
   description = "The name of the resource group"
-  default     = "westeurope"
+  default     = "northeurope"
 }
 variable "db_login" {
   type        = string
