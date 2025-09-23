@@ -59,7 +59,7 @@ jobs:
       - name: Upload python artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: python-artifacts
+          name: backend-artifacts
           path: ./backend
 #-------------------
   cd_pipeline_prod:
