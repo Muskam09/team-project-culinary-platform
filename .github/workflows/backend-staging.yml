@@ -61,7 +61,7 @@ jobs:
         with:
           name: backend-artifacts
           path: |
-            .
+            ./backend
             !venv/
 #-------------------
   cd_pipeline_staging:
