@@ -60,7 +60,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: backend-artifacts
-          path: ./backend
+          path: |
+            .
+            !venv/
 #-------------------
   cd_pipeline_staging:
     runs-on: ubuntu-latest
