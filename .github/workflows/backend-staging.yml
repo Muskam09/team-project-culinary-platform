@@ -62,7 +62,7 @@ jobs:
           name: backend-artifacts
           path: |
             ./backend
-            !venv/
+            !./backend/venv/
 #-------------------
   cd_pipeline_staging:
     runs-on: ubuntu-latest
