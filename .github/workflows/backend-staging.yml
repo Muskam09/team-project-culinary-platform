@@ -40,6 +40,11 @@ jobs:
           source venv/bin/activate
           python manage.py test
 
+      - name: Run collectstatic
+        run: |
+          source venv/bin/activate
+          python manage.py collectstatic
+
       - name: Generate Report
         run: |
           source venv/bin/activate
