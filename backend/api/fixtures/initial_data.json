@@ -1,0 +1,19 @@
+[
+  {"model": "api.unit", "pk": 1, "fields": {"name": "g"}},
+  {"model": "api.unit", "pk": 2, "fields": {"name": "ml"}},
+  {"model": "api.unit", "pk": 3, "fields": {"name": "pcs"}},
+
+  {"model": "api.cuisine", "pk": 1, "fields": {"name": "Italian"}},
+  {"model": "api.cuisine", "pk": 2, "fields": {"name": "Ukrainian"}},
+
+  {"model": "api.diet", "pk": 1, "fields": {"name": "Vegan"}},
+  {"model": "api.diet", "pk": 2, "fields": {"name": "Keto"}},
+
+  {"model": "api.tag", "pk": 1, "fields": {"name": "quick"}},
+  {"model": "api.tag", "pk": 2, "fields": {"name": "budget"}},
+  {"model": "api.tag", "pk": 3, "fields": {"name": "high-protein"}},
+
+  {"model": "api.ingredient", "pk": 1, "fields": {"name": "Tomato"}},
+  {"model": "api.ingredient", "pk": 2, "fields": {"name": "Olive oil"}},
+  {"model": "api.ingredient", "pk": 3, "fields": {"name": "Garlic"}}
+]
