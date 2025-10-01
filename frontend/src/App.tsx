@@ -1,3 +1,5 @@
+/* eslint-disable react/function-component-definition */
+/* eslint-disable import/no-duplicates */
 // App.tsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';

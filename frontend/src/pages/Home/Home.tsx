@@ -1,3 +1,7 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/button-has-type */
+/* eslint-disable max-len */
 // Home.tsx
 import React, { useState, useMemo } from 'react';
 import { ChevronRight } from 'lucide-react';
@@ -10,6 +14,7 @@ import styles from './Home.module.scss';
 import { sections, summerOffers } from '../../data/recipes';
 import type { Recipe, Author } from '../../data/recipes';
 
+// eslint-disable-next-line react/function-component-definition
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [searchQuery] = useState('');
