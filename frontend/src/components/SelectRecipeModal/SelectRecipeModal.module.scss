@@ -1,0 +1,295 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  box-sizing: border-box;
+border: 1px solid  rgba(241, 243, 244, 1);
+border-radius: 24px;
+background:  rgba(252, 253, 253, 1);
+  width: 728px;
+  height: 608px;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 27px;
+}
+
+.backTextBtn{
+border: none;
+background: none;
+color: rgba(51, 113, 121, 1);
+display: flex;
+align-items: center;
+flex-direction: row;
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+gap: 0.5rem;
+    cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+     transform: scale(1.05);
+  }
+}
+
+.title {
+color: rgba(28, 35, 39, 1);
+font-size: 28px;
+font-weight: 700;
+line-height: 38px;
+text-align: center;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+    cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+     transform: scale(1.2);
+  }
+}
+
+.searchWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none; // чтобы клик не мешал
+}
+
+.searchInput {
+  padding: 0.5rem 1rem;
+  padding-left: 44px; // отступ слева под иконку
+ border: 1px solid rgba(187, 196, 201, 1);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  width: 100%;
+  outline: none;
+  &::placeholder{
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+color: gba(161, 171, 175, 1);
+  }
+    &:hover {
+     border: 1.5px solid rgba(84, 112, 120, 1);
+box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+  }
+  &:active {
+         border: 1.5px solid rgba(84, 112, 120, 1);
+box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+  }
+}
+
+
+
+
+
+
+.suggestions {
+  box-sizing: border-box;
+  width: 660px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  position: absolute;
+  background-color: #fff;
+   border: 1px solid rgba(187, 196, 201, 1);
+   border-radius: 12px;
+   padding: 1rem;
+}
+
+.suggestionItem {
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.85rem;
+}
+
+.suggestionItem:last-child {
+  border-bottom: none;
+}
+
+.suggestionItem:hover {
+  background-color:rgba(189, 204, 209, 1);
+}
+
+.highlight {
+  font-weight: 600;
+  color: rgba(1, 64, 78, 1);
+}
+
+
+.savedBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+  scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+    width: 8px; /* ширина скролла */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; /* фон дорожки */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color:  rgba(51, 113, 121, 1);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+.savedBlockTitle{
+  margin-top: 16px;
+  color: rgba(41, 90, 97, 1);
+font-size: 14px;
+font-weight: 600;
+line-height: 19px;
+text-align: left;
+}
+
+.collectionsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  height: 130px;
+}
+
+.collectionCard {
+  padding: 8px;
+  border-radius: 16px;
+box-shadow: 0px 4px 7px 0px rgba(84, 112, 120, 0.1);
+background: rgba(252, 253, 253, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+     transform: scale(1.02);
+             border: 1.5px solid rgba(84, 112, 120, 1);
+box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+  }
+}
+
+.collectionImage {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100px;
+
+  img {
+    width: 100%;
+    height: 100%;
+      object-fit: cover;       // картинка обрежется по контейнеру
+  object-position: center; // центрирование
+  display: block;
+  }
+
+  // 1 картинка
+  img:only-child {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+  }
+
+  // 2 картинки
+  &:has(img:nth-child(2)) { // если есть хотя бы 2 картинки
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+
+    img:only-child {
+      grid-column: 1 / 3;
+    }
+
+    img:nth-child(1) {
+      grid-column: 1 / 2;
+      grid-row: 1;
+    }
+
+    img:nth-child(2) {
+      grid-column: 2 / 3;
+      grid-row: 1;
+    }
+  }
+
+  // 3 картинки
+  &:has(img:nth-child(3)) {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+
+    img:nth-child(1) {
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
+    }
+
+    img:nth-child(2) {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+
+    img:nth-child(3) {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+    }
+  }
+}
+
+.collectionCount {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.7rem;
+  color: #555;
+}
+
+.collectionCount img {
+  width: 14px;
+  height: 14px;
+  margin-right: 0.2rem;
+}
+
+.savedRecipesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  height: 170px;
+}
+
+.savedRecipeCard {
+  cursor: pointer;
+  font-size: 0.75rem;
+  height: 80px ;
+}

@@ -1,0 +1,203 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; 
+}
+
+.mainBlock {
+  flex: 1; // занимает всё оставшееся место после Header
+  box-sizing: border-box;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto; 
+  scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+    width: 8px; /* ширина скролла */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; /* фон дорожки */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color:  rgba(51, 113, 121, 1);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr); // 2 колонки на планшетах
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr; // 1 колонка на телефонах
+  }
+}
+
+.headerBlock{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.SortButton   {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 168px;
+    height: 48px;
+    color: rgba(37, 48, 62, 1);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    box-sizing: border-box;
+    border: 2px solid rgba(240, 240, 241, 1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+  }
+
+  .filterButton{
+        display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 116px;
+    height: 48px;
+    color: rgba(37, 48, 62, 1);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    box-sizing: border-box;
+    border: 2px solid rgba(240, 240, 241, 1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+  }
+
+  .allButton{
+    border: none;
+    display: flex;
+    align-items: center;
+    background: none;
+    justify-content: center;
+    flex-direction: row;
+    gap: 0.5rem;
+    color:  rgba(51, 113, 121, 1);
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+  cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+  }
+
+.sortWrapper {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  width: 258px;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 10;
+  padding: 12px;
+}
+
+.dropdownItem {
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+  color: rgba(28, 35, 39, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+
+  &:hover {
+    background: #f3f3f3;
+  }
+}
+
+.activeItem {
+  font-weight: 600;
+  color: rgba(31, 83, 94, 1);
+}
+
+.headerButtonBlock{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.headerBlock{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.selectedFilters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.clearFiltersButton {
+color: rgba(1, 64, 78, 1);
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+border: none;
+background: none;
+  cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+  
+}
+
+.filterTag {
+border-radius: 12px;
+background:  rgba(252, 253, 253, 1);
+padding: 10px 16px 10px 16px;
+color:  rgba(58, 65, 69, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+}

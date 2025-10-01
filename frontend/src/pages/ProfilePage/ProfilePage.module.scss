@@ -1,0 +1,207 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; 
+}
+
+.mainBlock1 {
+  flex: 1; // занимает всё оставшееся место после Header
+  box-sizing: border-box;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; 
+  scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+    width: 8px; /* ширина скролла */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; /* фон дорожки */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color:  rgba(51, 113, 121, 1);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+.mainBlock{
+  box-sizing: border-box;
+  margin-top: 2rem;
+  border-radius: 24px;
+background: rgba(255, 255, 255, 1);
+
+}
+
+.profileImage{
+width: 152px;
+height: 152px;
+background-position: center;
+background-size: cover;
+border-radius: 100%;
+}
+
+.headerBlock{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 1.5rem;
+}
+
+.headerInfo{
+  margin-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.profileNameBlock{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profileName{
+  margin: 0;
+  color: rgba(28, 35, 39, 1);
+font-size: 24px;
+font-weight: 700;
+line-height: 33px;
+}
+
+.userName{
+  margin: 0;
+  color: rgba(58, 65, 69, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+}
+
+.userStats{
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.statItem{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.statNumber{
+  color:rgba(28, 35, 39, 1);
+font-size: 18px;
+font-weight: 600;
+line-height: 25px;
+}
+
+.statLabel{
+  color: rgba(58, 65, 69, 1);
+font-size: 14px;
+font-weight: 500;
+line-height: 19px;
+}
+
+.biography{
+  margin-top: 19px;
+}
+
+.headerButtons{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-self: flex-end;
+  justify-self: end;
+  margin-left: auto;
+}
+
+.editButton{
+  width: 162px;
+height: 48px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: none;
+  box-sizing: border-box;
+border: 1.5px solid rgba(51, 113, 121, 1);
+border-radius: 12px;
+color: rgba(27, 60, 64, 1);
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+}
+
+.addButton{
+  width: 191px;
+height: 48px;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+gap: 8px;
+border: none;
+border-radius: 12px;
+background:rgba(51, 113, 121, 1);
+color: rgba(252, 253, 253, 1);
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+}
+.navTabsBlock{
+  margin-top: 48px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.navTabs {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  box-shadow: inset 0 -1px 0 rgba(227, 230, 232, 1);
+}
+
+.navTab{
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  border: none;
+  background: none;
+  height: 40px;
+  color: rgba(95, 104, 109, 1);
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+      &.active {
+    color: rgba(51, 113, 121, 1);
+    border-bottom: 2px solid rgba(51, 113, 121, 1);
+  }
+}
+
+  .activeTab {
+    color: rgba(51, 113, 121, 1);
+    border-bottom: 2px solid rgba(51, 113, 121, 1);
+  }

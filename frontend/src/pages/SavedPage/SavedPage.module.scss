@@ -1,0 +1,555 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; 
+}
+
+.mainBlock {
+  flex: 1; // занимает всё оставшееся место после Header
+  box-sizing: border-box;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto; // скроллим только тут
+  scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+    width: 8px; /* ширина скролла */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; /* фон дорожки */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color:  rgba(51, 113, 121, 1);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+}
+
+.savePageButtons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.allButton{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 168px;
+    height: 48px;
+    color: rgba(37, 48, 62, 1);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    box-sizing: border-box;
+    border: 2px solid rgba(240, 240, 241, 1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+}
+
+.ingredientsAddButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    gap: 0.5rem;
+    width: 218px;
+    height: 48px;
+    color: rgba(252, 253, 253, 1);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    border-radius: 12px;
+    background: rgba(51, 113, 121, 1);
+    cursor: pointer;
+     transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+}
+
+.savedRecipesGrid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.collectionsGrid{
+    margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+.collectionCard {
+  position: relative;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+    .menuWrapper {
+      opacity: 1;   // показываем кнопку
+      pointer-events: auto;
+    }
+  }
+}
+
+.collectionImage {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  border-radius: 8px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  // 1 картинка
+  img:only-child {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+  }
+
+  // 2 картинки
+  &:has(img:nth-child(2)) { // если есть хотя бы 2 картинки
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+
+    img:only-child {
+      grid-column: 1 / 3;
+    }
+
+    img:nth-child(1) {
+      grid-column: 1 / 2;
+      grid-row: 1;
+    }
+
+    img:nth-child(2) {
+      grid-column: 2 / 3;
+      grid-row: 1;
+    }
+  }
+
+  // 3 картинки
+  &:has(img:nth-child(3)) {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+
+    img:nth-child(1) {
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
+    }
+
+    img:nth-child(2) {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+    }
+
+    img:nth-child(3) {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+    }
+  }
+}
+  .placeholder {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+    width: 100%;
+    height: 100%;
+    background: #e0e0e0;
+  }
+
+.collectionName {
+  margin-top: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #242424;
+}
+
+.collectionNameBlock {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.collectionCount {
+  font-size: 14px;
+  color: #8e8e8e;
+}
+
+.savedRecipeCard{
+
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.02);
+    }
+}
+
+.collectionNameBlock{
+  box-sizing: border-box;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+.collectionCount{
+  margin: 0;
+}
+
+.emptyPage {
+    flex: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-y: auto;
+    overflow-y: auto; /* Включаем вертикальный скролл */
+    overflow-x: hidden; /* Скрываем горизонтальный скролл */
+    height: 100vh
+}
+
+.emptyTitle {
+color: rgba(28, 35, 39, 1);
+font-size: 28px;
+font-weight: 700;
+line-height: 38px;
+text-align: center;
+}
+
+.emptyText {
+color: rgba(58, 65, 69, 1);
+font-size: 18px;
+font-weight: 400;
+line-height: 25px;
+text-align: center;
+}
+
+.emptyBlock{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); // затемнение
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  width: 728px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modalHeaderTitle{
+  color: rgba(28, 35, 39, 1);
+font-size: 28px;
+font-weight: 700;
+line-height: 38px;
+text-align: left;
+}
+
+.inputTitle{
+  margin: 0;
+  margin-top: 1rem;
+  margin-bottom: 8px;
+color: rgba(41, 90, 97, 1);
+font-size: 14px;
+font-weight: 600;
+line-height: 19px;
+text-align: left;
+}
+
+.modalInput {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+}
+
+
+.modalCreate {
+margin-top: 2rem;
+display: flex;
+align-items: center;
+justify-self: end;
+justify-content: center;
+width: 208px;
+height: 48px;
+border: none;
+border-radius: 12px;
+background: rgba(51, 113, 121, 1);
+color:  #fff;
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+
+  cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.03);
+    }
+      &:disabled {
+    background: rgba(232, 242, 242, 1);
+    color: rgba(128, 138, 142, 1);
+    cursor: not-allowed;
+  }
+
+}
+
+.modalHeader{
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ justify-content: space-between;
+ margin-bottom: 1rem;
+}
+
+.modalClose{
+  border: none;
+  background: none;
+   cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.2);
+    }
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  flex-direction: row;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  input {
+    display: none; 
+  }
+}
+
+.customCheckbox {
+  align-self: start;
+ width: 24px;
+height: 24px;
+  border: 2px solid rgba(142, 142, 142, 1);
+  border-radius: 6px;
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+  transition: all 0.2s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+}
+
+input:checked + .customCheckbox {
+  background: rgba(51, 113, 121, 1);
+
+  &::after {
+    opacity: 1;
+  }
+}
+
+.checkboxTitle{
+  color:  rgba(28, 35, 39, 1);
+font-size: 18px;
+font-weight: 600;
+line-height: 25px;
+}
+
+.checkboxText{
+  color:  rgba(95, 104, 109, 1);
+font-size: 16px;
+font-weight: 400;
+line-height: 22px;
+}
+
+.menuWrapper {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 200;
+    opacity: 0;          // по умолчанию скрыта
+  pointer-events: none; // чтобы не мешала кликам
+  transition: opacity 0.2s ease;
+}
+
+.menuPopup {
+  width: 150px;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 30;
+}
+
+.menuPopup button {
+  padding: 6px 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: rgba(28, 35, 39, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+  cursor: pointer;
+  font-size: 14px;
+     border-bottom: 1px solid #e5e7eb;
+       &:last-child {
+    border-bottom: none;
+    transition: transform 0.3s ease-in-out;
+  }
+}
+
+.menuPopup button:hover {
+  color: rgba(31, 83, 94, 1);
+  font-weight: 600;
+}
+
+.menuButton{
+  width: 32px;
+  border: none;
+  background: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    &:hover{
+      transform: scale(1.05);
+    }
+}
+
+.sortWrapper {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  width: 258px;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 10;
+  padding: 12px;
+}
+
+.dropdownItem {
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+  color: rgba(28, 35, 39, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+  &:last-child {
+    border-bottom: none; // Убираем линию у последнего элемента
+  }
+
+  &:hover {
+    background: #f3f3f3;
+    font-weight: 600;
+  }
+}
+
+.activeItem {
+  font-weight: 600;
+  color: rgba(31, 83, 94, 1);
+}

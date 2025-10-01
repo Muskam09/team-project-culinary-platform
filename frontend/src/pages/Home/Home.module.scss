@@ -1,0 +1,106 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; 
+}
+
+.mainBlock {
+  flex: 1; // занимает всё оставшееся место после Header
+  box-sizing: border-box;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 53px;
+  overflow-y: auto; 
+  scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+    width: 8px; /* ширина скролла */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; /* фон дорожки */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color:  rgba(51, 113, 121, 1);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+
+  .cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block; 
+}
+  .section {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    h2 {
+      color: rgba(28, 35, 39, 1);
+font-size: 24px;
+font-weight: 700;
+line-height: 33px;
+text-align: left;
+      margin-bottom: 13.5px;
+    }
+
+    .grid-recipes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+
+      @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .grid-authors {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+
+      @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+  .sectionHeader{
+    display: flex;
+    flex-direction: row;
+     align-items: center; 
+  justify-content: space-between;
+  }
+
+  .allButton{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 0.5rem;
+    border: none;
+    background: none;
+    color: rgba(51, 113, 121, 1);
+  cursor: pointer;
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+ transition: transform 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+  }
+}
+

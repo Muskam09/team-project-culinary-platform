@@ -1,0 +1,294 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+label{
+color: rgba(58, 65, 69, 1);
+font-size: 14px;
+font-weight: 500;
+line-height: 19px;
+}
+
+.addModal {
+  width: 728px;
+  padding: 2rem;
+  box-sizing: border-box;
+border: 1px solid  rgba(161, 171, 175, 1);
+border-radius: 24px;
+background: rgba(252, 253, 253, 1);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+     transform: scale(1.2);
+  }
+}
+
+.modalBody input,
+.modalBody select {
+      height: 48px;
+      width: 100%;
+  margin-top: 8px;
+  margin-bottom: 1.5rem;
+  padding-left: 8px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  color:  rgba(28, 35, 39, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+  background: #fff;
+  appearance: none; // убираем дефолтное оформление
+  cursor: pointer;
+
+  &:hover {
+ border: 1.5px solid rgba(84, 112, 120, 1);
+box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+  }
+
+  &:focus {
+   border: 1.5px solid rgba(84, 112, 120, 1);
+box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+    outline: none;
+  }
+  &::placeholder{
+    color: rgba(161, 171, 175, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+  }
+
+}
+
+
+.amountUnitRow {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.cancelButton {
+width: 133px;
+height: 48px;
+background: none;
+box-sizing: border-box;
+border: 1.5px solid  rgba(51, 113, 121, 1);
+border-radius: 12px;
+color:  rgba(27, 60, 64, 1);
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+cursor: pointer;
+text-align: center;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+     transform: scale(1.05);
+  }
+}
+.addButton {
+  border: none;
+  gap: 4px;
+  width: 197px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(51, 113, 121, 1);
+  color: rgba(252, 253, 253, 1);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:disabled {
+    background: rgba(232, 242, 242, 1);
+    color: rgba(128, 138, 142, 1);
+    cursor: not-allowed;
+    transform: none; // убираем анимацию
+  }
+}
+
+
+.autocompleteWrapper {
+  position: relative;
+}
+
+.autocompleteList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.autocompleteList li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.autocompleteList li:hover {
+  background-color: #f0f0f0;
+}
+
+.customSelectWrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.customSelect {
+  margin-top: 8px;
+  padding: 0 12px;
+  height: 48px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  color: rgba(161, 171, 175, 1);
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+  border: 1.5px solid rgba(84, 112, 120, 1);
+box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+  }
+
+  &:focus {
+    outline: none;
+  border: 1.5px solid rgba(84, 112, 120, 1);
+box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+  }
+}
+
+.customSelect::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background-image: url('../assets/icon-park-outline_down.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.customOptions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+   scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+    width: 8px; /* ширина скролла */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; /* фон дорожки */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color:  rgba(51, 113, 121, 1);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+.placeholderText {
+  color: #999; // серый для подсказки
+}
+
+.selectedText {
+  color: #222; // обычный тёмный текст (или можно #4caf50, если нужен зелёный)
+}
+
+.autocompleteList{
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+    width: 8px; /* ширина скролла */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; /* фон дорожки */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color:  rgba(51, 113, 121, 1);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+.placeholderText {
+  color: #999; // серый для подсказки
+}
+
+.selectedText {
+  color: #222; // обычный тёмный текст (или можно #4caf50, если нужен зелёный)
+}
+
+
+.customOptions li {
+  padding: 8px 12px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  cursor: pointer;
+}
+
+.customOptions li:hover {
+  background-color: #f0f0f0;
+}

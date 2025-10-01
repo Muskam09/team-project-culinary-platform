@@ -1,0 +1,74 @@
+.authorCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  box-shadow: 0px 4px 7px 0px rgba(84, 112, 120, 0.1);
+  background: rgba(252, 253, 253, 1);
+  padding: 1rem;
+
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #d1d5db;
+  background-size: cover;
+  background-position: center;
+}
+
+
+  .authorInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.5rem;
+    gap: 0.25rem;
+  }
+
+  .name {
+    margin: 0;
+    color: rgba(28, 35, 39, 1);
+font-size: 18px;
+font-weight: 600;
+line-height: 25px;
+text-align: center;
+  }
+
+  .profession {
+    margin: 0;
+color: rgba(95, 104, 109, 1);
+font-size: 14px;
+font-weight: 400;
+line-height: 19px;
+text-align: center;
+  }
+
+  .stats {
+color: rgba(28, 35, 39, 1);
+font-size: 14px;
+font-weight: 500;
+line-height: 19px;
+text-align: center;
+  }
+
+  .subscribeButton {
+  width: 226px;
+height: 48px;
+border-radius: 12px;
+background: rgba(51, 113, 121, 1);
+border: none;
+color: rgba(252, 253, 253, 1);
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+      &:hover {
+        transform: scale(1.05);
+      }
+}
+}

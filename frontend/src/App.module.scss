@@ -4,26 +4,56 @@
   display: flex;             // sidebar + content в ряд
   height: 100%;             // растягиваем на всю высоту окна
   background: rgba(243, 243, 243, 1);
-  overflow: hidden;          // запрещаем скролл у app
 }
 
 .content {
   flex: 1;                   // занимает оставшееся пространство
   display: flex;
   flex-direction: column;
-  height: 100%;             
 }
 
 
 /* Если есть глобальные стили */
 html, body {
+  overflow: hidden;
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
-  font-family: 'Noto Sans', sans-serif;
+  font-family: "MyFont", Arial, sans-serif;
+    min-width: 1024px; /* минимальная ширина вашего сайта */
+  overflow-x: auto;   /* разрешаем горизонтальный скролл */
+  .sidebarBlock {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px; /* ширина полосы прокрутки */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; /* цвет фона скролла */
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #377f8c; /* цвет самой "ползунка" */
+    border-radius: 4px;
+    border: 2px solid #f0f0f0; /* отступы вокруг */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #1f535a; /* цвет при наведении */
+  }
+}
 }
 
-#root {
-  height: 100%;
+
+@font-face {
+  font-family: "MyFont";
+  src: 
+       url("./fonts/NotoSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
 }
+
+
+

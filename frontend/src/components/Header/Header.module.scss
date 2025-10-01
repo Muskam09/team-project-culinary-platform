@@ -1,0 +1,150 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(227, 230, 232, 1);
+  background: rgba(252, 253, 253, 1);
+  padding: 1rem;
+  
+
+
+.searchWrapper {
+  position: relative;
+
+
+  input {
+    width: 446px;
+    height: 48px;
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    border: 1.5px solid rgba(235, 235, 235, 1);
+    border-radius: 12px;
+    background: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+     outline: none;
+  }
+
+  input:focus {
+  border: 1.5px solid rgba(84, 112, 120, 1);
+border-radius: 12px;
+box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+}
+
+  .searchIcon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 8px;
+  }
+
+
+  .suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1.5px solid rgba(235, 235, 235, 1);
+    border-radius: 12px;
+    margin-top: 0.25rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+
+    .suggestionBlock {
+      padding: 0.5rem 0;
+
+      .suggestionHeader {
+        padding: 0.25rem 1rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #555;
+        border-bottom: 1px solid rgba(235, 235, 235, 1);
+        background: #f9f9f9;
+      }
+
+      .suggestionItem {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: background 0.2s ease;
+
+        &:hover,
+        &.active {
+          background: #0d9488;
+          color: #fff;
+        }
+
+        .highlight {
+          font-weight: 600;
+          color: inherit;
+        }
+      }
+    }
+  }
+}
+
+
+  .rightSection {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-shrink: 0;
+
+    .bellButton {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.25rem;
+      color: #374151;
+      transition: transform 0.3s ease-in-out;
+     &:hover {
+     transform: scale(1.1);
+  }
+    }
+
+    .avatar {
+     width: 40px;
+     height: 40px;
+      background-color: #d1d5db;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  &:hover {
+     transform: scale(1.1);
+  }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .searchWrapper {
+      flex: 1 1 100%;
+      max-width: 100%;
+      order: 1;
+    }
+
+    .rightSection {
+      order: 2;
+    }
+
+    .backButton {
+      order: 0;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.redDot {
+  position: absolute;
+  top: -2px;
+  right: 6px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  border: 1px solid white; // для аккуратного отображения
+}

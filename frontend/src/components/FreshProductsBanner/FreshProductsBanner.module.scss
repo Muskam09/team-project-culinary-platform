@@ -1,0 +1,67 @@
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-image: url(../../assets/Banner.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  padding: 32px;
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h2 {
+      margin: 0;
+    color:  rgba(252, 253, 253, 1);
+font-size: 34px;
+font-weight: 700;
+line-height: 46px;
+    }
+
+    p {
+      margin-top: 0.75rem;
+      margin: 0;
+      width: 369px;
+     height: 52px;
+     color: rgba(249, 250, 251, 1);
+font-size: 18px;
+font-weight: 600;
+line-height: 25px;
+text-align: left;
+    }
+
+    .orderButton {
+      margin-top: 83px;
+  width: 216px;
+  height: 48px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; // расстояние между текстом и иконкой
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  background: rgba(51, 113, 121, 1);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 22px;
+      color: rgba(252, 253, 253, 1);
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.02);
+      }
+
+  .buttonIcon {
+    width: 24px;
+    height: 24px;
+    color: inherit; 
+  }
+}
+  }
+}

@@ -1,0 +1,18 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.000000" height="48.000000" fill="none" customFrame="url(#clipPath_0)">
+	<defs>
+		<clipPath id="clipPath_0">
+			<rect width="48.000000" height="48.000000" x="0.000000" y="0.000000" rx="24.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+		<clipPath id="clipPath_1">
+			<rect width="24.000000" height="24.000000" x="12.000000" y="12.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+	</defs>
+	<rect id="Frame 2147223363" width="48.000000" height="48.000000" x="0.000000" y="0.000000" rx="24.000000" fill="rgb(235,241,242)" />
+	<g id="icon-park-outline:vip-one" clip-path="url(#clipPath_1)" customFrame="url(#clipPath_1)">
+		<rect id="icon-park-outline:vip-one" width="24.000000" height="24.000000" x="12.000000" y="12.000000" fill="rgb(255,255,255)" fill-opacity="0" />
+		<g id="Group">
+			<path id="Vector" d="M18.258 15.836C18.3584 15.7291 18.4797 15.6441 18.6144 15.5863C18.7492 15.5285 18.8944 15.4991 19.041 15.5L28.959 15.5C29.1056 15.4991 29.2508 15.5285 29.3856 15.5863C29.5203 15.6441 29.6416 15.7291 29.742 15.836L33.7485 20.183C33.913 20.3578 34.0031 20.5896 33.9998 20.8296C33.9966 21.0695 33.9002 21.2988 33.731 21.469L24.375 32.075C24.3281 32.1282 24.2704 32.1708 24.2057 32.2C24.1411 32.2292 24.0709 32.2443 24 32.2443C23.9291 32.2443 23.8589 32.2292 23.7943 32.2C23.7296 32.1708 23.6719 32.1282 23.625 32.075L14.269 21.469C14.0998 21.2988 14.0034 21.0695 14.0002 20.8296C13.9969 20.5896 14.087 20.3578 14.2515 20.183L18.258 15.836Z" fill-rule="nonzero" stroke="rgb(51,113,121)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+			<path id="Vector" d="M20 22L24 26.5L28 22" fill-rule="nonzero" stroke="rgb(51,113,121)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+		</g>
+	</g>
+</svg>

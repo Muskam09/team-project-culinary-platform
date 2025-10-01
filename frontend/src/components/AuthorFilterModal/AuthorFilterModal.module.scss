@@ -1,0 +1,313 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal {
+width: 728px;
+padding: 32px;
+box-sizing: border-box;
+border: 1px solid rgba(161, 171, 175, 1);
+border-radius: 24px;
+background:  rgba(252, 253, 253, 1);
+}
+
+.headerTitle{
+  margin: 0;
+   color: rgba(31, 41, 51, 1);
+font-size: 24px;
+font-weight: 700;
+line-height: 33px;
+}
+
+.headerButton{
+border: none;
+background: none;
+cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+     transform: scale(1.2);
+  }
+}
+
+label{
+    margin-top: 1.5rem;
+color: rgba(41, 90, 97, 1);
+font-size: 14px;
+font-weight: 600;
+line-height: 19px;
+text-align: left;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cuisineFilter {
+  margin: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  input {
+    padding: 8px 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+    font-size: 14px;
+
+    &:focus {
+      border-color: rgba(1, 64, 78, 1);
+    }
+  }
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+  .chevronIcon {
+    position: absolute;
+    right: 10px;
+    pointer-events: none; // чтобы клик шел на инпут
+    color: #666;
+  }
+
+.cuisineDropdown {
+  box-sizing: border-box;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 220px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 8px;
+  padding: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: fadeIn 0.2s ease;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+   color: rgba(28, 35, 39, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+  }
+
+  .cuisineOptions {
+  max-height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+    width: 8px; /* ширина скролла */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; /* фон дорожки */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color:  rgba(51, 113, 121, 1);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  }
+
+  .dropdownActions {
+    display: flex;
+    height: 72px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    border-top: 1px solid rgba(237, 242, 247, 1);
+
+      button {
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+  width: 133px;
+height: 40px;  
+      cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+
+  &:hover {
+     transform: scale(1.05);
+  }
+
+      &:first-child {
+      background: none;
+       color: rgba(51, 113, 121, 1);;
+      }
+
+      &:last-child {
+        
+background:  rgba(51, 113, 121, 1);
+color: rgba(252, 253, 253, 1);
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+.content label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+
+
+.cuisineDropdown label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    cursor: pointer;
+  }
+}
+
+.cuisineTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.cuisineTag {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 8px;
+height: 40px;
+border-radius: 12px;
+background:  rgba(232, 242, 242, 1);
+color:  rgba(51, 113, 121, 1);
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+}
+
+
+
+.specializationButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.categoryButton {
+  padding: 8px 16px;
+  border: none;
+  height: 40px;
+  border-radius: 12px;
+  color: rgba(58, 65, 69, 1);
+  background: rgba(241, 243, 244, 1);
+  cursor: pointer;
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #eee;
+  }
+}
+
+.active {
+ background:  rgba(1, 64, 78, 1);
+color: rgba(252, 253, 253, 1);
+  border: none;
+}
+
+.actions{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.resetButton{
+    border: none;
+    background: none;
+     color: rgba(51, 113, 121, 1);
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+  &:hover {
+     transform: scale(1.05);
+  }
+}
+
+.applyButton{
+  border: none;
+  width: 149px;
+height: 48px;
+border-radius: 12px;
+background: rgba(51, 113, 121, 1);
+color: rgba(252, 253, 253, 1);
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+text-align: center;
+cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  &:hover {
+     transform: scale(1.05);
+  }
+}
+
+.applyButton:disabled,
+.applyButton.disabled {
+ background: rgba(232, 242, 242, 1);
+  color:  rgba(128, 138, 142, 1);
+  cursor: not-allowed;
+}
