@@ -137,16 +137,20 @@ class CollectionItem(models.Model):
     def __str__(self):
         return f"{self.collection.title}: {self.recipe.title}"
 
-class Review(TimeStampedModel):
+# --- Reviews / Ratings --------------------------------------------------------
+class Review(models.Model):
     recipe = models.ForeignKey("Recipe", on_delete=models.CASCADE, related_name="reviews")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="reviews")
     rating = models.PositiveSmallIntegerField()  # 1..5
     text = models.TextField(blank=True)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     class Meta:
-        ordering = ["-created_at"]
         constraints = [
-            UniqueConstraint(fields=["recipe", "author"], name="uniq_review_per_user_recipe"),
+            models.UniqueConstraint(fields=["author", "recipe"], name="unique_review_per_user_recipe"),
+            models.CheckConstraint(check=models.Q(rating__gte=1, rating__lte=5), name="rating_between_1_5"),
         ]
 
     def __str__(self):
@@ -170,6 +174,7 @@ def _on_review_saved(sender, instance: "Review", **kwargs):
 @receiver(post_delete, sender=Review)
 def _on_review_deleted(sender, instance: "Review", **kwargs):
     _recalc_recipe_rating(instance.recipe_id)
+
 
 # --- Reviews / Ratings --------------------------------------------------------
 class Review(models.Model):
@@ -265,3 +270,10 @@ class ShoppingItem(models.Model):
 
     class Meta:
         ordering = ["ingredient__name", "id"]
+
+class TestTable(models.Model):
+    name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

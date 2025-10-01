@@ -1,4 +1,6 @@
+# backend/api/admin.py
 from django.contrib import admin
+from django.db.models import Count
 from .models import (
     Unit, Ingredient, Cuisine, Diet, Tag,
     Recipe, RecipeStep, RecipeIngredient,
@@ -7,6 +9,16 @@ from .models import (
     MealEntry,
     ShoppingList, ShoppingItem,
 )
+
+# --- PATCH: гарантируем наличие атрибута на модели для readonly_fields ---
+def _reviews_count(self):
+    # related_name в Review: "reviews"
+    return self.reviews.count()
+
+if not hasattr(Recipe, "reviews_count"):
+    Recipe.reviews_count = property(_reviews_count)
+# --- END PATCH ---
+
 
 # ── Справочники ────────────────────────────────────────────────────────────────
 
@@ -69,8 +81,21 @@ class RecipeAdmin(admin.ModelAdmin):
     date_hierarchy = "created_at"
     inlines = [RecipeIngredientInline, RecipeStepInline]
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        # для сортировки и быстрого list_display
+        return qs.annotate(_reviews_count=Count("reviews"))
 
-# ── Коллекции (избранное) ─────────────────────────────────────────────────────
+    @admin.display(description="Reviews", ordering="_reviews_count")
+    def reviews_count(self, obj):
+        # в списке админки возьмём аннотацию
+        if hasattr(obj, "_reviews_count"):
+            return obj._reviews_count
+        # в карточке рецепта — реальный подсчёт
+        return obj.reviews.count()
+
+
+# ── Коллекции ─────────────────────────────────────────────────────────────────
 
 class CollectionItemInline(admin.TabularInline):
     model = CollectionItem

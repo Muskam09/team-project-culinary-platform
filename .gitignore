@@ -36,3 +36,36 @@ __pycache__/
 # Optional: Python virtual environments
 venv/
 env/
+
+# Local env
+.venv/
+backend/.env
+__pycache__/
+*.pyc
+.idea/
+.env
+*.env
+# === DB & dumps ===
+backend/db.sqlite3
+*.sqlite3
+*.db
+*.sql
+*.dump
+*.tar
+
+# === Secrets ===
+backend/.env
+.env
+
+# === Static build artifacts ===
+backend/staticfiles/
+staticfiles/
+
+# === Local scratch dirs ===
+smachno/
+backend/smachno/
+
+# === Python caches / OS ===
+**/__pycache__/
+.DS_Store
+

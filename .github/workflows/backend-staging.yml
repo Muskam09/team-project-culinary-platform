@@ -59,8 +59,10 @@ jobs:
       - name: Upload python artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: python-artifacts
-          path: ./backend
+          name: backend-artifacts
+          path: |
+            ./backend
+            !./backend/venv/
 #-------------------
   cd_pipeline_staging:
     runs-on: ubuntu-latest
@@ -78,6 +80,7 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'culinary-backend'
+          app-name: 'smachno-backend-app-staging'
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_BACKEND_STAGING }}
           package: ./backend
+          clean: true
