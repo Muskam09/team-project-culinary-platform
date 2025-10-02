@@ -10,6 +10,8 @@ import iconEnd from '../../assets/icon-park-outline_logout.svg';
 import iconPlat from '../../assets/icon-park-outline_afferent-four.svg';
 import deleteIcon from '../../assets/icon-park-outline_delete_white.svg';
 import fitnessIcon from '../../assets/Fitness.png';
+import instagramIcon from '../../assets/instagram1.png';
+import facebookIcon from '../../assets/Facebook1.png';
 
 const sections = [
   'Обліковий запис',
@@ -585,17 +587,17 @@ const SettingsPage: React.FC = () => {
                 settings.integrations.map((integration) => (
                   <li key={integration.id} className={styles.integrationItem}>
                     <div className={styles.integrationInfo}>
-                      <img
-                        className={styles.integrationAvatar}
-                        src={
-                    integration.name === 'Instagram'
-                      ? 'src/assets/instagram1.png'
-                      : integration.name === 'Google'
-                        ? 'src/assets/Facebook1.png'
-                        : '/avatars/default.png'
-                  }
-                        alt={integration.name}
-                      />
+                       <img
+  className={styles.integrationAvatar}
+  src={
+    integration.name === 'Instagram'
+      ? instagramIcon
+      : integration.name === 'Google'
+        ? facebookIcon
+        : undefined
+  }
+  alt={integration.name}
+/>
                       <div className={styles.integrationText}>
                         <span className={styles.integrationName}>{integration.name}</span>
                         <span
