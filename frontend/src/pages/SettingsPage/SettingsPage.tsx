@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import { Check, ChevronDown, Plus } from 'lucide-react';
 import Header from '../../components/Header/Header';
@@ -455,7 +456,7 @@ const SettingsPage: React.FC = () => {
                 className={styles.addMemberMainButton}
                 onClick={() => setShowInput(true)}
               >
-                Додати члена сім`ї
+                Додати члена сім'ї
                 {' '}
                 <Plus size={20} className={styles.sortIcon} />
               </button>
@@ -465,7 +466,7 @@ const SettingsPage: React.FC = () => {
               <div className={styles.sharedListsBlock}>
                 <div className={styles.sharedListsTextBlock}>
                   <h2 className={styles.sharedListsTitle}>Спільні списки покупок</h2>
-                  <p className={styles.sharedListsText}>Дозвольте членам сім`ї редагувати списки</p>
+                  <p className={styles.sharedListsText}>Дозвольте членам сім'ї редагувати списки</p>
                 </div>
                 <label className={styles.switch}>
                   <input type="checkbox" checked={settings.sharedListsEnabled ?? false} onChange={(e) => updateSetting('sharedListsEnabled', e.target.checked)} />
@@ -578,7 +579,7 @@ const SettingsPage: React.FC = () => {
         return (
           <div className={styles.integrationsBlock}>
             {/* Основний блок соцмереж */}
-            <h3 className={styles.integrationsTitle}>Зв`язки в соціальних мережах</h3>
+            <h3 className={styles.integrationsTitle}>Зв'язки в соціальних мережах</h3>
             <ul className={styles.integrationList}>
               {settings.integrations?.length ? (
                 settings.integrations.map((integration) => (
