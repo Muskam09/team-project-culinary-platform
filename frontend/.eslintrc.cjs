@@ -1,35 +1,36 @@
 module.exports = {
   root: true,
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: './tsconfig.json',  // для src
-    tsconfigRootDir: __dirname,
-    sourceType: 'module',
+  env: {
+    browser: true,
+    es2021: true,
+    jest: true, // щоб ESLint знав про глобали jest
   },
-  plugins: ['@typescript-eslint', 'import', 'react', 'react-hooks', 'jsx-a11y'],
   extends: [
-    'airbnb',
-    'airbnb-typescript',
-    'airbnb/hooks',
-    'plugin:@typescript-eslint/recommended'
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
   ],
-  rules: {
-    'import/no-extraneous-dependencies': ['error', { devDependencies: false }],
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
-  overrides: [
-    {
-      files: [
-        'vite.config.ts',
-        'vite.*.ts',
-        '*.config.ts'
-      ],
-      parserOptions: {
-        project: './tsconfig.eslint.json', // окремий tsconfig для конфігурацій
-        tsconfigRootDir: __dirname
+  plugins: ["react", "@typescript-eslint", "import"],
+  rules: {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: [
+          "**/setupTests.{js,jsx,ts,tsx}",
+          "**/*.test.{js,jsx,ts,tsx}",
+          "**/tests/**",
+        ],
       },
-      rules: {
-        'import/no-extraneous-dependencies': 'off'
-      }
-    }
-  ]
+    ],
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
 };

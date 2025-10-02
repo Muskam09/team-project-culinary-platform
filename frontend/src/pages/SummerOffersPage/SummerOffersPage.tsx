@@ -133,7 +133,6 @@ const SummerOffersPage: React.FC = () => {
                 <div ref={menuRef} className={styles.dropdownMenu} data-testid="sort-dropdown">
                   {(Object.keys(sortLabels) as SortOption[]).map((option) => (
                     // eslint-disable-next-line max-len
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                     <div
                       key={option}
                       className={`${styles.dropdownItem} ${sortBy === option ? styles.activeItem : ''}`}

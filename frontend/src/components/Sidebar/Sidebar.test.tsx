@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 // src/components/Sidebar/Sidebar.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useLocation, useNavigate } from 'react-router-dom';

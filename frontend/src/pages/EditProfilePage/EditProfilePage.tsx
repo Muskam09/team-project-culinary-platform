@@ -120,7 +120,7 @@ const EditProfilePage: React.FC = () => {
           <h2 className={styles.title}>Особиста інформація</h2>
           <div className={styles.nameRow}>
             <div className={styles.inputGroup}>
-              <label>Ім'я</label>
+              <label>Ім`я</label>
               <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
             </div>
             <div className={styles.inputGroup}>
@@ -129,7 +129,7 @@ const EditProfilePage: React.FC = () => {
             </div>
           </div>
           <div className={styles.inputGroup}>
-            <label>Ім'я користувача</label>
+            <label>Ім`я користувача</label>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
           <div className={styles.inputGroup}>

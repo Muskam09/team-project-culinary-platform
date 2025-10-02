@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 // src/pages/ShoppingListDetailPage/ShoppingListDetailPage.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
