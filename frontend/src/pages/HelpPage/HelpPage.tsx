@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
@@ -101,7 +102,7 @@ const HelpPage: React.FC = () => {
             <div className={styles.supportSectionHeader}>
               <img src={iconPhones} />
               <div className={styles.supportSectionText}>
-                <h2 className={styles.sectionTitle}>Зв`язатися зі службою підтримки</h2>
+                <h2 className={styles.sectionTitle}>Зв'язатися зі службою підтримки</h2>
                 <p className={styles.sectionText}>Заповніть форму і ми зв’яжемося з вами найближчим часом.</p>
               </div>
             </div>
