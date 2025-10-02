@@ -5,7 +5,7 @@ import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/team-project-culinary-platform/",
+  base: "/",
   plugins: [react(), svgr()],
   optimizeDeps: {
     exclude: ['lightningcss'],
