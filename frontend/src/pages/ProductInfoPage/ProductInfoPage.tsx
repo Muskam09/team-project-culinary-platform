@@ -192,9 +192,14 @@ return (
           }}
         >
           <div className={styles.imageTopButton}>
-            <button className={styles.exportButton} />
-            <button className={styles.flagButton} />
-          </div>
+  <button className={styles.exportButton}>
+    <img src={exportIcon} alt="Export" />
+  </button>
+  <button className={styles.flagButton}>
+    <img src={flagIcon} alt="Flag" />
+  </button>
+</div>
+
 
           <div className={styles.productImageInfo}>
             <div className={styles.productComplexity}>
@@ -303,18 +308,18 @@ return (
               <p className={styles.nutritionSubtitle}>(на 100г)</p>
             </div>
             {/* Сетка с элементами питания */}
-            <div className={styles.nutritionGrid}>
-              {details.nutrition?.map((n, idx) => (
-                <div key={idx} className={styles.nutritionItem}>
-                  <span className={styles.nutritionName}>{n.name}</span>
-                  <span className={styles.nutritionAmount}>
-                    {n.amount! * servings}
-                    {' '}
-                    {n.unit}
-                  </span>
-                </div>
-              ))}
-            </div>
+         <div className={styles.nutritionGrid}>
+  {details.nutrition?.map((n, idx) => (
+    <div key={idx} className={styles.nutritionItem}>
+      <span className={styles.nutritionName}>{n.name}</span>
+      <span className={styles.nutritionAmount}>
+        {(n.amount! * servings).toFixed(2)} {' '}
+        {n.unit}
+      </span>
+    </div>
+  ))}
+</div>
+
           </div>
         </div>
 

@@ -41,13 +41,6 @@ describe('RecipeCard', () => {
     expect(card).toBeDefined();
   });
 
-  test('клик по кнопке флага вызывает onSave', () => {
-    const onSave = jest.fn();
-    renderWithRouter(<RecipeCard {...recipe} onSave={onSave} />);
-    const flagButton = screen.getByRole('button');
-    fireEvent.click(flagButton);
-    expect(onSave).toHaveBeenCalled();
-  });
 
   test('клик по рейтингу изменяет значение', () => {
     renderWithRouter(<RecipeCard {...recipe} />);

@@ -23,7 +23,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
   image,
   highlightedTitle,
   isModalView,
-  onSave,
 }) => {
   const [currentRating, setCurrentRating] = useState(rating);
   const navigate = useNavigate();
@@ -56,15 +55,16 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
         </div>
 
         {/* Флаг теперь работает только для добавления */}
-        <button
-          className={styles.flagButton}
-          onClick={(e) => {
-            e.stopPropagation(); // блокируем переход
-            if (onSave) onSave();
-          }}
-        >
-          <img src={flagIcon} alt="flag" />
-        </button>
+          <button
+  className={styles.flagButton}
+  onClick={(e) => {
+    e.stopPropagation();
+    navigate('/saved', { state: { addedRecipeId: id } });
+  }}
+>
+  <img src={flagIcon} alt="flag" />
+</button>
+
       </div>
 
       <h2 className={styles.title}>{highlightedTitle ?? title}</h2>
