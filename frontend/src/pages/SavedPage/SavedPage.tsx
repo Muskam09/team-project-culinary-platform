@@ -36,7 +36,7 @@ const SavedPage: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const scrollDirectionRef = useRef<'up' | 'down' | null>(null);
   const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
+  
   const navigate = useNavigate();
   const location = useLocation();
   const addedRecipeId: string | undefined = location.state?.addedRecipeId;
@@ -189,25 +189,25 @@ const SavedPage: React.FC = () => {
     setCollections(sortedCollections);
   };
 
-  const handleCollectionClick = (col: Collection) => {
-    if (addedRecipeId) {
-      const recipeToAdd = savedRecipes.find((r) => r.id === addedRecipeId);
-      if (recipeToAdd) {
-        const updatedCollections = collections.map((c) => (c.id === col.id
-          ? {
-            ...c,
-            recipes: c.recipes.some((r) => r.id === addedRecipeId)
-              ? c.recipes
-              : [...c.recipes, recipeToAdd],
-          }
-          : c));
-        setCollections(updatedCollections);
-        localStorage.setItem('savedCollections', JSON.stringify(updatedCollections));
-      }
+const handleCollectionClick = (col: Collection) => {
+  if (addedRecipeId) {
+    const alreadyAdded = col.recipes.some(r => r.id === addedRecipeId);
+    if (!alreadyAdded) {
+      const updatedCollections = collections.map(c => 
+        c.id === col.id 
+          ? { ...c, recipes: [...c.recipes, { id: addedRecipeId, dateSaved: new Date().toISOString() }] }
+          : c
+      );
+      setCollections(updatedCollections);
+      localStorage.setItem('savedCollections', JSON.stringify(updatedCollections));
     }
+  }
 
-    navigate(`/collection/${col.id}`, { state: {} });
-  };
+  // Перехід в саму колекцію
+  navigate(`/collection/${col.id}`, { state: {} });
+
+};
+
 
   useEffect(() => {
     if (savedRecipes.length === 0) return;
@@ -228,6 +228,8 @@ const SavedPage: React.FC = () => {
     messagesCreatedRef.current.add(lastSaved.id); // отмечаем, что сообщение создано
     setMessages(getMessages());
   }, [savedRecipes]);
+
+  
 
   return (
     <main
