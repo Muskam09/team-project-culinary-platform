@@ -82,14 +82,15 @@ describe('EditProfilePage', () => {
     });
   });
 
-  it("кнопка 'До рецептів' вызывает navigate", () => {
+  it("кнопка 'До профілю' вызывает navigate", () => {
     render(
       <MemoryRouter>
         <EditProfilePage />
       </MemoryRouter>,
     );
 
-    const backBtn = screen.getByRole('button', { name: /До рецептів/i });
+   const backBtn = screen.getByRole('button', { name: /До профілю/i });
+
     fireEvent.click(backBtn);
     // navigate замокан — достаточно что кнопка кликается
     expect(backBtn).toBeInTheDocument();
