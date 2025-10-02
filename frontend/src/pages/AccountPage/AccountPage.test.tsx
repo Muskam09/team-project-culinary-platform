@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 // src/pages/AccountPage/AccountPage.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useNavigate } from 'react-router-dom';

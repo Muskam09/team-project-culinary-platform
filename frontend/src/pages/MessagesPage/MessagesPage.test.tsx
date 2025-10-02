@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 // __tests__/MessagesPage.test.tsx
 
 import {

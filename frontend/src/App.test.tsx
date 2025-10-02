@@ -1,3 +1,8 @@
+/* eslint-disable react/display-name */
+/* eslint-disable func-names */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable import/no-extraneous-dependencies */
 // src/__tests__/App.test.tsx
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';

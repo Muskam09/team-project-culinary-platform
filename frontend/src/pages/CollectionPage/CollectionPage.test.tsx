@@ -1,3 +1,6 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/display-name */
 // src/pages/CollectionPage/CollectionPage.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useNavigate, useParams } from 'react-router-dom';

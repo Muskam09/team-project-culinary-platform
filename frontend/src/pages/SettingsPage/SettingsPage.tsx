@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import { Check, ChevronDown, Plus } from 'lucide-react';
 import Header from '../../components/Header/Header';

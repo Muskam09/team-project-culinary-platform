@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 // src/pages/EditProfilePage/EditProfilePage.test.tsx
 import {
   render, screen, fireEvent, waitFor,

@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 // __tests__/RecipesPage.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';

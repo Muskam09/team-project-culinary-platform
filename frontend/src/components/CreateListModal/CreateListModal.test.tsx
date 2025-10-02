@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 // src/components/CreateListModal/CreateListModal.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import CreateListModal from './CreateListModal';

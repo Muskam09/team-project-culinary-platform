@@ -1,3 +1,5 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // src/components/Header/Header.test.tsx
 import {
   render, screen, fireEvent, waitFor,

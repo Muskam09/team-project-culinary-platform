@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import {
   render, screen, fireEvent, waitFor,
 } from '@testing-library/react';
