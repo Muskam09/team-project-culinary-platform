@@ -74,7 +74,7 @@ const SelectRecipeModal: React.FC<SelectRecipeModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className={styles.overlay}>
+  <div className={`${styles.overlay} ${isCollectionModalOpen ? styles.hiddenOverlay : ''}`}> 
       <div className={styles.modal}>
         {/* Header главной модалки */}
         <div className={styles.header}>

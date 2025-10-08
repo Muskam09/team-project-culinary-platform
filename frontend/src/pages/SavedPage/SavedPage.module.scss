@@ -54,9 +54,16 @@
     border-radius: 12px;
     background: rgba(255, 255, 255, 1);
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+      transition: 0.2s;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.02);
+border: 1px solid rgba(227, 230, 232, 1);
+background:  rgba(227, 230, 232, 1);
+    }
+
+    &:active{
+     border: 1px solid rgba(227, 230, 232, 1);
+background: rgba(207, 214, 216, 1);
     }
 }
 
@@ -76,9 +83,13 @@
     border-radius: 12px;
     background: rgba(51, 113, 121, 1);
     cursor: pointer;
-     transition: transform 0.3s ease-in-out;
+      transition: 0.2s;
     &:hover{
-      transform: scale(1.05);
+      background: rgba(41, 90, 97, 1);
+      transform: scale(1.02);
+    }
+      &:active{
+      background:  rgba(36, 79, 85, 1);
     }
 }
 
@@ -299,7 +310,8 @@ text-align: center;
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5); // затемнение
+  backdrop-filter: blur(5px);
+background: rgba(41, 54, 61, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -339,6 +351,20 @@ text-align: left;
   margin-bottom: 1rem;
   border: 1px solid #ddd;
   border-radius: 12px;
+  
+          &:hover {
+      border: 1px solid  rgba(207, 214, 216, 1);
+box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
+  }
+  &:focus {
+    border: 1.5px solid rgba(167, 214, 217, 1);
+  }
+  &::placeholder{
+    color: rgba(161, 171, 175, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+  }
 }
 
 
@@ -359,9 +385,11 @@ font-weight: 600;
 line-height: 22px;
 
   cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
     &:hover{
       transform: scale(1.03);
+      background: rgba(41, 90, 97, 1);
+
     }
       &:disabled {
     background: rgba(232, 242, 242, 1);
@@ -380,62 +408,38 @@ line-height: 22px;
 }
 
 .modalClose{
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   border: none;
   background: none;
    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.2);
+      transform: scale(1.05);
+      background-color: rgba(235, 241, 242, 1);
     }
 }
 
 .checkboxWrapper {
   display: flex;
-  align-items: center;
+  align-items: start;
   margin-top: 1rem;
   flex-direction: row;
   gap: 12px;
   cursor: pointer;
   user-select: none;
   position: relative;
-  input {
-    display: none; 
-  }
 }
 
-.customCheckbox {
-  align-self: start;
- width: 24px;
-height: 24px;
-  border: 2px solid rgba(142, 142, 142, 1);
-  border-radius: 6px;
-  display: inline-block;
-  margin-right: 10px;
-  position: relative;
-  transition: all 0.2s ease;
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 8px;
-    top: 4px;
-    width: 6px;
-    height: 12px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    opacity: 0;
-    transition: opacity 0.2s ease;
+  input[type="checkbox"] {
+    cursor: pointer;
+    margin-top: 4px;
+    width: 24px;
+    height: 24px;
   }
-}
 
-input:checked + .customCheckbox {
-  background: rgba(51, 113, 121, 1);
 
-  &::after {
-    opacity: 1;
-  }
-}
 
 .checkboxTitle{
   color:  rgba(28, 35, 39, 1);
@@ -523,7 +527,6 @@ line-height: 22px;
   background: white;
   border: 1px solid #ddd;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   z-index: 10;
   padding: 12px;
 }
@@ -545,11 +548,10 @@ line-height: 22px;
 
   &:hover {
     background: #f3f3f3;
-    font-weight: 600;
   }
 }
 
 .activeItem {
-  font-weight: 600;
   color: rgba(31, 83, 94, 1);
+  font-weight: 600;
 }

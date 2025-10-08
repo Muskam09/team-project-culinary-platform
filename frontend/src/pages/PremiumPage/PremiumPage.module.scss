@@ -73,10 +73,11 @@ background: rgba(215, 234, 235, 1);
     font-weight: 600;
     line-height: 22px;
     cursor: pointer;
-      transition: transform 0.3s ease-in-out;
+      transition: 0.3s ease-in-out;
 
   &:hover {
-     transform: scale(1.05);
+     transform: scale(1.03);
+     background-color: rgba(41, 93, 101, 1);
   } 
 }
 

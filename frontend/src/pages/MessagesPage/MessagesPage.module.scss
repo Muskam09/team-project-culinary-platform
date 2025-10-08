@@ -38,6 +38,7 @@
 
 .buttonAll{
     height: 48px;
+    width: 92px;
     display: flex;
     flex-direction: row;
     gap: 4px;
@@ -51,15 +52,17 @@ font-size: 16px;
 font-weight: 600;
 line-height: 22px;
   cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition:0.3s ease-in-out;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.03);
+      background-color: rgba(227, 230, 232, 1);
     }
 }
 
 .buttonReadAll{
     border: none;
     background: none;
+    border-radius: 12px;
     width: 161px;
 height: 48px;
      display: flex;
@@ -72,9 +75,10 @@ font-size: 16px;
 font-weight: 600;
 line-height: 22px;
 cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.03);
+      background-color: rgba(235, 241, 242, 1);
     }
 }
 
@@ -107,7 +111,7 @@ background: rgba(255, 255, 255, 1);
 
 .activeDot {
   position: absolute;
-  top: 6px;
+  top: 12px;
   right: 48px;
   width: 12px;
 height: 12px;
@@ -172,10 +176,14 @@ background: rgba(252, 253, 253, 1);
 
 .messageButton{
   border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   background: none;
   cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
     &:hover{
       transform: scale(1.1);
+      background-color: rgba(235, 241, 242, 1);
     }
 }

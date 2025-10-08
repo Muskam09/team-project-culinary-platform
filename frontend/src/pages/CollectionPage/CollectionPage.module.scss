@@ -29,30 +29,30 @@
 }
 
 .backButton {
-    width: 150px;
-    background: none;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap:0.5rem;
-    border: none;
-    margin-bottom: 1rem;
-    cursor: pointer;
-  
-     transition: transform 0.3s ease-in-out;
-     color: rgba(51, 113, 121, 1);
-     font-size: 16px;
-     font-weight: 600;
-     line-height: 22px;
-    &:hover{
-      transform: scale(1.01);
-    }
+  width: 146px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 10px 0px 10px 0px;
+  border-radius: 12px;
+  gap: 0.5rem;
+  border: none;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  color: rgba(51, 113, 121, 1);
+  font-size: 16px;
+  font-weight: 600;
+  &:hover {
+    color: rgba(36, 79, 85, 1);
+    background: rgba(235, 241, 242, 1);
+    transform: scale(1.02);
   }
+}
 
 
 
 .collectionInfoLine {
-  margin-top: 55px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -60,18 +60,26 @@
 }
 
 .collectionName {
-  font-size: 24px;
-  font-weight: 600;
+color: rgba(28, 35, 39, 1);
+font-size: 28px;
+font-weight: 700;
+line-height: 38px;
+text-align: left;
 }
 
 .recipeCount {
-  font-size: 16px;
-  color: #666;
+  margin: 0;
+  margin-top: 1.5rem;
+color: rgba(128, 138, 142, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+text-align: left;
 }
 
 /* Сетка с рецептами */
 .recipesGrid {
-  margin-top: 2rem;
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
@@ -131,57 +139,6 @@
 }
 
 
-.SortButtonBlock{
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-}
-
-.SortButton   {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    width: 168px;
-    height: 48px;
-    color: rgba(37, 48, 62, 1);
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 22px;
-    box-sizing: border-box;
-    border: 2px solid rgba(240, 240, 241, 1);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 1);
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-    &:hover{
-      transform: scale(1.05);
-    }
-  }
-
-  .filterButton{
-        display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    width: 116px;
-    height: 48px;
-    color: rgba(37, 48, 62, 1);
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 22px;
-    box-sizing: border-box;
-    border: 2px solid rgba(240, 240, 241, 1);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 1);
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-    &:hover{
-      transform: scale(1.05);
-    }
-  }
 
   .emptyTitle {
 color: rgba(28, 35, 39, 1);
@@ -236,14 +193,17 @@ text-align: center;
 
 
   .menuButton {
-    width: 32px;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
     border: none;
     background: none;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
 
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
+background: rgba(235, 241, 242, 1);
     }
   }
 
@@ -330,7 +290,7 @@ line-height: 22px;
 }
 
 .allButton{
-    display: flex;
+  display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -346,9 +306,18 @@ line-height: 22px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 1);
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+     background: rgba(255, 255, 255, 1);
+    cursor: pointer;
+      transition: 0.2s;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.02);
+border: 1px solid rgba(227, 230, 232, 1);
+background:  rgba(227, 230, 232, 1);
+    }
+
+    &:active{
+     border: 1px solid rgba(227, 230, 232, 1);
+background: rgba(207, 214, 216, 1);
     }
 }
 

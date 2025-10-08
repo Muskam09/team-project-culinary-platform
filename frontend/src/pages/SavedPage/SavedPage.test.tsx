@@ -1,46 +1,90 @@
-/* eslint-disable react/react-in-jsx-scope */
-import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+// SavedPage.test.tsx
+import React from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SavedPage from './SavedPage';
+import * as collectionsService from '../../services/collectionsService';
 
-// Мокируем useNavigate заранее
-const mockNavigate = jest.fn();
-jest.mock('react-router-dom', () => {
-  const originalModule = jest.requireActual('react-router-dom');
-  return {
-    __esModule: true,
-    ...originalModule,
-    useNavigate: () => mockNavigate,
-  };
+// ===== MOCKS =====
+jest.mock('react-router-dom', () => ({
+  useNavigate: () => jest.fn(),
+  useLocation: () => ({ state: {} }),
+}));
+
+// Мок localStorage
+beforeEach(() => {
+  const store: Record<string, string> = {};
+  jest.spyOn(window.localStorage.__proto__, 'getItem').mockImplementation((key) => store[key as string] || null);
+  jest.spyOn(window.localStorage.__proto__, 'setItem').mockImplementation((key, value) => {
+    store[key as string] = value as string;
+  });
+  jest.spyOn(window.localStorage.__proto__, 'removeItem').mockImplementation((key) => {
+    delete store[key as string];
+  });
 });
 
-describe('SavedPage navigate test', () => {
+// Мок сервисов коллекций
+jest.mock('../../services/collectionsService');
+
+const mockCollections = [
+  { id: '1', name: 'Колекція 1', recipes: [] },
+  { id: '2', name: 'Колекція 2', recipes: [] },
+];
+
+describe('SavedPage', () => {
   beforeEach(() => {
-    localStorage.setItem(
-      'savedCollections',
-      JSON.stringify([{ id: 'col1', name: 'Колекція', recipes: [] }]),
-    );
-    localStorage.setItem(
-      'savedRecipes',
-      JSON.stringify([{ id: 'r1', dateSaved: '' }]),
-    );
-    mockNavigate.mockClear();
+    (collectionsService.getCollectionsHybrid as jest.Mock).mockResolvedValue(mockCollections);
+    (collectionsService.createCollectionHybrid as jest.Mock).mockImplementation(async (data) => ({ id: '3', ...data }));
+    (collectionsService.updateCollectionHybrid as jest.Mock).mockResolvedValue(undefined);
+    (collectionsService.deleteCollectionHybrid as jest.Mock).mockResolvedValue(undefined);
   });
 
-  test('клик по коллекции добавляет рецепт и вызывает navigate', () => {
-    render(
-      <MemoryRouter initialEntries={[{ state: { addedRecipeId: 'r1' } }]}>
-        <SavedPage />
-      </MemoryRouter>,
-    );
 
-    const collectionCard = screen.getByText(/Колекція/i);
-    fireEvent.click(collectionCard);
+  test('отображение существующих коллекций', async () => {
+    render(<SavedPage />);
+    // Ждем пока коллекции загрузятся
+    await waitFor(() => expect(screen.getByText('Колекція 1')).toBeInTheDocument());
+    expect(screen.getByText('Колекція 2')).toBeInTheDocument();
+  });
 
-    const savedCollections = JSON.parse(localStorage.getItem('savedCollections') || '[]');
-    expect(savedCollections[0].recipes).toHaveLength(1);
-    expect(savedCollections[0].recipes[0].id).toBe('r1');
+  test('открытие модалки создания коллекции', async () => {
+    render(<SavedPage />);
+    const addButton = screen.getAllByText(/Додати колекцію/i)[0];
+    fireEvent.click(addButton);
+    expect(screen.getByText(/Створення колекції/i)).toBeInTheDocument();
+  });
 
-    expect(mockNavigate).toHaveBeenCalledWith('/collection/col1', { state: {} });
+
+
+  test('удаление коллекции', async () => {
+    render(<SavedPage />);
+    await waitFor(() => screen.getByText('Колекція 1'));
+
+    const menuBtn = screen.getAllByRole('button').find(btn => btn.closest('.menuWrapper'));
+    fireEvent.click(menuBtn!);
+
+    const deleteBtn = screen.getByText('Видалити');
+    fireEvent.click(deleteBtn);
+
+    await waitFor(() => expect(collectionsService.deleteCollectionHybrid).toHaveBeenCalledWith('1'));
+  });
+
+  test('редактирование коллекции', async () => {
+    render(<SavedPage />);
+    await waitFor(() => screen.getByText('Колекція 1'));
+
+    const menuBtn = screen.getAllByRole('button').find(btn => btn.closest('.menuWrapper'));
+    fireEvent.click(menuBtn!);
+
+    const editBtn = screen.getByText('Редагувати');
+    fireEvent.click(editBtn);
+
+    const nameInput = screen.getByPlaceholderText(/Наприклад: «Улюблені десерти»/i);
+    fireEvent.change(nameInput, { target: { value: 'Колекція 1 Редагована' } });
+
+    const saveBtn = screen.getByText('Зберегти зміни');
+    fireEvent.click(saveBtn);
+
+    await waitFor(() => expect(collectionsService.updateCollectionHybrid).toHaveBeenCalled());
+    await waitFor(() => expect(screen.getByText('Колекція 1 Редагована')).toBeInTheDocument());
   });
 });

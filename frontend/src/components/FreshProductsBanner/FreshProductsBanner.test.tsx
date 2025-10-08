@@ -14,14 +14,20 @@ describe('FreshProductsBanner', () => {
     ).toBeInTheDocument();
   });
 
-  test('рендерит кнопку з текстом і иконкой', () => {
+  test('рендерит ссылку с текстом и иконкой', () => {
     render(<FreshProductsBanner />);
 
-    const button = screen.getByRole('button', { name: /Спробувати зараз/i });
-    expect(button).toBeInTheDocument();
+    // Ищем по роли "link", так как это <a>
+    const link = screen.getByRole('link', { name: /Спробувати зараз/i });
+    expect(link).toBeInTheDocument();
 
-    // Проверяем, что внутри кнопки есть иконка ShoppingBag
-    const svg = button.querySelector('svg');
+    // Проверяем, что внутри ссылки есть svg (иконка)
+    const svg = link.querySelector('svg');
     expect(svg).toBeInTheDocument();
+
+    // Проверяем, что ссылка ведет на правильный URL
+    expect(link).toHaveAttribute('href', 'https://silpo.ua/');
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 });

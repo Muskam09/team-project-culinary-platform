@@ -4,21 +4,31 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(5px);
+background: rgba(41, 54, 61, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+   pointer-events: auto;
+}
+
+.hiddenOverlay {
+  background-color: transparent; /* Робить сам фон прозорим */
+  pointer-events: none; /* Забороняє взаємодію з фоном */
+  z-index: 900; /* Зменшуємо Z-index, щоб SelectRecipeModal був вище */
 }
 
 .modal {
   width: 728px;
   background: #fff;
   padding: 24px 32px 24px 32px;
-  border-radius: 12px;
+  border-radius: 24px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  z-index: 1001; 
+  pointer-events: auto;/* Забезпечує, що модальне вікно буде вище за фон */
 }
 
 
@@ -37,14 +47,17 @@ text-align: left;
 }
 
 .closeBtn {
-  background: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   border: none;
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 
   &:hover {
-     transform: scale(1.2);
+     transform: scale(1.05);
+     background-color: rgba(235, 241, 242, 1);
   }
 }
 
@@ -105,10 +118,9 @@ line-height: 22px;
 /* Псевдо-input выбора рецепта */
 .pseudoInput {
   margin-top: 8px;
-  
+  border-radius: 12px;
   height: 48px;
   border: 1px solid #ddd;
-  border-radius: 8px;
   background: #fff;
   cursor: pointer;
   font-size: 14px;
@@ -117,13 +129,9 @@ line-height: 22px;
   transition: border-color 0.2s;
   justify-content: space-between;
 
-  &:hover {
-     border: 1.5px solid rgba(84, 112, 120, 1);
-box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
-  }
-  &:active {
-     border: 1.5px solid rgba(84, 112, 120, 1);
-box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+   &:hover {
+      border: 1px solid  rgba(207, 214, 216, 1);
+box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
   }
 }
 
@@ -146,41 +154,91 @@ line-height: 22px;
   width: 100%;
 }
 
-.categorySelect {
+.selectWrapper {
+  position: relative;
   width: 100%;
-  height: 48px;
+}
+
+.customSelect {
   margin-top: 8px;
-  padding: 10px 36px 10px 12px; // справа делаем место под иконку
-  border-radius: 8px;
+  height: 48px;
+  width: 100%;
+  background: #fff;
   border: 1px solid #ddd;
-  font-size: 14px;
+  border-radius: 12px;
+  padding: 10px 14px;
   color:  rgba(161, 171, 175, 1);
 font-size: 16px;
 font-weight: 500;
 line-height: 22px;
-  background: #fff;
-  appearance: none; // убираем дефолтную стрелку
+  text-align: left;
   cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  &:hover {
-      border: 1.5px solid rgba(84, 112, 120, 1);
-box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+       &:hover {
+      border: 1px solid  rgba(207, 214, 216, 1);
+box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
   }
-
   &:focus {
-     border: 1.5px solid rgba(84, 112, 120, 1);
-box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+    border: 1.5px solid rgba(167, 214, 217, 1);
   }
 }
 
 .chevronIcon {
-  position: absolute;
-  top: 36px;
-  right: 12px;
-  transform: translateY(-50%);
-  pointer-events: none; 
+  transition: transform 0.25s ease;
   color: #666;
 }
+
+.chevronIcon.open {
+  transform: rotate(180deg);
+}
+
+/* === Выпадающее окно === */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 50;
+  animation: dropdownFade 0.15s ease-out;
+}
+
+.option {
+  padding: 10px 14px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #f3f3f3;
+  }
+
+  &:active {
+    background: #e7e7e7;
+  }
+}
+
+/* === Анимация появления === */
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 .dateWrapper {
   position: relative;
@@ -201,13 +259,12 @@ line-height: 22px;
   cursor: pointer;
 
   &:hover {
-     border: 1.5px solid rgba(84, 112, 120, 1);
-box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+      border: 1px solid  rgba(207, 214, 216, 1);
+box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
   }
 
   &:focus {
-     border: 1.5px solid rgba(84, 112, 120, 1);
-box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+    border: 1.5px solid rgba(167, 214, 217, 1);
   }
 }
 
@@ -252,7 +309,8 @@ line-height: 22px;
   transition: transform 0.3s ease-in-out;
 
   &:hover {
-     transform: scale(1.05);
+     transform: scale(1.02);
+     background: rgba(41, 90, 97, 1);
   }
   &:disabled {
     background: rgba(232, 242, 242, 1);
@@ -273,8 +331,13 @@ line-height: 22px;
   padding-left: 12px;
   cursor: pointer;
 
+  &:hover {
+      border: 1px solid  rgba(207, 214, 216, 1);
+box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
+  }
+
   &:focus {
-    outline: none;
+    border: 1.5px solid rgba(167, 214, 217, 1);
   }
 }
 

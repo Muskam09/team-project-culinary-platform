@@ -4,7 +4,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(5px);
+background: rgba(41, 54, 61, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,13 +30,17 @@ line-height: 33px;
 }
 
 .headerButton{
+width: 40px;
+height: 40px;
+border-radius: 12px;
 border: none;
 background: none;
 cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 
   &:hover {
-     transform: scale(1.2);
+     transform: scale(1.05);
+     background-color: rgba(235, 241, 242, 1);
   }
 }
 
@@ -60,20 +65,24 @@ line-height: 19px;
   flex-direction: column;
   gap: 6px;
 
-  input {
-    padding: 8px 10px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    cursor: pointer;
-    outline: none;
-    font-size: 14px;
+input {
+  padding: 8px 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
 
-    &:focus {
-       border: 1.5px solid rgba(84, 112, 120, 1);
-box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
-    }
-  }
+  /* Убираем стандартный фокус */
+  outline: none;
+  box-shadow: none;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: #ccc; /* чтобы рамка не менялась при фокусе */
+}
 }
 
 .inputWrapper {
@@ -95,7 +104,7 @@ box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
   top: 100%;
   left: 0;
   width: 100%;
-  max-height: 296px;
+  height: 371px;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -118,11 +127,11 @@ text-align: left;
   }
 
   .cuisineOptions {
-  max-height: 200px;
+
   overflow-y: auto;
   display: flex;
+  padding: 1.5rem;
   flex-direction: column;
-  gap: 6px;
   scroll-behavior: smooth;
     &::-webkit-scrollbar {
     width: 8px; /* ширина скролла */
@@ -141,7 +150,7 @@ text-align: left;
 
   .dropdownActions {
     display: flex;
-    height: 72px;
+    padding: 1rem;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -157,21 +166,27 @@ line-height: 22px;
   width: 133px;
 height: 40px;  
       cursor: pointer;
-        transition: transform 0.3s ease-in-out;
+        transition: 0.3s ease-in-out;
 
   &:hover {
-     transform: scale(1.05);
+     transform: scale(1.02);
   }
 
       &:first-child {
       background: none;
        color: rgba(51, 113, 121, 1);
+       &:hover{
+        background: rgba(235, 241, 242, 1);
+       }
       }
 
       &:last-child {
         
 background:  rgba(51, 113, 121, 1);
 color: rgba(252, 253, 253, 1);
+  &:hover{
+        background:  rgba(41, 90, 97, 1);
+       }
       }
     }
   }
@@ -186,7 +201,6 @@ color: rgba(252, 253, 253, 1);
 
 .content label {
   display: block;
-  margin-bottom: 10px;
     color: rgba(41, 90, 97, 1);
 font-size: 14px;
 font-weight: 600;
@@ -197,15 +211,21 @@ text-align: left;
 
 
 .cuisineDropdown label {
+  margin: 0;
+  margin-bottom: 8.5px;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  color: rgba(28, 35, 39, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+text-align: left;
   cursor: pointer;
 
   input[type="checkbox"] {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     margin: 0;
     cursor: pointer;
   }
@@ -266,7 +286,7 @@ line-height: 22px;
   transition: all 0.2s ease;
 
   &:hover {
-    background: #eee;
+    background:  rgba(227, 230, 232, 1);
   }
 }
 
@@ -285,6 +305,9 @@ font-weight: 600;
 }
 
 .resetButton{
+  width: 180px;
+height: 48px;
+border-radius: 12px;
     border: none;
     background: none;
     color: rgba(51, 113, 121, 1);
@@ -294,7 +317,8 @@ line-height: 22px;
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
   &:hover {
-     transform: scale(1.05);
+     transform: scale(1.02);
+     background-color: rgba(235, 241, 242, 1);
   }
 }
 
@@ -312,7 +336,8 @@ text-align: center;
 cursor: pointer;
     transition: transform 0.3s ease-in-out;
   &:hover {
-     transform: scale(1.05);
+     transform: scale(1.02);
+     background-color: rgba(41, 90, 97, 1);
   }
 }
 

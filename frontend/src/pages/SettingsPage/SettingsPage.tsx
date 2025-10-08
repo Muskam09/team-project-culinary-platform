@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
-import { Check, ChevronDown, Plus } from 'lucide-react';
+import { Check, ChevronDown, Plus, X } from 'lucide-react';
 import Header from '../../components/Header/Header';
 import styles from './SettingsPage.module.scss';
 import iconAllert from '../../assets/icon-park-outline_caution.svg';
@@ -12,6 +12,7 @@ import deleteIcon from '../../assets/icon-park-outline_delete_white.svg';
 import fitnessIcon from '../../assets/Fitness.png';
 import instagramIcon from '../../assets/instagram1.png';
 import facebookIcon from '../../assets/Facebook1.png';
+import api from '../../services/api';
 
 const sections = [
   'Обліковий запис',
@@ -131,6 +132,9 @@ const SettingsPage: React.FC = () => {
   const [newMemberRole, setNewMemberRole] = useState('');
   const [showInput, setShowInput] = useState(false);
   const [newMemberPhoto, setNewMemberPhoto] = useState<string | null>(null);
+  const [languageOpen, setLanguageOpen] = useState(false);
+const [regionOpen, setRegionOpen] = useState(false);
+
   // Загружаем настройки из localStorage, если пусто — подставляем дефолтные
   const [settings, setSettings] = useState<SettingsData>(() => {
     const saved = localStorage.getItem('appSettings');
@@ -159,9 +163,7 @@ const SettingsPage: React.FC = () => {
     localStorage.setItem('appSettings', JSON.stringify(settings));
   }, [settings]);
 
-  const updateSetting = (field: keyof SettingsData, value: any) => {
-    setSettings((prev) => ({ ...prev, [field]: value }));
-  };
+
   const handleAddMember = () => {
     if (!newMemberName.trim() || !newMemberRole.trim()) return;
 
@@ -198,15 +200,52 @@ const SettingsPage: React.FC = () => {
     }));
   };
 
-  const handleDeleteAccount = () => {
+
+
+    useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await api.get('/v1/auth/me/');
+        const user = res.data;
+        setSettings((prev) => ({
+          ...prev,
+          email: user.email || '',
+          phone: user.phone || '',
+          // пароль не возвращаем
+        }));
+      } catch (err) {
+        console.error('Ошибка при получении данных пользователя:', err);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const updateSetting = (field: keyof SettingsData, value: any) => {
+    setSettings((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSave = (field: keyof SettingsData) => {
+    alert(
+      field === 'password'
+        ? 'Пароль збережено'
+        : `${field === 'email' ? 'Email' : 'Телефон'} збережено: ${settings[field]}`
+    );
+    // При желании сюда можно добавить api.put(`/auth/me/`, { [field]: settings[field] })
+  };
+    const handleDeleteAccount = async () => {
     if (!confirmDelete) {
       alert('Спочатку підтвердіть видалення, поставивши галочку.');
       return;
     }
-    setSettings(defaultSettings);
-    setConfirmDelete(false);
-    localStorage.removeItem('appSettings');
-    alert('Обліковий запис видалено!');
+    try {
+      // пример запроса на бэкенд, если поддерживается
+      // await api.delete('/auth/me/');
+      alert('Обліковий запис видалено!');
+      setSettings(defaultSettings);
+      setConfirmDelete(false);
+    } catch (err) {
+      console.error('Ошибка при удалении аккаунта:', err);
+    }
   };
 
   const renderSectionContent = () => {
@@ -217,7 +256,11 @@ const SettingsPage: React.FC = () => {
             {['email', 'phone', 'password'].map((field) => (
               <div key={field} className={styles.inputGroup}>
                 <label htmlFor={field}>
-                  {field === 'email' ? 'Адреса електронної пошти' : field === 'phone' ? 'Номер телефону' : 'Пароль'}
+                  {field === 'email'
+                    ? 'Адреса електронної пошти'
+                    : field === 'phone'
+                    ? 'Номер телефону'
+                    : 'Пароль'}
                 </label>
                 <div className={styles.inputRow}>
                   <div className={styles.inputWrapper}>
@@ -226,49 +269,62 @@ const SettingsPage: React.FC = () => {
                       type={field === 'password' ? 'password' : field === 'phone' ? 'tel' : 'email'}
                       value={settings[field as keyof SettingsData] as string}
                       onChange={(e) => updateSetting(field as keyof SettingsData, e.target.value)}
-                      placeholder={field === 'email' ? 'example@gmail.com' : field === 'phone' ? '+38 (050) 557 57 57' : '**********'}
+                      placeholder={
+                        field === 'email'
+                          ? 'example@gmail.com'
+                          : field === 'phone'
+                          ? '+38 (050) 557 57 57'
+                          : '**********'
+                      }
                     />
-                    {(settings[field as keyof SettingsData] as string) && <span className={styles.checkmark}><Check /></span>}
+                    {(settings[field as keyof SettingsData] as string) && (
+                      <span className={styles.checkmark}>
+                        <Check />
+                      </span>
+                    )}
                   </div>
                   <button
                     className={styles.saveButton}
                     disabled={!(settings[field as keyof SettingsData] as string)}
-                    onClick={() => alert(field === 'password' ? 'Пароль збережено' : `${field === 'email' ? 'Email' : 'Телефон'} збережено: ${settings[field as keyof SettingsData]}`)}
+                    onClick={() => handleSave(field as keyof SettingsData)}
                   >
                     <img src={saveButton} alt="save" />
                   </button>
                 </div>
               </div>
             ))}
-            <h2 className={styles.deletetTitle}>
-              Видалити обліковий запис
-            </h2>
+
+            <h2 className={styles.deletetTitle}>Видалити обліковий запис</h2>
             <div className={styles.alertGroup}>
               <img src={iconAllert} alt="allert" />
               <p className={styles.alertText}>
                 Попередження: цю дію неможливо скасувати.
                 <br />
                 Видалення облікового запису призведе до остаточного видалення всіх ваших даних,
-                {' '}
                 <br />
-                {' '}
                 включаючи збережені рецепти, плани харчування та списки покупок.
               </p>
             </div>
             <div className={styles.checkboxGroup}>
               <label className={styles.checkboxLabel}>
-                <input type="checkbox" checked={confirmDelete} onChange={(e) => setConfirmDelete(e.target.checked)} />
+                <input
+                  type="checkbox"
+                  checked={confirmDelete}
+                  onChange={(e) => setConfirmDelete(e.target.checked)}
+                />
                 <span>Я розумію, що ця дія є остаточною.</span>
               </label>
             </div>
-            <button className={styles.deleteButton} disabled={!confirmDelete} onClick={handleDeleteAccount}>
-              Видалити мій обліковий запис
-              {' '}
-              <img src={deleteIcon} alt="delete" />
+            <button
+              className={styles.deleteButton}
+              disabled={!confirmDelete}
+              onClick={handleDeleteAccount}
+            >
+              Видалити мій обліковий запис <img src={deleteIcon} alt="delete" />
             </button>
           </>
         );
-
+    
       case 'Сповіщення':
         return (
           <div className={styles.notificationBlock}>
@@ -307,33 +363,84 @@ const SettingsPage: React.FC = () => {
           </div>
         );
 
-      case 'Мова та регіон':
+            case 'Мова та регіон':
         return (
           <div className={styles.inputGroup}>
-            <label htmlFor="languageSelect">Мова інтерфейсу</label>
-            <div className={styles.selectWrapper}>
-              <select id="languageSelect" value={settings.language} onChange={(e) => updateSetting('language', e.target.value)} className={styles.selectLenguage}>
-                <option>Українська</option>
-                <option>English</option>
-                <option>Русский</option>
-              </select>
-              <span className={styles.customArrow}>
-                <ChevronDown size={20} className={styles.sortIcon} />
-              </span>
+            <div className={styles.languageRegionWrapper}>
+              {/* === Мова інтерфейсу === */}
+              <div className={styles.dropdownGroup}>
+                <label>Мова інтерфейсу</label>
+                <button
+                  className={styles.dropdownButton}
+                  onClick={() => setLanguageOpen((prev) => !prev)}
+                >
+                  {settings.language}
+                  <ChevronDown
+                    size={18}
+                    className={`${styles.sortIcon} ${languageOpen ? styles.rotated : ''}`}
+                  />
+                </button>
+                {languageOpen && (
+                  <ul className={styles.dropdownList}>
+                    {['Українська', 'English', 'Русский'].map((lang) => (
+                      <li
+                        key={lang}
+                        onClick={() => {
+                          updateSetting('language', lang);
+                          setLanguageOpen(false);
+                        }}
+                        className={
+                          settings.language === lang
+                            ? styles.activeItem
+                            : styles.dropdownItem
+                        }
+                      >
+                        {lang}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              {/* === Регіон === */}
+              <div className={styles.dropdownGroup}>
+                <label>Регіон</label>
+                <button
+                  className={styles.dropdownButton}
+                  onClick={() => setRegionOpen((prev) => !prev)}
+                >
+                  {settings.region}
+                  <ChevronDown
+                    size={18}
+                    className={`${styles.sortIcon} ${regionOpen ? styles.rotated : ''}`}
+                  />
+                </button>
+                {regionOpen && (
+                  <ul className={styles.dropdownList}>
+                    {['Україна', 'Європа', 'Азія'].map((region) => (
+                      <li
+                        key={region}
+                        onClick={() => {
+                          updateSetting('region', region);
+                          setRegionOpen(false);
+                        }}
+                        className={
+                          settings.region === region
+                            ? styles.activeItem
+                            : styles.dropdownItem
+                        }
+                      >
+                        {region}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
-            <label htmlFor="regionSelect">Регіон</label>
-            <div className={styles.selectWrapper}>
-              <select id="regionSelect" value={settings.region} onChange={(e) => updateSetting('region', e.target.value)} className={styles.selectRegion}>
-                <option>Україна</option>
-                <option>Європа</option>
-                <option>Азія</option>
-              </select>
-              <span className={styles.customArrow}>
-                <ChevronDown size={20} className={styles.sortIcon} />
-              </span>
-            </div>
+
+            {/* === Одиниці вимірювання === */}
             <div className={styles.unitsBlock}>
-              <label>Одиниці вимірювання</label>
+              <label>Одиниці виміру</label>
               <div className={styles.radioGroup}>
                 {[
                   { label: 'Метрична система (кг, °C)', value: 'metric' },
@@ -341,7 +448,13 @@ const SettingsPage: React.FC = () => {
                 ].map((u) => (
                   <label key={u.value} className={styles.radioLabel}>
                     <div className={styles.radioText}>
-                      <input type="radio" name="units" value={u.value} checked={settings.unit === u.value} onChange={(e) => updateSetting('unit', e.target.value)} />
+                      <input
+                        type="radio"
+                        name="units"
+                        value={u.value}
+                        checked={settings.unit === u.value}
+                        onChange={(e) => updateSetting('unit', e.target.value)}
+                      />
                       <span className={styles.customRadio} />
                       {u.label}
                     </div>
@@ -380,10 +493,11 @@ const SettingsPage: React.FC = () => {
                     <span className={styles.memberRole}>{member.role}</span>
                   </div>
                   <button
+                     aria-label={`Remove ${member.name}`}
                     className={styles.removeMember}
                     onClick={() => handleRemoveMember(member.id)}
                   >
-                    ✕
+                   <X size={20} /> 
                   </button>
                 </li>
               ))}
@@ -517,7 +631,7 @@ const SettingsPage: React.FC = () => {
                             settings.activeDevices.filter((d) => d.id !== device.id),
                           )}
                         >
-                          ✕
+                          <X size={20} />
                         </button>
                       )}
                     </div>

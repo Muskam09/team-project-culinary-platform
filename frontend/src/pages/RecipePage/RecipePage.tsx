@@ -1,16 +1,14 @@
 // src/pages/RecipesPage.tsx
-import React, {
-  useState, useMemo, useRef, useEffect,
-} from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ChevronDown, ArrowDown } from 'lucide-react';
 import Header from '../../components/Header/Header';
 import RecipeCard from '../../components/RecipeCard/RecipeCard';
 import styles from './RecipesPage.module.scss';
-import { sections, summerOffers } from '../../data/recipes';
-import type { Recipe } from '../../data/recipes';
 import iconFilter from '../../assets/icon-park-outline_center-alignment.svg';
 import FilterModal from '../../components/FilterModal/FilterModal';
+import { useRecipes } from '../../hooks/useRecipes';
+import type { Recipe } from '../../data/recipes';
 
 type SortOption = 'popularity' | 'rating' | 'time' | 'complexity' | 'newest';
 
@@ -37,13 +35,6 @@ function parseTime(time?: string): number {
   return hours * 60 + minutes;
 }
 
-const getAllRecipes = (): Recipe[] => {
-  const sectionRecipes = sections
-    .filter((s) => s.type === 'recipes')
-    .flatMap((s) => s.items as Recipe[]);
-  return [...sectionRecipes, ...summerOffers];
-};
-
 interface Collection {
   id: string;
   name: string;
@@ -55,7 +46,7 @@ const RecipesPage: React.FC = () => {
   const location = useLocation();
   const collectionId = location.state?.collectionId;
 
-  const allRecipes = getAllRecipes();
+  const { recipes: allRecipes, error } = useRecipes();
 
   const [showAll, setShowAll] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('popularity');
@@ -69,28 +60,24 @@ const RecipesPage: React.FC = () => {
     diet?: string;
   }>({});
 
-  // --- Новый код для клика вне дропдауна ---
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        dropdownOpen
-        && menuRef.current
-        && !menuRef.current.contains(event.target as Node)
-        && buttonRef.current
-        && !buttonRef.current.contains(event.target as Node)
+        dropdownOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
       ) {
         setDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dropdownOpen]);
-  // -----------------------------------------
 
   const sortedRecipes = useMemo(() => [...allRecipes].sort((a, b) => {
     switch (sortBy) {
@@ -99,15 +86,9 @@ const RecipesPage: React.FC = () => {
       case 'time':
         return parseTime(a.time) - parseTime(b.time);
       case 'complexity':
-        return (
-          (complexityOrder[a.complexity] ?? 99)
-            - (complexityOrder[b.complexity] ?? 99)
-        );
+        return (complexityOrder[a.complexity] ?? 99) - (complexityOrder[b.complexity] ?? 99);
       case 'newest':
-        return (
-          parseInt(b.id.replace(/\D/g, ''), 10)
-            - parseInt(a.id.replace(/\D/g, ''), 10)
-        );
+        return parseInt(b.id.replace(/\D/g, ''), 10) - parseInt(a.id.replace(/\D/g, ''), 10);
       case 'popularity':
       default:
         return (b.rating ?? 0) - (a.rating ?? 0);
@@ -115,40 +96,25 @@ const RecipesPage: React.FC = () => {
   }), [sortBy, allRecipes]);
 
   const filteredRecipes = useMemo(() => sortedRecipes.filter((r) => {
-    if (filters.cuisines && filters.cuisines.length > 0) {
-      if (!r.cuisine || !filters.cuisines.includes(r.cuisine)) return false;
-    }
-    if (filters.category) {
-      if (!r.category || !r.category.toLowerCase().includes(filters.category.toLowerCase())) return false;
-    }
+    if (filters.cuisines && filters.cuisines.length > 0 && (!r.cuisine || !filters.cuisines.includes(r.cuisine))) return false;
+    if (filters.category && (!r.category || r.category.toLowerCase() !== filters.category.toLowerCase())) return false;
     if (filters.time) {
-      const match = filters.time.match(/до\s*(\d+)\s*хв/);
-      if (match) {
-        const maxMinutes = parseInt(match[1], 10);
-        if (parseTime(r.time) > maxMinutes) return false;
-      }
+      const match = filters.time.match(/<\s*(\d+)/);
+      if (match && parseTime(r.time) > parseInt(match[1], 10)) return false;
     }
-    if (filters.complexity) {
-      if (!r.complexity || r.complexity !== filters.complexity) return false;
-    }
-    if (filters.diet) {
-      if (!r.diet || !r.diet.includes(filters.diet)) return false;
-    }
+    if (filters.complexity && r.complexity !== filters.complexity) return false;
+    if (filters.diet && (!r.diet || !r.diet.includes(filters.diet))) return false;
     return true;
   }), [sortedRecipes, filters]);
 
-  const displayedRecipes = showAll
-    ? filteredRecipes
-    : filteredRecipes.slice(0, 9);
+  const displayedRecipes = showAll ? filteredRecipes : filteredRecipes.slice(0, 9);
 
   const handleSelectRecipe = (recipe: Recipe) => {
     if (collectionId) {
       const savedCollections: Collection[] = JSON.parse(localStorage.getItem('savedCollections') || '[]');
       const updatedCollections = savedCollections.map((col) => {
-        if (col.id === collectionId) {
-          if (!col.recipes.some((r) => r.id === recipe.id)) {
-            col.recipes.push({ id: recipe.id, dateSaved: new Date().toISOString() });
-          }
+        if (col.id === collectionId && !col.recipes.some((r) => r.id === recipe.id)) {
+          col.recipes.push({ id: recipe.id, dateSaved: new Date().toISOString() });
         }
         return col;
       });
@@ -157,6 +123,9 @@ const RecipesPage: React.FC = () => {
     }
   };
 
+  
+  if (error) return <div>{error}</div>;
+
   return (
     <main className={styles.main}>
       <Header />
@@ -164,14 +133,8 @@ const RecipesPage: React.FC = () => {
         <div className={styles.headerBlock}>
           <div className={styles.headerButtonBlock}>
             <div className={styles.sortWrapper}>
-              <button
-                ref={buttonRef}
-                className={styles.SortButton}
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                Сортувати за
-                {' '}
-                <ChevronDown size={24} />
+              <button ref={buttonRef} className={styles.SortButton} onClick={() => setDropdownOpen(!dropdownOpen)}>
+                Сортувати за <ChevronDown size={24} />
               </button>
               {dropdownOpen && (
                 <div ref={menuRef} className={styles.dropdownMenu}>
@@ -198,21 +161,15 @@ const RecipesPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Под кнопкой фильтра */}
         {filters.cuisines?.length || filters.category || filters.time || filters.complexity || filters.diet ? (
           <div className={styles.selectedFilters}>
             <button
               className={styles.clearFiltersButton}
-              onClick={() => setFilters({
-                cuisines: [], category: '', time: '', complexity: '', diet: '',
-              })}
+              onClick={() => setFilters({ cuisines: [], category: '', time: '', complexity: '', diet: '' })}
             >
               Очистити
             </button>
-
-            {filters.cuisines?.map((c) => (
-              <span key={c} className={styles.filterTag}>{c}</span>
-            ))}
+            {filters.cuisines?.map((c) => <span key={c} className={styles.filterTag}>{c}</span>)}
             {filters.category && <span className={styles.filterTag}>{filters.category}</span>}
             {filters.time && <span className={styles.filterTag}>{filters.time}</span>}
             {filters.complexity && <span className={styles.filterTag}>{filters.complexity}</span>}
@@ -230,19 +187,14 @@ const RecipesPage: React.FC = () => {
 
         {!showAll && filteredRecipes.length > 9 && (
           <button className={styles.allButton} onClick={() => setShowAll(true)}>
-            Показати більше
-            {' '}
-            <ArrowDown size={24} />
+            Показати більше <ArrowDown size={24} />
           </button>
         )}
 
         <FilterModal
           isOpen={filterModalOpen}
           onClose={() => setFilterModalOpen(false)}
-          onApply={(f) => {
-            setFilters(f);
-            setFilterModalOpen(false);
-          }}
+          onApply={(f) => { setFilters(f); setFilterModalOpen(false); }}
         />
       </div>
     </main>

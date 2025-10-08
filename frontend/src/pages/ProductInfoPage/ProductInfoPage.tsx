@@ -25,6 +25,8 @@ import plus from '../../assets/icon-park-outline_plus.svg';
 import autor1 from '../../assets/autors/autor_8.webp';
 import autor2 from '../../assets/autors/autor_5.webp';
 import autor3 from '../../assets/autors/autor_4.webp';
+import { Bookmark } from 'lucide-react';
+import ShareMenu from './ShareMenu';
 
 interface SavedItem {
   id: string;
@@ -174,6 +176,9 @@ const handleSaveRecipe = () => {
   navigate('/saved', { state: { addedRecipeId: recipe.id } });
 };
 const isActive = selectedIngredients.some((v) => v);
+const [shareOpen, setShareOpen] = useState(false);
+
+
 
 return (
   <main className={styles.main}>
@@ -192,11 +197,18 @@ return (
           }}
         >
           <div className={styles.imageTopButton}>
-  <button className={styles.exportButton}>
+  <button className={styles.exportButton} onClick={() => setShareOpen(!shareOpen)}>
     <img src={exportIcon} alt="Export" />
+    {shareOpen && (
+  <ShareMenu
+    recipeId={recipe.id}
+    recipeTitle={recipe.title}
+    onClose={() => setShareOpen(false)}
+  />
+)}
   </button>
-  <button className={styles.flagButton}>
-    <img src={flagIcon} alt="Flag" />
+  <button className={styles.flagButton} onClick={handleSaveRecipe}>
+   <Bookmark size={20} className={styles.icon} />
   </button>
 </div>
 
@@ -313,7 +325,7 @@ return (
     <div key={idx} className={styles.nutritionItem}>
       <span className={styles.nutritionName}>{n.name}</span>
       <span className={styles.nutritionAmount}>
-        {(n.amount! * servings).toFixed(2)} {' '}
+        {(n.amount! * servings).toFixed(1)} {' '}
         {n.unit}
       </span>
     </div>
@@ -372,14 +384,25 @@ return (
             <img src={iconCalendar} alt="calendar" className={styles.actionIcon} />
           </button>
 
-          <button className={styles.actionButton}>
-            Друкувати
-            <img src={iconPrinter} alt="printer" className={styles.actionIcon} />
-          </button>
-          <button className={styles.actionButton}>
-            Поділитись
-            <img src={exportIcon} alt="export" className={styles.actionIcon} />
-          </button>
+        <button
+  className={styles.actionButton}
+  onClick={() => window.print()}
+>
+  Друкувати
+  <img src={iconPrinter} alt="printer" className={styles.actionIcon} />
+</button>
+         <button className={styles.actionButton} onClick={() => setShareOpen(!shareOpen)}>
+  Поділитись
+  <img src={exportIcon} alt="export" className={styles.actionIcon} />
+</button>
+
+{shareOpen && (
+  <ShareMenu
+    recipeId={recipe.id}
+    recipeTitle={recipe.title}
+    onClose={() => setShareOpen(false)}
+  />
+)}
         </div>
 
         {/* Блок тегов */}

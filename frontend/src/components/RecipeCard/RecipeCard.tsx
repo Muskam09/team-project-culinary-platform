@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './RecipeCard.module.scss';
-import flagIcon from '../../assets/icon-park-outline_tag.svg';
+import {Bookmark } from 'lucide-react';
 import type { Recipe } from '../../data/recipes';
 import iconTime from '../../assets/icon-park-outline_time.svg';
 import iconStar from '../../assets/icon-park-outline_star.svg';
@@ -62,7 +62,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
     navigate('/saved', { state: { addedRecipeId: id } });
   }}
 >
-  <img src={flagIcon} alt="flag" />
+ <Bookmark size={20} className={styles.icon} />
 </button>
 
       </div>

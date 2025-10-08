@@ -43,27 +43,27 @@ describe('SettingsPage full tests', () => {
   });
 
   it('can add and remove a family member', () => {
-    fireEvent.click(screen.getByText('Сімейний акаунт'));
-    fireEvent.click(screen.getByText(/Додати члена сім'ї/i));
+  fireEvent.click(screen.getByText('Сімейний акаунт'));
+  fireEvent.click(screen.getByText(/Додати члена сім'ї/i));
 
-    const nameInput = screen.getByPlaceholderText('Ім’я');
-    const roleInput = screen.getByPlaceholderText('Роль (напр. Мама)');
-    const saveButton = screen.getByText(/Зберегти/i);
+  const nameInput = screen.getByPlaceholderText('Ім’я');
+  const roleInput = screen.getByPlaceholderText('Роль (напр. Мама)');
+  const saveButton = screen.getByText(/Зберегти/i);
 
-    // Добавляем члена семьи
-    fireEvent.change(nameInput, { target: { value: 'Іван' } });
-    fireEvent.change(roleInput, { target: { value: 'Батько' } });
-    fireEvent.click(saveButton);
+  // Добавляем члена семьи
+  fireEvent.change(nameInput, { target: { value: 'Іван' } });
+  fireEvent.change(roleInput, { target: { value: 'Батько' } });
+  fireEvent.click(saveButton);
 
-    expect(screen.getByText('Іван')).toBeInTheDocument();
-    expect(screen.getByText('Батько')).toBeInTheDocument();
+  expect(screen.getByText('Іван')).toBeInTheDocument();
+  expect(screen.getByText('Батько')).toBeInTheDocument();
 
-    // Удаляем члена семьи
-    const removeButton = screen.getAllByText('✕')[0];
-    fireEvent.click(removeButton);
+  // Удаляем члена семьи через aria-label
+  const removeButton = screen.getByLabelText('Remove Іван');
+  fireEvent.click(removeButton);
 
-    expect(screen.queryByText('Іван')).not.toBeInTheDocument();
-  });
+  expect(screen.queryByText('Іван')).not.toBeInTheDocument();
+});
 
   it('renders delete account section', () => {
     fireEvent.click(screen.getByText('Обліковий запис'));

@@ -1,12 +1,13 @@
 .recipeCard {
   border: 1px solid #e5e7eb;
-  border-radius: 0.5rem; // rounded-lg
-  padding: 1rem; // p-4
+  border-radius: 1rem;
+  padding: 0.5rem; // p-4
   background-color: #fff;
   display: flex;
   flex-direction: column;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.2s;
+height: 340px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
       &:hover {
@@ -63,8 +64,9 @@ text-align: left;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 2.5rem;
-    margin-bottom: 1rem;
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(241, 243, 244, 1);
 
   .time {
     display: flex;
@@ -97,14 +99,9 @@ text-align: left;
 }
   }
 
-  hr {
-      border: none;
-      height: 1px;
-      width: 100%;
-      background-color: #e5e7eb;
-    }
     
   .authorBlock {
+    margin-top: 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem; // расстояние между аватаром и именем
@@ -124,8 +121,6 @@ height: 24px;
 
 .author {
   color: rgba(0, 0, 0, 1);
-
-font-family: Noto Sans;
 font-size: 14px;
 font-weight: 400;
 line-height: 19px;
@@ -157,12 +152,26 @@ text-align: left;
 }
 
   .flagButton {
-    border: none;
-    background: none;
-    position: absolute; // делаем абсолютным
-    top: 4px;           // отступ сверху
-    right: 12px;         // отступ справа
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    margin-right: 8px;
     width: 36px;
-    height: 36px;
-    cursor: pointer;
+height: 36px;
+border-radius: 8px;
+background: rgba(252, 253, 253, 1);
+
+  .icon {
+    stroke: rgba(169, 212, 215, 1);
+    fill: rgba(169, 212, 215, 1);
+    transition: fill 0.2s ease, stroke 0.2s ease;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover .icon {
+    stroke: rgba(51, 113, 121, 1);// цвет при ховере
+    fill: rgba(51, 113, 121, 1);// цвет при ховере
+    transform: scale(1.05);
+  }
   }

@@ -361,7 +361,7 @@ export const recipeDetails: RecipeDetails[] = [
         name: 'Банан', amount: 1, unit: 'шт', category: 'Овочі та фрукти',
       },
       {
-        name: 'Свіжа полуниця, нарізана кубиками, розділена на частини', amount: 1.5, unit: 'склянки', category: 'Овочі та фрукти',
+        name: 'Полуниця', amount: 1.5, unit: 'склянки', category: 'Овочі та фрукти',
       },
       {
         name: 'Мед', amount: 4, unit: 'ст. л.', category: 'Бакалія, соуси, горіхи',

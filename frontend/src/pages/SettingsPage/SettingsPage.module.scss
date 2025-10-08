@@ -57,7 +57,7 @@
 }
 
 .navItem {
-  padding-bottom: 1rem;
+  padding-bottom: 14px;
   color: rgba(95, 104, 109, 1);
 font-size: 14px;
 font-weight: 600;
@@ -106,12 +106,24 @@ border-radius: 12px;
 background: rgba(255, 255, 255, 1);
 padding: 16px;
    outline: none;
+&::placeholder {
+   color: rgba(161, 171, 175, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+  }
+ 
+  &:hover {
+border: 1px solid rgba(207, 214, 216, 1);
+box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
   }
 
-  input:focus {
-  border: 1.5px solid rgba(84, 112, 120, 1);
-border-radius: 12px;
-box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
+  &:focus {
+  border: 1.5px solid rgba(167, 214, 217, 1);
+       &::placeholder {
+      color: transparent; 
+    }
+}
 }
 
 
@@ -190,9 +202,10 @@ font-weight: 600;
 line-height: 22px;
 border: none;
  cursor: pointer;
-   transition: transform 0.3s ease-in-out;
+   transition: 0.3s ease-in-out;
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
+background: rgba(183, 28, 28, 1);
   }
 }
 
@@ -224,12 +237,16 @@ border: none;
 }
 
 .saveButton{
+  width: 40px;
+ height: 40px;
   border: none;
   background: none;
   cursor: pointer;
-   transition: transform 0.3s ease-in-out;
+  border-radius: 12px;
+   transition: 0.3s ease-in-out;
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+background: rgba(235, 241, 242, 1);
   }
 }
 
@@ -343,99 +360,193 @@ text-align: left;
 
 
 
-.selectWrapper {
+.languageRegionWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* === Общая группа дропдауна === */
+.inputGroup{
+  margin-top: 40px;
+}
+
+.dropdownGroup {
+  margin: 0;
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
 
-
-  select {
-    height: 3rem;
-    width: 100%;
-    padding-left: 0.75rem;
-    border: 2px solid rgba(240, 240, 241, 1);
-    border-radius: 100px;
-    background: white;
-    font-size: 14px;
-    outline: none;
-    cursor: pointer;
-
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    
-  }
-
-    select:focus {
-  border: 1.5px solid rgba(84, 112, 120, 1);
-border-radius: 12px;
-box-shadow: 0px 0px 6px 0px rgba(84, 112, 120, 0.8);
-}
-
-  .customArrow {
-    box-sizing: border-box;
-    position: absolute;
-    right: 12px;
-    top:26px;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #666;
+  label {
+    margin: 0;
+color: rgba(41, 90, 97, 1);
+font-size: 14px;
+font-weight: 600;
+line-height: 19px;
+text-align: left;
+margin-bottom: 0.5rem;
   }
 }
 
-.unitsBlock{
+/* === Кнопка (вместо select) === */
+.dropdownButton {
+  height: 3rem;
+  width: 100%;
+  padding: 0 1rem;
+  border: 2px solid rgba(240, 240, 241, 1);
+  border-radius: 12px;
+  background: white;
+  font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+  color: rgba(28, 35, 39, 1);
+  text-align: left;
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
-  gap: 18px;
-  margin-bottom: 472px;
-}
-
-.radioGroup{
-  display: flex;
-  flex-direction: column;
-  gap: 17px;
-}
-
-.radioText{
-  display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border: 1px solid rgba(207, 214, 216, 1);
+    box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
+  }
+
+  &:focus {
+    border: 1.5px solid rgba(167, 214, 217, 1);
+  }
 }
 
-.radioText{
-color: rgba(28, 35, 39, 1);
+/* === Список выпадающий === */
+.dropdownList {
+  margin-top: 4px;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid rgba(207, 214, 216, 1);
+  border-radius: 12px;
+  list-style: none;
+  padding: 0.5rem 0;
+  z-index: 10;
+  animation: fadeIn 0.15s ease;
+}
+
+.dropdownItem {
+  padding: 0.6rem 1rem;
+  color: rgba(28, 35, 39, 1);
 font-size: 16px;
 font-weight: 500;
 line-height: 22px;
 text-align: left;
+  cursor: pointer;
+  color: rgba(28, 35, 39, 1);
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(241, 243, 244, 1);
+  }
+}
+
+.activeItem {
+  @extend .dropdownItem;
+  background: rgba(167, 214, 217, 0.25);
+}
+
+/* === Иконка стрелки === */
+.sortIcon {
+  transition: transform 0.2s ease;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+/* === Анимация открытия === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Одиниці вимірювання === */
+.unitsBlock {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 472px;
+   margin-top: 2rem;
+     label {
+    margin: 0;
+color: rgba(41, 90, 97, 1);
+font-size: 14px;
+font-weight: 600;
+line-height: 19px;
+text-align: left;
+margin-bottom: 0.75rem;
+  }
+}
+
+.radioGroup {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.radioText {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  color: rgba(28, 35, 39, 1);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
 }
 
 .customRadio {
-  width: 18px;
-  height: 18px;
-  border: 2px solid #777;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(227, 230, 232, 1); /* зелёная рамка */
   border-radius: 50%;
+  background: white; /* белый фон внутри */
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  
+  transition: all 0.2s ease;
 
   &::after {
     content: "";
-    width: 10px;
-    height: 10px;
-    background:rgba(41, 90, 97, 1);
+    width: 9px;
+    height: 9px;
+    background: white; /* белая точка внутри */
     border-radius: 50%;
     opacity: 0;
     transition: opacity 0.2s ease;
   }
 }
 
-input:checked + .customRadio::after {
-  opacity: 1;
+/* когда выбрано */
+input:checked + .customRadio {
+  background: rgba(41, 90, 97, 1); /* зелёный фон */
+  border-color: rgba(41, 90, 97, 1);
 }
 
+input:checked + .customRadio::after {
+  opacity: 1; /* показываем белую точку */
+}
+
+/* подписи остаются теми же */
 .radioLabel {
   display: flex;
   align-items: center;
@@ -446,6 +557,8 @@ input:checked + .customRadio::after {
     display: none;
   }
 }
+
+
 
 /* Сімейний акаунт */
 .familyBlock{
@@ -521,6 +634,7 @@ text-align: left;
 }
 
 .addMemberBlock{
+  margin-top: 1rem;
   width: 33%;
   border-radius: 12px;
   gap: 0.75rem;
@@ -528,7 +642,6 @@ text-align: left;
   display: flex;
   flex-direction: column;
    border: 1px solid rgba(227, 230, 232, 1);
-   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .photoUploadButton {
@@ -540,38 +653,45 @@ text-align: left;
   font-weight: 500;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition:0.3s ease-in-out;
 }
 
 .photoUploadButton:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
+  background: rgba(41, 90, 97, 1);
 }
 
 
-.addMemberButton{
+.addMemberButton {
   background: rgba(51, 113, 121, 1);
   color: #fff;
-height: 48px;
-font-weight: 500;
-font-size: 15px;
-cursor: pointer;
-border-radius: 12px;
-border: none;
+  height: 48px;
+  font-weight: 500;
+  font-size: 15px;
+  border-radius: 12px;
+  border: none;
   cursor: pointer;
-     transition: transform 0.3s ease-in-out;
-    &:hover{
-      transform: scale(1.05);
-    }
-    
+  transition: 0.3s ease-in-out;
+
+  /* ховер только если не .disabledButton */
+  &:not(.disabledButton):hover {
+    transform: scale(1.03);
+    background: rgba(41, 90, 97, 1);
+  }
 }
 
+/* состояние disabled */
 .disabledButton {
   background: rgba(232, 242, 242, 1);
-  color:  rgba(128, 138, 142, 1);
-  cursor: not-allowed; // курсор запрещён
+  color: rgba(128, 138, 142, 1);
+  cursor: not-allowed;
+  transform: none !important; /* отменяем масштабирование */
+  transition: none;
 }
 
+
 .cancelButton{
+  margin-top: 0.5rem;
    background: rgba(51, 113, 121, 1);
   color: #fff;
   font-size: 15px;
@@ -589,10 +709,13 @@ border: none;
 
 .removeMember{
     cursor: pointer;
-    
-     transition: transform 0.3s ease-in-out;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+     transition:  0.3s ease-in-out;
     &:hover{
-      transform: scale(1.2);
+      transform: scale(1.05);
+      background-color: rgba(235, 241, 242, 1);
     }
 }
 
@@ -614,9 +737,10 @@ font-size: 16px;
 font-weight: 600;
 line-height: 22px;
    cursor: pointer;
-     transition: transform 0.3s ease-in-out;
+     transition: 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.03);
+      background: rgba(41, 90, 97, 1);
     }
 }
 
@@ -734,9 +858,10 @@ line-height: 22px;
 margin-top: 1.5rem;
 margin-bottom: 1.5rem;
  cursor: pointer;
-     transition: transform 0.3s ease-in-out;
+     transition: 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.03);
+      background: rgba(41, 90, 97, 1);
     }
 }
 
@@ -749,12 +874,16 @@ text-align: left;
 }
 
 .logoutButton{
+  border-radius: 12px;
+  width: 40px;
+  height: 40px;
   border: none;
   background: none;
    cursor: pointer;
      transition: transform 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.2);
+      transform: scale(1.05);
+      background-color: rgba(235, 241, 242, 1);
     }
 }
 
@@ -898,15 +1027,18 @@ line-height: 19px;
 
 .toggleIntegrationButton{
   color: rgba(28, 35, 39, 1);
+  border-radius: 12px;
+  padding: 8px 12px;
 font-size: 14px;
 font-weight: 400;
 line-height: 19px;
   border: none;
   background: none;
     cursor: pointer;
-     transition: transform 0.3s ease-in-out;
+     transition: 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.1);
+      transform: scale(1.05);
+      background-color: rgba(235, 241, 242, 1);
     }
 
 }
@@ -1020,11 +1152,14 @@ padding-right: 1rem;
 
 .platformIconButton{
   border: none;
+  border-radius: 12px;
+  padding: 8px;
   background: none;
      cursor: pointer;
-     transition: transform 0.3s ease-in-out;
+     transition: 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.1);
+      transform: scale(1.05);
+      background-color: rgba(235, 241, 242, 1);
     }
 }
 
