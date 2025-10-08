@@ -4,7 +4,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+backdrop-filter: blur(5px);
+background: rgba(41, 54, 61, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,18 +31,23 @@ line-height: 33px;
 }
 
 .headerButton{
+width: 40px;
+height: 40px;
+border-radius: 12px;
 border: none;
 background: none;
 cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
 
   &:hover {
-     transform: scale(1.2);
+     transform: scale(1.05);
+     background-color: rgba(235, 241, 242, 1);
   }
 }
 
 label{
     margin-top: 1.5rem;
+    margin-bottom: 8px;
 color: rgba(41, 90, 97, 1);
 font-size: 14px;
 font-weight: 600;
@@ -60,20 +66,28 @@ text-align: left;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 6px;
 
   input {
     padding: 8px 10px;
     width: 100%;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 12px;
     cursor: pointer;
     outline: none;
-    font-size: 14px;
-
-    &:focus {
-      border-color: rgba(1, 64, 78, 1);
-    }
+&::placeholder{
+      color: rgba(161, 171, 175, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+text-align: left;
+}
+           &:hover {
+      border: 1px solid  rgba(207, 214, 216, 1);
+box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
+  }
+  &:focus {
+    border: 1.5px solid rgba(167, 214, 217, 1);
+  }
   }
 }
 
@@ -144,11 +158,11 @@ line-height: 22px;
 
   .dropdownActions {
     display: flex;
-    height: 72px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin-top: 10px;
+    padding-top: 0.75rem;
     border-top: 1px solid rgba(237, 242, 247, 1);
 
       button {
@@ -160,21 +174,29 @@ line-height: 22px;
   width: 133px;
 height: 40px;  
       cursor: pointer;
-        transition: transform 0.3s ease-in-out;
+        transition: 0.3s ease-in-out;
 
   &:hover {
-     transform: scale(1.05);
+     transform: scale(1.02);
   }
 
       &:first-child {
       background: none;
-       color: rgba(51, 113, 121, 1);;
+       color: rgba(51, 113, 121, 1);
+        &:hover {
+     background-color: rgba(235, 241, 242, 1);
+  }
       }
 
       &:last-child {
         
 background:  rgba(51, 113, 121, 1);
 color: rgba(252, 253, 253, 1);
+
+  &:hover {
+
+     background-color: rgba(41, 90, 97, 1);
+  }
       }
     }
   }
@@ -187,23 +209,19 @@ color: rgba(252, 253, 253, 1);
 
 
 
-.content label {
-  display: block;
-  margin-bottom: 10px;
-}
 
 
 
 .cuisineDropdown label {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
+  margin: 0;
+  margin-bottom: 4px;
   cursor: pointer;
 
   input[type="checkbox"] {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     margin: 0;
     cursor: pointer;
   }
@@ -213,7 +231,6 @@ color: rgba(252, 253, 253, 1);
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 8px;
 }
 
 .cuisineTag {
@@ -256,14 +273,13 @@ line-height: 22px;
   transition: all 0.2s ease;
 
   &:hover {
-    background: #eee;
+background: rgba(227, 230, 232, 1);
   }
 }
 
 .active {
- background:  rgba(1, 64, 78, 1);
-color: rgba(252, 253, 253, 1);
-  border: none;
+ background: rgba(232, 242, 242, 1);
+  color:  rgba(51, 113, 121, 1);
 }
 
 .actions{
@@ -280,11 +296,16 @@ color: rgba(252, 253, 253, 1);
 font-size: 16px;
 font-weight: 600;
 line-height: 22px;
-    transition: transform 0.3s ease-in-out;
+  width: 180px;
+height: 48px;
+border-radius: 12px;
+    transition: 0.3s ease-in-out;
     cursor: pointer;
-  &:hover {
-     transform: scale(1.05);
+ &:hover {
+     transform: scale(1.02);
+     background-color: rgba(235, 241, 242, 1);
   }
+  
 }
 
 .applyButton{
@@ -299,9 +320,10 @@ font-weight: 600;
 line-height: 22px;
 text-align: center;
 cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
   &:hover {
-     transform: scale(1.05);
+     transform: scale(1.02);
+     background-color: rgba(41, 90, 97, 1);
   }
 }
 

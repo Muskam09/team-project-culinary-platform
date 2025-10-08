@@ -68,9 +68,16 @@
     border-radius: 12px;
     background: rgba(255, 255, 255, 1);
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+      transition: 0.2s;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.02);
+border: 1px solid rgba(227, 230, 232, 1);
+background:  rgba(227, 230, 232, 1);
+    }
+
+    &:active{
+     border: 1px solid rgba(227, 230, 232, 1);
+background: rgba(207, 214, 216, 1);
     }
   }
 
@@ -91,13 +98,24 @@
     border-radius: 12px;
     background: rgba(255, 255, 255, 1);
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+     background: rgba(255, 255, 255, 1);
+      transition: 0.2s;
     &:hover{
-      transform: scale(1.05);
+      transform: scaleX(1.02);
+border: 1px solid rgba(227, 230, 232, 1);
+background:  rgba(227, 230, 232, 1);
+    }
+
+    &:active{
+     border: 1px solid rgba(227, 230, 232, 1);
+background: rgba(207, 214, 216, 1);
     }
   }
+  
 
   .allButton{
+    margin-top: 1.5rem;
+    align-self: center;
     border: none;
     display: flex;
     align-items: center;
@@ -106,13 +124,19 @@
     flex-direction: row;
     gap: 0.5rem;
     color:  rgba(51, 113, 121, 1);
+    width: 213px;
+height: 40px;
+border-radius: 12px;
 font-size: 16px;
 font-weight: 600;
 line-height: 22px;
+padding: 10px 20px 10px 20px;
   cursor: pointer;
     transition: transform 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.05);
+      color: rgba(36, 79, 85, 1);
+      background: rgba(235, 241, 242, 1);
+      transform: scale(1.02);
     }
   }
 
@@ -129,7 +153,6 @@ line-height: 22px;
   background: white;
   border: 1px solid #ddd;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   z-index: 10;
   padding: 12px;
 }
@@ -178,7 +201,10 @@ line-height: 22px;
 }
 
 .clearFiltersButton {
+  margin-right: 1rem;
 color: rgba(1, 64, 78, 1);
+padding: 10px 16px 10px 16px;
+border-radius: 12px;
 font-size: 16px;
 font-weight: 600;
 line-height: 22px;
@@ -187,7 +213,9 @@ background: none;
   cursor: pointer;
     transition: transform 0.3s ease-in-out;
     &:hover{
+      
       transform: scale(1.05);
+      background-color: rgba(235, 241, 242, 1);
     }
   
 }

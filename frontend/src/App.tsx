@@ -28,6 +28,7 @@ import MesagePage from './pages/MessagesPage/MessagesPage';
 import CollectionsPage from './pages/SavedPage/SavedPage';
 
 const App: React.FC = () => (
+
   <div className={styles.app}>
     <Sidebar />
     <div className={styles.content}>

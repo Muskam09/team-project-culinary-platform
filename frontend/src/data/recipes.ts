@@ -73,7 +73,7 @@ import autorimage11 from '../assets/autors/autor_11.webp';
 import autorimage12 from '../assets/autors/autor_12.webp';
 import autorimage13 from '../assets/autors/autor_13.webp';
 import autorimage14 from '../assets/autors/autor_14.webp';
-import autorimage15 from '../assets/autors/autor_15.webp';
+import autorimage15 from '../assets/autors/autor_15.png';
 import autorimage16 from '../assets/autors/autor_16.webp';
 import autorimage17 from '../assets/autors/autor_17.webp';
 import autorimage19 from '../assets/autors/autor_19.png';

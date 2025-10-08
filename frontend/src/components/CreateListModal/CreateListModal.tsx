@@ -59,7 +59,7 @@ const CreateListModal: React.FC<CreateListModalProps> = ({
         <div className={styles.header}>
           <h2>{isEditMode ? 'Редагувати список' : 'Новий список'}</h2>
           <button className={styles.closeBtn} onClick={onClose}>
-            <X size={24} />
+            <X size={20} />
           </button>
         </div>
 
@@ -73,6 +73,7 @@ const CreateListModal: React.FC<CreateListModalProps> = ({
               placeholder="Наприклад: «Покупки на тиждень»"
               value={name}
               onChange={(e) => setName(e.target.value)}
+               autoComplete="off"
             />
           </div>
 
@@ -84,6 +85,7 @@ const CreateListModal: React.FC<CreateListModalProps> = ({
               placeholder="Наприклад: «Продукти для вечері з друзями»"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+                autoComplete="off"
             />
           </div>
 

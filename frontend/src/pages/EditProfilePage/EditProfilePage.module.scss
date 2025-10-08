@@ -36,7 +36,10 @@ line-height: 33px;
 }
 
 .backButton {
-    width: 150px;
+    width: 146px;
+  height: 40px;
+   padding: 10px 0px 10px 0px;
+    border-radius: 12px;
     background: none;
     display: flex;
     flex-direction: row;
@@ -52,7 +55,8 @@ line-height: 33px;
      font-weight: 600;
      line-height: 22px;
     &:hover{
-      transform: scale(1.01);
+      transform: scale(1.05);
+      background-color: rgba(232, 242, 242, 1);
     }
   }
 
@@ -119,15 +123,17 @@ font-size: 16px;
 font-weight: 600;
 line-height: 22px;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.03);
+      background-color: rgba(41, 90, 97, 1);
     }
 }
 
 .deletePhotoButton{
     margin-left: 1rem;
     width: 195px;
+    border-radius: 12px;
 height: 48px;
 background: none;
 border: none;
@@ -141,9 +147,10 @@ font-size: 16px;
 font-weight: 600;
 line-height: 22px;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.03);
+      background-color: rgba(235, 241, 242, 1);
     }
 }
 
@@ -187,8 +194,7 @@ padding: 24px;
         font-size: 16px;
           outline: none; 
   &:focus {
-    border-color: rgba(51, 113, 121, 1); 
-    box-shadow: 0 0 0 2px rgba(51, 113, 121, 0.2); 
+   border-color: rgba(167, 214, 217, 1); 
   }
       }
     }
@@ -214,8 +220,7 @@ padding: 24px;
       font-size: 16px;
       outline: none; 
       &:focus {
-    border-color: rgba(51, 113, 121, 1); 
-    box-shadow: 0 0 0 2px rgba(51, 113, 121, 0.2); 
+      border-color: rgba(167, 214, 217, 1); 
   }
     }
   }
@@ -276,11 +281,9 @@ background: rgba(255, 255, 255, 1);
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       font-size: 16px;
-      outline: none;
-
+      outline: none ;
       &:focus {
-        border-color: rgba(51, 113, 121, 1);
-        box-shadow: 0 0 0 2px rgba(51, 113, 121, 0.2);
+      border-color: rgba(167, 214, 217, 1);
       }
     }
   }
@@ -312,7 +315,6 @@ background: rgba(255, 255, 255, 1);
 
   label {
     margin-bottom: 0.5rem;
-    font-weight: 500;
   }
 
   .selectedAllergies {
@@ -406,9 +408,10 @@ font-size: 16px;
 font-weight: 600;
 line-height: 22px;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.03);
+      background-color: rgba(235, 241, 242, 1);
     }
 }
 
@@ -428,8 +431,9 @@ font-size: 16px;
 font-weight: 600;
 line-height: 22px;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.03);
+      background-color: rgba(41, 90, 97, 1);
     }
 }

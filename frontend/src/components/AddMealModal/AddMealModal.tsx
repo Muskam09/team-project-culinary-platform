@@ -15,6 +15,8 @@ function formatDateToUA(day: number, month: string, year: number) {
   return `${day} ${month}, ${year}`;
 }
 
+const categories = ['Сніданок', 'Обід', 'Вечеря', 'Перекус', 'Десерт', 'Напої'];
+
 function parseDateInput(input: string) {
   const parts = input.replace(',', '').split(' ');
   if (parts.length !== 3) return null;
@@ -47,9 +49,10 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
   const todayStr = formatDateToUA(today.getDate(), months[today.getMonth()], today.getFullYear());
 
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
-  const [category, setCategory] = useState(defaultCategory || 'Сніданок');
   const [portions, setPortions] = useState(1);
   const [isSelectRecipeOpen, setIsSelectRecipeOpen] = useState(false);
+  const [category, setCategory] = useState(defaultCategory || '');
+  const [open, setOpen] = useState(false);
 
   const [dateInput, setDateInput] = useState<string>(todayStr);
   const [monthSuggestions, setMonthSuggestions] = useState<string[]>([]);
@@ -57,6 +60,10 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
   const [isDateSuggestionsOpen, setIsDateSuggestionsOpen] = useState(false);
 
   if (!isOpen) return null;
+
+  const onOpenSelect = () => {
+    setIsSelectRecipeOpen(true);
+  };
 
   const handleAddMeal = () => {
     if (!selectedRecipe) {
@@ -78,7 +85,7 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
     });
 
     setSelectedRecipe(null);
-    setCategory(defaultCategory || 'Сніданок');
+    setCategory(defaultCategory || '');
     setDateInput(todayStr);
     setPortions(1);
     setIsDateSuggestionsOpen(false);
@@ -91,7 +98,6 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
     const dayPart = parts[0];
     const monthPart = parts[1]?.replace(',', '');
 
-    // Подсказки месяца (не более 5)
     if (monthPart) {
       const matchedMonths = months
         .filter((m) => m.toLowerCase().startsWith(monthPart.toLowerCase()))
@@ -101,7 +107,6 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
       setMonthSuggestions([]);
     }
 
-    // Подсказки дня (1-31, максимум 5)
     if (!dayPart || isNaN(Number(dayPart))) {
       setDaySuggestions(Array.from({ length: 31 }, (_, i) => i + 1).slice(0, 5));
     } else {
@@ -127,8 +132,13 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
     setIsDateSuggestionsOpen(false);
   };
 
+  const handleSelectCategory = (cat: string) => {
+    setCategory(cat);
+    setOpen(false);
+  };
+
   return (
-    <div className={styles.overlay}>
+   <div className={`${styles.overlay} ${isSelectRecipeOpen ? styles.hiddenOverlay : ''}`}>
       <div className={styles.modal}>
         <div className={styles.header}>
           <h2 className={styles.headerText}>Додати страву</h2>
@@ -137,67 +147,73 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
           </button>
         </div>
 
-        {/* Рецепт */}
-        {/* Рецепт */}
+        {/* === РЕЦЕПТ === */}
         <div className={styles.formRow}>
           <label>Рецепт</label>
-
-          {/* Если выбран рецепт, показываем его название и картинку */}
           {selectedRecipe && (
-          <div className={styles.selectedRecipeInfo}>
-            <div className={styles.selectedBlock}>
-              <div
-                className={styles.selectedRecipeImage}
-                style={{ backgroundImage: `url(${selectedRecipe.image})` }}
-              />
-              <span className={styles.selectedRecipeName}>
-                {selectedRecipe.title}
-              </span>
+            <div className={styles.selectedRecipeInfo}>
+              <div className={styles.selectedBlock}>
+                <div
+                  className={styles.selectedRecipeImage}
+                  style={{ backgroundImage: `url(${selectedRecipe.image})` }}
+                />
+                <span className={styles.selectedRecipeName}>
+                  {selectedRecipe.title}
+                </span>
+              </div>
+              <button
+                className={styles.deleteRecipeBtn}
+                onClick={() => setSelectedRecipe(null)}
+              >
+                <Trash size={18} />
+              </button>
             </div>
-            <button
-              className={styles.deleteRecipeBtn}
-              onClick={() => setSelectedRecipe(null)}
-            >
-              <Trash size={18} />
-            </button>
-          </div>
           )}
 
           <div
-            className={`${styles.pseudoInput}`}
-            onClick={() => setIsSelectRecipeOpen(true)}
+            className={styles.pseudoInput}
+             onClick={onOpenSelect}
           >
             <span className={styles.pseudoText}>
               {!selectedRecipe ? 'Оберіть рецепт...' : 'Змінити рецепт'}
             </span>
-            <ChevronRight
-              className={styles.pseudoChevron}
-              size={18}
-              onClick={() => setIsSelectRecipeOpen(true)}
-            />
+            <ChevronRight className={styles.pseudoChevron} size={18} />
           </div>
         </div>
 
-        {/* Категорія */}
+        {/* === КАТЕГОРІЯ === */}
         <div className={styles.formRow}>
           <label>Категорія</label>
           <div className={styles.selectWrapper}>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className={styles.categorySelect}
+            <button
+              type="button"
+              className={styles.customSelect}
+              onClick={() => setOpen(!open)}
             >
-              {['Сніданок', 'Обід', 'Вечеря', 'Перекус', 'Десерт', 'Напої'].map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
-            <span className={styles.chevronIcon}>
-              <ChevronDown size={18} />
-            </span>
+               Оберіть категорію страви
+              <ChevronDown
+                size={18}
+                className={`${styles.chevronIcon} ${open ? styles.open : ''}`}
+              />
+            </button>
+
+            {open && (
+              <div className={styles.dropdown}>
+                {categories.map((cat) => (
+                  <div
+                    key={cat}
+                    className={styles.option}
+                    onClick={() => handleSelectCategory(cat)}
+                  >
+                    {cat}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Дата */}
+        {/* === ДАТА === */}
         <div className={styles.formRow}>
           <label>Дата</label>
           <div className={styles.dateWrapper}>
@@ -222,36 +238,18 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
               onClick={() => setIsDateSuggestionsOpen((prev) => !prev)}
             />
             {isDateSuggestionsOpen && monthSuggestions.length > 0 && (
-              <div style={{
-                position: 'absolute',
-                top: '100%',
-                left: 0,
-                width: '100%',
-                background: '#fff',
-                border: '1px solid #ddd',
-                zIndex: 10,
-              }}
-              >
+              <div className={styles.dropdown}>
                 {monthSuggestions.map((m) => (
-                  <div key={m} onClick={() => selectMonth(m)} style={{ padding: '6px 12px', cursor: 'pointer' }}>
+                  <div key={m} onClick={() => selectMonth(m)} className={styles.option}>
                     {m}
                   </div>
                 ))}
               </div>
             )}
             {isDateSuggestionsOpen && daySuggestions.length > 0 && (
-              <div style={{
-                position: 'absolute',
-                top: '100%',
-                left: 0,
-                width: '100%',
-                background: '#fff',
-                border: '1px solid #ddd',
-                zIndex: 10,
-              }}
-              >
+              <div className={styles.dropdown}>
                 {daySuggestions.map((d) => (
-                  <div key={d} onClick={() => selectDay(d)} style={{ padding: '6px 12px', cursor: 'pointer' }}>
+                  <div key={d} onClick={() => selectDay(d)} className={styles.option}>
                     {d}
                   </div>
                 ))}
@@ -260,18 +258,17 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
           </div>
         </div>
 
-        {/* Порції */}
+        {/* === ПОРЦІЇ === */}
         <div className={styles.formRow}>
           <label>Порції</label>
           <div className={styles.pseudoInput}>
             <input
               type="number"
               min={1}
-              value={portions === 0 ? '' : portions} // если 0 — показываем пустое поле
+              value={portions === 0 ? '' : portions}
               placeholder="Укажіть кількість порцій"
               onChange={(e) => {
-                const val = e.target.value; // берём строку из инпута
-                // Если пустая строка — оставляем 0, иначе парсим число
+                const val = e.target.value;
                 setPortions(val === '' ? 0 : Math.max(Number(val), 1));
               }}
               className={styles.numberInput}
@@ -279,7 +276,7 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
           </div>
         </div>
 
-        {/* Кнопка сохранить */}
+        {/* === КНОПКА ЗБЕРЕЖЕННЯ === */}
         <button
           className={`${styles.saveBtn} ${selectedRecipe ? styles.active : ''}`}
           onClick={handleAddMeal}
@@ -289,7 +286,7 @@ const AddMealModal: React.FC<AddMealModalProps> = ({
           Додати страву
         </button>
 
-        {/* Модалка выбора рецепта */}
+        {/* === МОДАЛКА ВИБОРУ РЕЦЕПТУ === */}
         {isSelectRecipeOpen && (
           <SelectRecipeModal
             isOpen={isSelectRecipeOpen}

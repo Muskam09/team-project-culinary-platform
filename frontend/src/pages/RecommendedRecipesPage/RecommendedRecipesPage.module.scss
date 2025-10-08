@@ -83,11 +83,21 @@ text-align: left;
     border-radius: 12px;
     background: rgba(255, 255, 255, 1);
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+     background: rgba(255, 255, 255, 1);
+    cursor: pointer;
+      transition: 0.2s;
     &:hover{
-      transform: scale(1.05);
+      transform: scale(1.02);
+border: 1px solid rgba(227, 230, 232, 1);
+background:  rgba(227, 230, 232, 1);
+    }
+
+    &:active{
+     border: 1px solid rgba(227, 230, 232, 1);
+background: rgba(207, 214, 216, 1);
     }
   }
+  
 
   .filterButton{
         display: flex;
@@ -106,29 +116,46 @@ text-align: left;
     border-radius: 12px;
     background: rgba(255, 255, 255, 1);
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
+     background: rgba(255, 255, 255, 1);
+    cursor: pointer;
+      transition: 0.2s;
     &:hover{
-      transform: scale(1.05);
+      transform: scaleX(1.02);
+border: 1px solid rgba(227, 230, 232, 1);
+background:  rgba(227, 230, 232, 1);
+    }
+
+    &:active{
+     border: 1px solid rgba(227, 230, 232, 1);
+background: rgba(207, 214, 216, 1);
     }
   }
+  
 
   .allButton{
+    align-self: center;
     margin-top: 1.5rem;
     border: none;
     display: flex;
     align-items: center;
     background: none;
     justify-content: center;
+    padding: 10px 20px 10px 20px;
+    border-radius: 12px;
     flex-direction: row;
+        width: 213px;
+height: 40px;
     gap: 0.5rem;
     color:  rgba(51, 113, 121, 1);
 font-size: 16px;
 font-weight: 600;
 line-height: 22px;
+transition: transform 0.3s ease-in-out;
   cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-    &:hover{
-      transform: scale(1.05);
+     &:hover{
+      color: rgba(36, 79, 85, 1);
+      background: rgba(235, 241, 242, 1);
+      transform: scale(1.02);
     }
   }
 
@@ -208,23 +235,25 @@ font-weight: 500;
 line-height: 22px;
 }
 
-  .backButton {
-    width: 150px;
-    background: none;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap:0.5rem;
-    border: none;
-    margin-bottom: 1rem;
-    cursor: pointer;
   
-     transition: transform 0.3s ease-in-out;
-     color: rgba(51, 113, 121, 1);
-     font-size: 16px;
-     font-weight: 600;
-     line-height: 22px;
-    &:hover{
-      transform: scale(1.01);
-    }
+.backButton {
+  width: 146px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 10px 0px 10px 0px;
+  border-radius: 12px;
+  gap: 0.5rem;
+  border: none;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  color: rgba(51, 113, 121, 1);
+  font-size: 16px;
+  font-weight: 600;
+  &:hover {
+    color: rgba(36, 79, 85, 1);
+    background: rgba(235, 241, 242, 1);
+    transform: scale(1.02);
   }
+}

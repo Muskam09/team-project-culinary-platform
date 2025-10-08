@@ -7,10 +7,15 @@ const FreshProductsBanner: React.FC = () => (
     <div className={styles.text}>
       <h2>Свіжі продукти від Сільпо</h2>
       <p>Готуй із задоволенням — ми подбаємо, щоб усі інгредієнти були під рукою</p>
-      <button className={styles.orderButton}>
+      <a
+        href="https://silpo.ua/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.orderButton}
+      >
         Спробувати зараз
         <ShoppingBag className={styles.buttonIcon} />
-      </button>
+      </a>
     </div>
   </section>
 );

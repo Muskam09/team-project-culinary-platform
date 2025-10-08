@@ -20,6 +20,7 @@ import personIcon from '../../assets/menu_icon/icon-park-outline_user.svg';
 import emptyPlan from '../../assets/Empty_state.png';
 import iconRedact from '../../assets/icon-park-outline_edit.svg';
 import AddMealModal from '../../components/AddMealModal/AddMealModal';
+import CollectionModal from '../../components/CollectionModal/CollectionModal';
 import { addMessage } from '../../data/messagesService';
 
 const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
@@ -70,8 +71,12 @@ const MealPlannerPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('Все');
   const [mealCardsList, setMealCardsList] = useState<MealCard[]>([]);
   const [sortMode, setSortMode] = useState<'all' | 'category' | 'recipe' | 'status'>('all');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+ const [dayMenuOpen, setDayMenuOpen] = useState(false); // для меню в хедері дня
+const [ingredientsSortOpen, setIngredientsSortOpen] = useState(false)
+const dayMenuRef = useRef<HTMLDivElement>(null);
+const ingredientsSortRef = useRef<HTMLDivElement>(null);
+const [openModal, setOpenModal] = useState<'addMeal' | 'collection' | null>(null);
+
   const sortLabels: Record<typeof sortMode, string> = {
     all: 'Усі разом',
     category: 'За категоріями',
@@ -150,20 +155,38 @@ const MealPlannerPage: React.FC = () => {
     } else setCurrentMonth(currentMonth + 1);
   };
 
-  const getMonthDays = (year: number, month: number): Date[] => {
-    const firstDay = new Date(year, month, 1);
-    const startDay = (firstDay.getDay() + 6) % 7;
-    const lastDate = new Date(year, month + 1, 0).getDate();
-    const days: Date[] = [];
+const getMonthDays = (year: number, month: number) => {
+  const firstDay = new Date(year, month, 1);
+  const startDay = (firstDay.getDay() + 6) % 7;
+  const lastDate = new Date(year, month + 1, 0).getDate();
 
-    for (let i = startDay; i > 0; i--) days.push(new Date(year, month, 1 - i));
-    for (let i = 1; i <= lastDate; i++) days.push(new Date(year, month, i));
-    while (days.length % 7 !== 0) {
-      const last = days[days.length - 1];
-      days.push(new Date(last.getFullYear(), last.getMonth(), last.getDate() + 1));
-    }
-    return days;
-  };
+  const days: { date: Date; currentMonth: boolean }[] = [];
+
+  // Дни прошлого месяца
+  for (let i = startDay; i > 0; i--) {
+    const d = new Date(year, month, 1 - i);
+    d.setHours(0, 0, 0, 0);
+    days.push({ date: d, currentMonth: false });
+  }
+
+  // Дни текущего месяца
+  for (let i = 1; i <= lastDate; i++) {
+    const d = new Date(year, month, i);
+    d.setHours(0, 0, 0, 0);
+    days.push({ date: d, currentMonth: true });
+  }
+
+  // Дни следующего месяца для выравнивания недель
+  while (days.length % 7 !== 0) {
+    const last = days[days.length - 1].date;
+    const d = new Date(last.getFullYear(), last.getMonth(), last.getDate() + 1);
+    d.setHours(0, 0, 0, 0);
+    days.push({ date: d, currentMonth: false });
+  }
+
+  return days;
+};
+
 
   const getCurrentWeek = (): Date[] => {
     const startOfWeek = new Date(selectedDate);
@@ -419,68 +442,126 @@ const getWeekLabel = (date: Date) => {
   return `${monthName} ${startOfWeek.getDate()}–${endOfWeek.getDate()}, ${year}`;
 };
 
+useEffect(() => {
+  const handleClickOutside = (event: MouseEvent) => {
+    // Закриваємо меню хедера, якщо клік поза ним
+    if (dayMenuOpen && dayMenuRef.current && !dayMenuRef.current.contains(event.target as Node)) {
+      setDayMenuOpen(false);
+    }
+
+    // Закриваємо меню сортування інгредієнтів, якщо клік поза ним
+    if (ingredientsSortOpen && ingredientsSortRef.current && !ingredientsSortRef.current.contains(event.target as Node)) {
+      setIngredientsSortOpen(false);
+    }
+  };
+
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => document.removeEventListener('mousedown', handleClickOutside);
+}, [dayMenuOpen, ingredientsSortOpen]);
+
+
 return (
   <main className={styles.main}>
     <Header />
     <div className={styles.mainBlock}>
       <section className={styles.calendarBlock}>
-        <div className={styles.calendarHeader}>
-          <button onClick={handlePrevMonth}><ChevronLeft size={18} /></button>
-          <span className={styles.monthNames}>
-            {viewMode === 'month'
-              ? `${monthNames[currentMonth]} ${currentYear}`
-              : getWeekLabel(selectedDate)}
-          </span>
-          <button onClick={handleNextMonth}><ChevronRight size={18} /></button>
-          <div className={styles.switchWrapper}>
-            <label className={styles.switch}>
-              <input type="checkbox" checked={viewMode === 'week'} onChange={() => setViewMode(viewMode === 'month' ? 'week' : 'month')} />
-              <span className={styles.slider}>
-                <span className={styles.labelMonth}>Місяць</span>
-                <span className={styles.labelWeek}>Тиждень</span>
-              </span>
-            </label>
-          </div>
-        </div>
+      <div className={styles.calendarHeader}>
+  <button
+    onClick={() => {
+      if (viewMode === 'month') {
+        handlePrevMonth();
+      } else {
+        // Неделя назад
+        const newDate = new Date(selectedDate);
+        newDate.setDate(newDate.getDate() - 7);
+        setSelectedDate(newDate);
+      }
+    }}
+  >
+    <ChevronLeft size={18} />
+  </button>
+
+  <span className={styles.monthNames}>
+    {viewMode === 'month'
+      ? `${monthNames[currentMonth]} ${currentYear}`
+      : getWeekLabel(selectedDate)}
+  </span>
+
+  <button
+    onClick={() => {
+      if (viewMode === 'month') {
+        handleNextMonth();
+      } else {
+        // Неделя вперёд
+        const newDate = new Date(selectedDate);
+        newDate.setDate(newDate.getDate() + 7);
+        setSelectedDate(newDate);
+      }
+    }}
+  >
+    <ChevronRight size={18} />
+  </button>
+
+  <div className={styles.switchWrapper}>
+    <label className={styles.switch}>
+      <input
+        type="checkbox"
+        checked={viewMode === 'week'}
+        onChange={() =>
+          setViewMode(viewMode === 'month' ? 'week' : 'month')
+        }
+      />
+      <span className={styles.slider}>
+        <span className={styles.labelMonth}>Місяць</span>
+        <span className={styles.labelWeek}>Тиждень</span>
+      </span>
+    </label>
+  </div>
+</div>
+
 
         {viewMode === 'month' ? (
           <div className={styles.monthCalendar}>
             <div className={styles.weekDaysHeader}>
               {daysOfWeek.map((d) => <div key={d} className={styles.weekDayHeader}>{d}</div>)}
             </div>
-            <div className={styles.monthGrid}>
-              {getMonthDays(currentYear, currentMonth).map((d, idx) => (
-                <div
-                  key={idx}
-                  className={`${styles.monthDayBlock} ${d.getMonth() !== currentMonth ? styles.otherMonth : ''}`}
-                  onClick={() => handleSelectDate(d)}
-                >
-                  <span
-                    className={`
-                      ${isSameDate(selectedDate, d) && isToday(d) ? styles.selectedToday : ''}
-                      ${isSameDate(selectedDate, d) && !isToday(d) ? styles.selectedDay : ''}
-                      ${!isSameDate(selectedDate, d) && isToday(d) ? styles.today : ''}
-                    `}
-                  >
-                    {d.getDate()}
-                  </span>
-                  <div className={styles.mealDots}>
-                    {Array.from({ length: mealsCountOnDate(d) }, (_, i) => {
-                      const meal = mealCardsList.filter((c) => c.date === formatDateKey(d))[i];
-                      const category = meal?.category || 'Сніданок';
-                      return (
-                        <span
-                          key={i}
-                          className={styles.mealDot}
-                          style={{ backgroundColor: categoryColors[category] }}
-                        />
-                      );
-                    })}
-                  </div>
+                <div className={styles.monthGrid}>
+  {getMonthDays(currentYear, currentMonth).map(({ date, currentMonth }, idx) => {
+    const isSelected = isSameDate(selectedDate, date);
+    const todayClass = isToday(date) ? styles.today : '';
+    const selectedClass = isSelected
+      ? isToday(date)
+        ? styles.selectedToday
+        : styles.selectedDay
+      : '';
+    const inactiveClass = !currentMonth ? styles.inactiveDay : '';
 
-                </div>
-              ))}
-            </div>
+    return (
+      <div
+        key={idx}
+        className={`${styles.monthDayBlock} ${inactiveClass}`}
+        onClick={() => currentMonth && handleSelectDate(date)}
+      >
+        <span className={`${todayClass} ${selectedClass}`}>{date.getDate()}</span>
+        <div className={styles.mealDots}>
+          {Array.from({ length: mealsCountOnDate(date) }, (_, i) => {
+            const meal = mealCardsList.filter((c) => c.date === formatDateKey(date))[i];
+            const category = meal?.category || 'Сніданок';
+            return (
+              <span
+                key={i}
+                className={styles.mealDot}
+                style={{ backgroundColor: categoryColors[category] }}
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+
           </div>
         ) : (
           <div className={styles.weekCalendar}>
@@ -488,33 +569,40 @@ return (
               {daysOfWeek.map((d) => <div key={d} className={styles.weekDayHeader}>{d}</div>)}
             </div>
             <div className={styles.weekGrid}>
-              {getCurrentWeek().map((d) => (
-                <div key={d.toDateString()} className={styles.weekDayBlock} onClick={() => handleSelectDate(d)}>
-                  <span
-                    className={`
-                      ${isSameDate(selectedDate, d) && isToday(d) ? styles.selectedToday : ''}
-                      ${isSameDate(selectedDate, d) && !isToday(d) ? styles.selectedDay : ''}
-                      ${!isSameDate(selectedDate, d) && isToday(d) ? styles.today : ''}
-                    `}
-                  >
-                    {d.getDate()}
-                  </span>
-                  <div className={styles.mealDots}>
-                    {Array.from({ length: mealsCountOnDate(d) }, (_, i) => {
-                      // Получаем категорию для i-го блюда на эту дату
-                      const meal = mealCardsList.filter((c) => c.date === formatDateKey(d))[i];
-                      const category = meal?.category || 'Сніданок'; // по умолчанию
-                      return (
-                        <span
-                          key={i}
-                          className={styles.mealDot}
-                          style={{ backgroundColor: categoryColors[category] }}
-                        />
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
+             {getCurrentWeek().map((d) => {
+  const isSelected = isSameDate(selectedDate, d);
+  const todayClass = isToday(d) ? styles.today : '';
+  const selectedClass = isSelected
+    ? isToday(d)
+      ? styles.selectedToday
+      : styles.selectedDay
+    : '';
+  const inactiveClass = d.getMonth() !== currentMonth ? styles.inactiveDay : ''; // 👈 проверка
+
+  return (
+    <div
+      key={d.toDateString()}
+      className={`${styles.weekDayBlock} ${inactiveClass}`}
+      onClick={() => d.getMonth() === currentMonth && handleSelectDate(d)} // запрещаем клик
+    >
+      <span className={`${todayClass} ${selectedClass}`}>{d.getDate()}</span>
+      <div className={styles.mealDots}>
+        {Array.from({ length: mealsCountOnDate(d) }, (_, i) => {
+          const meal = mealCardsList.filter((c) => c.date === formatDateKey(d))[i];
+          const category = meal?.category || 'Сніданок';
+          return (
+            <span
+              key={i}
+              className={styles.mealDot}
+              style={{ backgroundColor: categoryColors[category] }}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+})}
+
             </div>
           </div>
         )}
@@ -532,17 +620,17 @@ return (
               })}
             </h2>
 
-            <div className={styles.headerActions} ref={dropdownRef}>
+            <div className={styles.headerActions} ref={dayMenuRef}>
               {/* Кнопка с меню */}
               <button
                 className={styles.moreOptionsBtn}
-                onClick={() => setDropdownOpen((prev) => !prev)}
+                onClick={() => setDayMenuOpen((prev) => !prev)}
               >
                 <img src={iconRedact} alt="redact" />
               </button>
 
               {/* Всплывающее меню */}
-              {dropdownOpen && (
+              {dayMenuOpen && (
                 <div className={styles.headerDropdownMenu}>
                   <button onClick={() => alert('Скопіювати день')}>Скопіювати день</button>
                   <button onClick={() => alert('Поділитися планом дня')}>Поділитися планом дня</button>
@@ -617,17 +705,36 @@ return (
               </p>
               <button
                 className={styles.addButton}
-                onClick={() => setIsModalOpen(true)}
+               onClick={() => setOpenModal('addMeal')}
               >
                 Додати страву
                 <Plus size={18} />
               </button>
-              <AddMealModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                defaultCategory="Сніданок" // можно подставить текущую категорию
-                onSave={handleSaveMeal}
-              />
+              {openModal === 'addMeal' && (
+  <AddMealModal
+    isOpen={true}
+    onClose={() => setOpenModal(null)}
+    defaultCategory="Сніданок"
+    onSave={(data) => {
+      handleSaveMeal(data);
+      setOpenModal(null);
+    }}
+  />
+)}
+
+{/* CollectionModal */}
+{openModal === 'collection' && (
+<CollectionModal
+  isOpen={openModal === 'collection'}
+  collection={currentCollection}
+  onClose={() => setOpenModal(null)}
+  onBack={() => setOpenModal('addMeal')} // возвращаем AddMealModal
+  onSelectRecipe={(recipe) => {
+    setSelectedRecipe(recipe);
+    setOpenModal('addMeal'); // открываем AddMealModal с выбранным рецептом
+  }}
+/>
+)}
             </div>
           ) : (
             cardsForSelectedDate
@@ -674,15 +781,10 @@ return (
 
                             {showActionsMenu === card.id && (
                               <div className={styles.mealCardActionsWrapper} ref={showActionsMenu === card.id ? cardDropdownRef : null}>
-                                <button
-                                  className={styles.menuToggleBtn}
-                                  onClick={() => setShowActionsMenu(card.id === showActionsMenu ? null : card.id)}
-                                >
-                                  <MoreVertical size={16} />
-                                </button>
+
 
                                 {showActionsMenu === card.id && (
-                                <div className={styles.mealCardActionsMenu}>
+                                <div className={styles.mealCardActionsMenu_1}>
                                   <button onClick={() => alert(`Копіювати страву "${card.title}"`)}>Копіювати</button>
                                   <button onClick={() => {
                                     // Сначала удаляем старую карточку
@@ -848,14 +950,13 @@ return (
               <div className={styles.sortWrapper}>
                 <button
                   className={styles.ingredientsSortButton}
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                    onClick={() => setIngredientsSortOpen(!ingredientsSortOpen)}
                 >
-                  {sortLabels[sortMode]}
-                  {' '}
+                   За категоріями
                   <ChevronDown size={16} className={styles.sortIcon} />
                 </button>
 
-                {dropdownOpen && (
+                {ingredientsSortOpen && (
                 <div className={styles.dropdownMenu}>
                   {(Object.keys(sortLabels) as (keyof typeof sortLabels)[]).map((option) => (
                     <div
@@ -865,7 +966,7 @@ return (
                       }`}
                       onClick={() => {
                         setSortMode(option);
-                        setDropdownOpen(false);
+                         setIngredientsSortOpen(false);
                       }}
                     >
                       {sortLabels[option]}
