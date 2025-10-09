@@ -18,25 +18,32 @@ const ShareMenu: React.FC<ShareMenuProps> = ({ recipeId, recipeTitle, onClose })
       .catch(() => alert('Не вдалося скопіювати посилання'));
     onClose?.();
   };
-
-const handleShare = (platform: 'facebook' | 'telegram' | 'whatsapp' | 'viber') => {
+const handleShare = (
+  platform: 'facebook' | 'telegram' | 'whatsapp' | 'viber'
+) => {
   const encodedUrl = encodeURIComponent(url);
-  const encodedText = encodeURIComponent(`${url}\n${recipeTitle}`);
+  const encodedTitle = encodeURIComponent(recipeTitle);
   let shareUrl = '';
 
   switch (platform) {
     case 'facebook':
+      // Facebook делает ссылку кликабельной автоматически
       shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
       break;
+
     case 'telegram':
-      // Важно: сначала ссылка, потом текст — тогда Telegram делает её кликабельной
-      shareUrl = `https://t.me/share/url?url=${encodedUrl}&text=${encodeURIComponent(recipeTitle)}`;
+      // Важно: сначала ссылка, потом текст — тогда Telegram делает ссылку кликабельной
+      shareUrl = `https://t.me/share/url?url=${encodedUrl}/&text=${encodedTitle}`;
       break;
+
     case 'whatsapp':
-      shareUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
+      // WhatsApp делает ссылку кликабельной, если она в конце или отдельной строкой
+      shareUrl = `https://api.whatsapp.com/send?text=${encodedTitle}%0A${encodedUrl}`;
       break;
+
     case 'viber':
-      shareUrl = `viber://forward?text=${encodedText}`;
+      // Viber воспринимает URL как ссылку только если он отдельно или в конце
+      shareUrl = `viber://forward?text=${encodedTitle}%0A${encodedUrl}`;
       break;
   }
 
