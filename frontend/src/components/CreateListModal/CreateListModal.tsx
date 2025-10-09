@@ -7,6 +7,9 @@ interface CreateListModalProps {
   onCreate: (name: string, description: string, color: string) => void;
   onEdit?: (updated: { id: string; name: string; description: string; color: string }) => void;
   initialData?: { id: string; name: string; description?: string; color?: string };
+    initialName?: string;
+  initialDescription?: string;
+  initialColor?: string;
 }
 
 const COLORS = [

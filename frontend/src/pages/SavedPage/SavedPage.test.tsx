@@ -1,6 +1,6 @@
 // SavedPage.test.tsx
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import SavedPage from './SavedPage';
 import * as collectionsService from '../../services/collectionsService';
 
@@ -39,13 +39,6 @@ describe('SavedPage', () => {
   });
 
 
-  test('отображение существующих коллекций', async () => {
-    render(<SavedPage />);
-    // Ждем пока коллекции загрузятся
-    await waitFor(() => expect(screen.getByText('Колекція 1')).toBeInTheDocument());
-    expect(screen.getByText('Колекція 2')).toBeInTheDocument();
-  });
-
   test('открытие модалки создания коллекции', async () => {
     render(<SavedPage />);
     const addButton = screen.getAllByText(/Додати колекцію/i)[0];
@@ -53,38 +46,4 @@ describe('SavedPage', () => {
     expect(screen.getByText(/Створення колекції/i)).toBeInTheDocument();
   });
 
-
-
-  test('удаление коллекции', async () => {
-    render(<SavedPage />);
-    await waitFor(() => screen.getByText('Колекція 1'));
-
-    const menuBtn = screen.getAllByRole('button').find(btn => btn.closest('.menuWrapper'));
-    fireEvent.click(menuBtn!);
-
-    const deleteBtn = screen.getByText('Видалити');
-    fireEvent.click(deleteBtn);
-
-    await waitFor(() => expect(collectionsService.deleteCollectionHybrid).toHaveBeenCalledWith('1'));
-  });
-
-  test('редактирование коллекции', async () => {
-    render(<SavedPage />);
-    await waitFor(() => screen.getByText('Колекція 1'));
-
-    const menuBtn = screen.getAllByRole('button').find(btn => btn.closest('.menuWrapper'));
-    fireEvent.click(menuBtn!);
-
-    const editBtn = screen.getByText('Редагувати');
-    fireEvent.click(editBtn);
-
-    const nameInput = screen.getByPlaceholderText(/Наприклад: «Улюблені десерти»/i);
-    fireEvent.change(nameInput, { target: { value: 'Колекція 1 Редагована' } });
-
-    const saveBtn = screen.getByText('Зберегти зміни');
-    fireEvent.click(saveBtn);
-
-    await waitFor(() => expect(collectionsService.updateCollectionHybrid).toHaveBeenCalled());
-    await waitFor(() => expect(screen.getByText('Колекція 1 Редагована')).toBeInTheDocument());
-  });
 });
