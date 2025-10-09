@@ -10,7 +10,7 @@ interface ShareMenuProps {
 }
 
 const ShareMenu: React.FC<ShareMenuProps> = ({ recipeId, recipeTitle, onClose }) => {
-  const url = `${window.location.origin}/product/${recipeId}`;
+    const url = `${window.location.origin}/#/product/${recipeId}`;
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(url)
