@@ -1,0 +1,18 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48.000000" height="48.000000" fill="none" customFrame="url(#clipPath_6)">
+	<defs>
+		<clipPath id="clipPath_6">
+			<rect width="48.000000" height="48.000000" x="0.000000" y="0.000000" rx="16.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+		<clipPath id="clipPath_7">
+			<rect width="24.000000" height="24.000000" x="12.000000" y="12.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+	</defs>
+	<rect id="Frame 296" width="48.000000" height="48.000000" x="0.000000" y="0.000000" rx="16.000000" fill="rgb(232,242,242)" />
+	<g id="icon-park-outline:notebook-one" clip-path="url(#clipPath_7)" customFrame="url(#clipPath_7)">
+		<rect id="icon-park-outline:notebook-one" width="24.000000" height="24.000000" x="12.000000" y="12.000000" fill="rgb(255,255,255)" fill-opacity="0" />
+		<g id="Group">
+			<path id="Vector" d="M16.2929 14.2929C16.4804 14.1054 16.7348 14 17 14L31 14C31.2652 14 31.5196 14.1054 31.7071 14.2929C31.8946 14.4804 32 14.7348 32 15L32 33C32 33.2652 31.8946 33.5196 31.7071 33.7071C31.5196 33.8946 31.2652 34 31 34L17 34C16.7348 34 16.4804 33.8946 16.2929 33.7071C16.1054 33.5196 16 33.2652 16 33L16 15C16 14.7348 16.1054 14.4804 16.2929 14.2929Z" fill-rule="nonzero" stroke="rgb(51,113,121)" stroke-linejoin="round" stroke-width="2" />
+			<path id="Vector" d="M20 14L20 34M24 18L28 18M24 22L28 22M17 14L23 14M17 34L23 34" fill-rule="nonzero" stroke="rgb(51,113,121)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+		</g>
+	</g>
+</svg>

@@ -1,0 +1,7 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24.000000" height="24.000000" fill="none">
+	<rect id="icon-park-outline:calendar" width="24.000000" height="24.000000" x="0.000000" y="0.000000" fill="rgb(255,255,255)" fill-opacity="0" />
+	<g id="Group">
+		<path id="Vector" d="M2.5 9.5L21.5 9.5M21.5 20C21.5 20.2652 21.3946 20.5196 21.2071 20.7071C21.0196 20.8946 20.7652 21 20.5 21L3.5 21C3.23478 21 2.98043 20.8946 2.79289 20.7071C2.60536 20.5196 2.5 20.2652 2.5 20L2.5 9.5L2.5 4.5C2.5 4.23478 2.60536 3.98043 2.79289 3.79289C2.98043 3.60536 3.23478 3.5 3.5 3.5L20.5 3.5C20.7652 3.5 21.0196 3.60536 21.2071 3.79289C21.3946 3.98043 21.5 4.23478 21.5 4.5L21.5 9.5L21.5 20Z" fill-rule="nonzero" stroke="rgb(28,35,39)" stroke-linejoin="round" stroke-width="2" />
+		<path id="Vector" d="M8 2L8 6M16 2L16 6M14 17L17 17M7 17L10 17M14 13L17 13M7 13L10 13" fill-rule="nonzero" stroke="rgb(28,35,39)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+	</g>
+</svg>

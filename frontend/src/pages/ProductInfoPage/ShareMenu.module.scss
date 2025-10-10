@@ -1,0 +1,47 @@
+
+
+.shareMenu {
+  display: flex;
+  flex-direction: column;
+  right: 40px;
+  top: 200px;
+  gap: 0.5rem;
+  background: #f7f7f7;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  position: absolute;
+  z-index: 1200;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #fff;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    .socialIcon {
+      font-size: 1rem;
+    }
+  }
+   button:nth-child(1) { display: flex; align-self: flex-end; color:  rgba(27, 60, 64, 1);  font-size: 14px;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    transform: scaleX(1.05);
+  }
+ } // Закрити
+
+  button:nth-child(2) { background: #666; }       // Копировать
+  button:nth-child(3) { background: #3b5998; }   // Facebook
+  button:nth-child(4) { background: #0088cc; }   // Telegram
+  button:nth-child(5) { background: #25d366; }   // WhatsApp
+  button:nth-child(6) { background: #665cac; }   // Viber
+}

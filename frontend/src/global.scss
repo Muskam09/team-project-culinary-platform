@@ -1,0 +1,57 @@
+/* global.scss */
+
+/* Подключение Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+
+/* Сброс и базовые глобальные стили */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Noto Sans', sans-serif; /* глобальный шрифт */
+  background-color: #f3f3f3;
+  min-width: 1024px;
+  overflow-x: auto;
+}
+
+/* Наследуем шрифт для всех форм */
+input, textarea, button, select {
+  font-family: inherit;
+  outline: none;
+  border: none;
+  background: none;
+}
+
+/* Кнопки */
+button {
+  cursor: pointer;
+}
+
+/* Стили скролла для sidebar, если есть */
+.sidebarBlock {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #377f8c;
+    border-radius: 4px;
+    border: 2px solid #f0f0f0;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #1f535a;
+  }
+}

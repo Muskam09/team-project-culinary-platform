@@ -1,0 +1,177 @@
+.recipeCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 0.5rem; // p-4
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s;
+height: 340px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+      &:hover {
+        transform: scale(1.02);
+      }
+
+.image {
+  width: 100%;
+  height: 180px;
+  border-radius: 0.5rem;
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
+
+
+  .complexity {
+    margin-top: 8px;
+    margin-left: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   padding: 4px 8px 4px 8px;
+    border-radius: 50px;
+   color: rgba(255, 255, 255, 1);
+font-size: 12px;
+font-weight: 600;
+line-height: 16px;
+  }
+
+}
+
+   
+
+  .title {
+    margin-top: 8px;
+   color: rgba(28, 35, 39, 1);
+font-size: 18px;
+font-weight: 600;
+line-height: 25px;
+text-align: left;
+  height: 96px;
+  }
+
+  .cardInfo{
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(241, 243, 244, 1);
+
+  .time {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  color: rgba(161, 161, 161, 1);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: left;
+
+}
+
+.rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
+.ratingValue {
+  color: rgba(161, 161, 161, 1);
+font-size: 14px;
+font-weight: 500;
+line-height: 16px;
+text-align: left;
+}
+  }
+
+    
+  .authorBlock {
+    margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; // расстояние между аватаром и именем
+}
+
+.avatar {
+  /* Ellipse 2 */
+width: 24px;
+height: 24px;
+  border-radius: 50%; // круг
+  background-color: #d1d5db; // серый цвет
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  background-position: center;
+}
+
+.author {
+  color: rgba(0, 0, 0, 1);
+font-size: 14px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0%;
+text-align: left;
+  margin: 0; // убрать стандартный margin p
+}
+
+}
+
+.titleLink { 
+  text-decoration: none; 
+  color: inherit; }
+
+.collectionCard {
+   transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.03);
+    cursor: pointer; 
+  }
+}
+
+.modalCard {
+  // Новые стили, которые будут применяться только в модальном окне
+  border: 1px solid #ccc;
+  box-shadow: none;
+ 
+}
+
+  .flagButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    margin-right: 8px;
+    width: 36px;
+height: 36px;
+border-radius: 8px;
+background: rgba(252, 253, 253, 1);
+
+  .icon {
+    stroke: rgba(169, 212, 215, 1);
+    fill: rgba(169, 212, 215, 1);
+    transition: fill 0.2s ease, stroke 0.2s ease;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover .icon {
+    stroke: rgba(51, 113, 121, 1);// цвет при ховере
+    fill: rgba(51, 113, 121, 1);// цвет при ховере
+    transform: scale(1.05);
+  }
+  }

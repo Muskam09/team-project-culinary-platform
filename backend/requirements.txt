@@ -1,16 +1,22 @@
 # ── Core ──
-Django>=5.2.6,<6
-djangorestframework>=3.16.1,<4
-django-filter>=25.1
-django-cors-headers>=4.3
-python-dotenv>=1.0
+Django==4.2.16
+djangorestframework==3.16.1
+django-filter==25.1
+django-cors-headers==4.4.0
+python-dotenv==1.0.1
+dj-database-url==2.2.0
 
 # ── Auth ──
-djangorestframework-simplejwt>=5.4.0
+djangorestframework-simplejwt==5.4.0
 
 # ── API Docs ──
-drf-spectacular>=0.28.0
-drf-spectacular-sidecar>=2024.6.1
+drf-spectacular==0.28.0
+drf-spectacular-sidecar==2024.6.1
 
 # ── Media ──
-Pillow>=10.0.0
+Pillow==10.4.0
+
+# ── Postgres ──
+psycopg2-binary==2.9.9
+gunicorn==21.2.0
+whitenoise==6.7.0
