@@ -11,6 +11,13 @@
     text-align: center;
   }
 
+  .logoButton{
+     transition: transform 0.3s ease-in-out;
+     &:hover{
+       transform: scale(1.02);
+     }
+    }
+
   .groupTitle {
     color: rgba(41, 90, 97, 1);
     margin-bottom: 0.5rem;

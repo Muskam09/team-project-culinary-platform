@@ -58,9 +58,16 @@ const Sidebar: React.FC = () => {
   return (
     <aside className={styles.sidebar}>
       {/* Логотип */}
-      <div className={styles.logo}>
-        <img src={logoIcon} alt="Logo Icon" className={styles.icon} />
-      </div>
+   <div className={styles.logo}>
+  <button
+    className={styles.logoButton}
+    onClick={() =>
+      window.open('https://www.instagram.com/smachno.hub?igsh=bGU0NmVrendncm5z', '_blank')
+    }
+  >
+    <img src={logoIcon} alt="Logo Icon" className={styles.icon} />
+  </button>
+</div>
       <div className={styles.sidebarBlock}>
         {/* Навигация */}
         <nav className={styles.nav}>
