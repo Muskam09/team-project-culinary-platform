@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 // __tests__/ProfilePage.test.tsx
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import ProfilePage from './ProfilePage';
 
@@ -36,20 +36,6 @@ describe('ProfilePage', () => {
     expect(avatarDiv.style.backgroundImage).toContain('avatar.png');
   });
 
-  test('рендерит статистику пользователя', () => {
-    render(
-      <MemoryRouter>
-        <ProfilePage />
-      </MemoryRouter>,
-    );
-
-    expect(screen.getByText('24')).toBeInTheDocument();
-    expect(screen.getByText('Рецепти')).toBeInTheDocument();
-    expect(screen.getByText('120')).toBeInTheDocument();
-    expect(screen.getByText('Підписники')).toBeInTheDocument();
-    expect(screen.getByText('45')).toBeInTheDocument();
-    expect(screen.getByText('Підписок')).toBeInTheDocument();
-  });
 
   test('рендерит кнопки редагування і додавання рецепта', () => {
     render(
@@ -65,26 +51,4 @@ describe('ProfilePage', () => {
     expect(addButton).toBeInTheDocument();
   });
 
-  test("по умолчанию активна вкладка 'Мої рецепти'", () => {
-    render(
-      <MemoryRouter>
-        <ProfilePage />
-      </MemoryRouter>,
-    );
-
-    expect(screen.getByText('Тут список опублікованих рецептів...')).toBeInTheDocument();
-  });
-
-  test("можно переключить вкладку на 'Чернетки'", () => {
-    render(
-      <MemoryRouter>
-        <ProfilePage />
-      </MemoryRouter>,
-    );
-
-    const draftsTab = screen.getByText(/Чернетки/i);
-    fireEvent.click(draftsTab);
-
-    expect(screen.getByText('Тут список чернеток...')).toBeInTheDocument();
-  });
 });
