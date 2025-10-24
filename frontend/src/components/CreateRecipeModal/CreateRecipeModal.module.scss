@@ -1,0 +1,224 @@
+/* --- Overlay --- */
+.overlay {
+  position: fixed;
+  inset: 0; /* top:0; left:0; right:0; bottom:0 */
+  background: rgba(41, 54, 61, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto; /* скролл внутри overlay, если модалка выше 90vh */
+  padding: 24px; /* небольшой отступ сверху/снизу */
+}
+
+/* --- Модалка --- */
+.modal {
+  background: #fff;
+  border-radius: 24px;
+  padding: 0; /* убираем padding у основной модалки */
+  width: 768px;
+  max-width: 95%;
+  max-height: 90vh;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  position: relative;
+  overflow: hidden; /* скролл только внутри контента */
+  box-sizing: border-box;
+}
+
+.modalContent {
+  padding: 24px; /* теперь padding внутри */
+  max-height: 90vh;
+  overflow-y: auto; /* скролл только здесь */
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(51,113,121,1);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+/* --- Кнопка закрытия --- */
+.closeButton {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  top: 24px;
+  right: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: rgba(235, 241, 242, 1);
+  }
+}
+
+/* --- Заголовок --- */
+.title {
+  color: rgba(28, 35, 39, 1);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 38px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* --- Форма --- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+
+  input,
+  textarea {
+    margin-top: 6px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    resize: none;
+  }
+}
+
+/* --- Загрузка изображения --- */
+.imageUpload {
+  text-align: center;
+}
+
+.imageLabel {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #666;
+  transition: 0.2s;
+
+  &:hover {
+    background: #f8f8f8;
+  }
+
+  input {
+    display: none;
+  }
+}
+
+.imagePreview {
+  position: relative;
+
+  img {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+
+  button {
+    margin-top: 8px;
+    border: none;
+    background: #ff5c5c;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+}
+
+/* --- Ингредиенты --- */
+.ingredientsBlock {
+  margin-top: 10px;
+}
+
+.subtitle {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.ingredientRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  input {
+    flex: 1;
+  }
+
+  .removeButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+
+    &:hover {
+      color: #ff4d4d;
+    }
+  }
+}
+
+.addIngredientButton {
+  background: none;
+  border: 1px solid #ccc;
+  color: #333;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+
+  &:hover {
+    background: #f1f1f1;
+  }
+}
+
+/* --- Кнопка отправки --- */
+.submitButton {
+  align-self: center;
+  border: none;
+  gap: 4px;
+  width: 197px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(51, 113, 121, 1);
+  color: rgba(252, 253, 253, 1);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.03);
+    background-color: rgba(41, 90, 97, 1);
+  }
+
+  &:disabled {
+    background: rgba(232, 242, 242, 1);
+    color: rgba(128, 138, 142, 1);
+    cursor: not-allowed;
+    transform: none;
+  }
+}
