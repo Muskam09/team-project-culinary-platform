@@ -1,0 +1,357 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+background: rgba(41, 54, 61, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+   pointer-events: auto;
+}
+
+.hiddenOverlay {
+  background-color: transparent; /* Робить сам фон прозорим */
+  pointer-events: none; /* Забороняє взаємодію з фоном */
+  z-index: 900; /* Зменшуємо Z-index, щоб SelectRecipeModal був вище */
+}
+
+.modal {
+  width: 728px;
+  background: #fff;
+  padding: 24px 32px 24px 32px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  z-index: 1001; 
+  pointer-events: auto;/* Забезпечує, що модальне вікно буде вище за фон */
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerText{
+  color: rgba(28, 35, 39, 1);
+font-size: 28px;
+font-weight: 700;
+line-height: 38px;
+text-align: left;
+}
+
+.closeBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+     transform: scale(1.05);
+     background-color: rgba(235, 241, 242, 1);
+  }
+}
+
+.formRow label {
+color: rgba(41, 90, 97, 1);
+font-size: 14px;
+font-weight: 600;
+line-height: 19px;
+text-align: left;
+}
+
+.selectedRecipeInfo {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.selectedBlock{
+  display: flex;
+  flex-direction: row;
+}
+
+.selectedRecipeImage {
+  width: 40px;
+  height: 30px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  margin-right: 8px;
+}
+
+.selectedRecipeName {
+color:  rgba(28, 35, 39, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+}
+
+.deleteRecipeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #e53935; // красный
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+/* Псевдо-input выбора рецепта */
+.pseudoInput {
+  margin-top: 8px;
+  border-radius: 12px;
+  height: 48px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  transition: border-color 0.2s;
+  justify-content: space-between;
+
+   &:hover {
+      border: 1px solid  rgba(207, 214, 216, 1);
+box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
+  }
+}
+
+.pseudoChevron {
+  margin-right: 12px;
+  color: #666;
+  flex-shrink: 0; // чтобы не сжималась
+}
+
+.pseudoText{
+  margin-left: 12px;
+  color: rgba(161, 171, 175, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+}
+
+.selectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.selectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.customSelect {
+  margin-top: 8px;
+  height: 48px;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px 14px;
+  color:  rgba(161, 171, 175, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+       &:hover {
+      border: 1px solid  rgba(207, 214, 216, 1);
+box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
+  }
+  &:focus {
+    border: 1.5px solid rgba(167, 214, 217, 1);
+  }
+}
+
+.chevronIcon {
+  transition: transform 0.25s ease;
+  color: #666;
+}
+
+.chevronIcon.open {
+  transform: rotate(180deg);
+}
+
+/* === Выпадающее окно === */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 50;
+  animation: dropdownFade 0.15s ease-out;
+}
+
+.option {
+  padding: 10px 14px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #f3f3f3;
+  }
+
+  &:active {
+    background: #e7e7e7;
+  }
+}
+
+/* === Анимация появления === */
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.dateWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.dateInput {
+  width: 100%;
+  margin-top: 8px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  color:  rgba(28, 35, 39, 1);
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+  background: #fff;
+  appearance: none; // убираем дефолтное оформление
+  cursor: pointer;
+
+  &:hover {
+      border: 1px solid  rgba(207, 214, 216, 1);
+box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
+  }
+
+  &:focus {
+    border: 1.5px solid rgba(167, 214, 217, 1);
+  }
+}
+
+/* Скрываем стандартную иконку календаря */
+.dateInput::-webkit-calendar-picker-indicator {
+  opacity: 0;        /* прозрачная */
+  position: absolute;
+  width: 100%;       /* растягиваем */
+  height: 100%;
+  left: 0;
+  top: 0;
+  cursor: pointer;   /* чтобы курсор был как у кнопки */
+}
+
+.dateInput::-moz-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+/* Кнопка сохранить */
+.saveBtn {
+  display: flex;
+  align-self: flex-end;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 168px;
+  height: 48px;
+  border-radius: 12px;
+ background: rgba(51, 113, 121, 1);
+color: rgba(252, 253, 253, 1);
+font-size: 16px;
+font-weight: 600;
+line-height: 22px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+     transform: scale(1.02);
+     background: rgba(41, 90, 97, 1);
+  }
+  &:disabled {
+    background: rgba(232, 242, 242, 1);
+  color:  rgba(128, 138, 142, 1);
+    cursor: not-allowed;
+  }
+
+}
+
+.numberInput {
+  width: 100%;
+  height: 48px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  padding-left: 12px;
+  cursor: pointer;
+
+  &:hover {
+      border: 1px solid  rgba(207, 214, 216, 1);
+box-shadow: 0px 2px 5px 0px rgba(41, 90, 97, 0.3);
+  }
+
+  &:focus {
+    border: 1.5px solid rgba(167, 214, 217, 1);
+  }
+}
+
+/* Убираем стандартные стрелочки */
+.numberInput::-webkit-inner-spin-button,
+.numberInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.numberInput::placeholder {
+  color: rgba(161, 171, 175, 1); // цвет плейсхолдера
+  font-size: 16px;               // размер шрифта
+  font-weight: 500;              // жирность
+  line-height: 22px;             // высота строки
+  font-family: 'Inter', sans-serif; // шрифт, если нужно
+}

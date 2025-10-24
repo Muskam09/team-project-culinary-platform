@@ -1,0 +1,8 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24.000000" height="24.000000" fill="none">
+	<rect id="icon-park-outline:delete" width="24.000000" height="24.000000" x="0.000000" y="0.000000" fill="rgb(255,255,255)" fill-opacity="0" />
+	<g id="Group">
+		<path id="Vector" d="M4.5 22L19.5 22L19.5 5L4.5 5L4.5 22Z" fill-rule="nonzero" stroke="rgb(252.195,252.535,252.705)" stroke-linejoin="round" stroke-width="2" />
+		<path id="Vector" d="M10 10L10 16.5M14 10L14 16.5M2 5L22 5" fill-rule="nonzero" stroke="rgb(252.195,252.535,252.705)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+		<path id="Vector" d="M9.6445 2L14.3885 2L16 5L8 5L9.6445 2Z" fill-rule="nonzero" stroke="rgb(252.195,252.535,252.705)" stroke-linejoin="round" stroke-width="2" />
+	</g>
+</svg>

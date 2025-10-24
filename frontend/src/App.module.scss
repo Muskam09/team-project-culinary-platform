@@ -1,29 +1,45 @@
 /* App.module.scss */
-
 .app {
-  display: flex;             // sidebar + content в ряд
-  height: 100%;             // растягиваем на всю высоту окна
-  background: rgba(243, 243, 243, 1);
-  overflow: hidden;          // запрещаем скролл у app
+  display: flex;       // sidebar + content в ряд
+  height: 100vh;       // растягиваем на всю высоту окна
+  background: #f3f3f3;
 }
 
 .content {
-  flex: 1;                   // занимает оставшееся пространство
+  flex: 1;             // занимает оставшееся пространство
   display: flex;
   flex-direction: column;
-  height: 100%;             
 }
 
-
-/* Если есть глобальные стили */
+/* Глобальные стили */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
   font-family: 'Noto Sans', sans-serif;
+  min-width: 1024px;
 }
 
-#root {
-  height: 100%;
+/* Sidebar */
+.sidebarBlock {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #377f8c;
+    border-radius: 4px;
+    border: 2px solid #f0f0f0;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #1f535a;
+  }
 }

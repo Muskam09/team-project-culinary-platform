@@ -1,21 +1,25 @@
-from datetime import timedelta
 import os
 from pathlib import Path
+
 from dotenv import load_dotenv
+import dj_database_url
+from datetime import timedelta
 
 # ── Paths / Env ────────────────────────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / ".env")
+load_dotenv(str(BASE_DIR / ".env"))  # .env рядом с manage.py / core
+
+def env_bool(key: str, default: bool = False) -> bool:
+    return os.getenv(key, str(default)).strip().lower() in {"1", "true", "yes", "on"}
+
+def env_list(key: str, default: str = "") -> list[str]:
+    return [x.strip() for x in os.getenv(key, default).split(",") if x.strip()]
 
 # ── Core ───────────────────────────────────────────────────────────────────────
 SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-dev")  # замени в .env на сильный ключ
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = env_bool("DEBUG", False)
 
-ALLOWED_HOSTS = [
-    h.strip()
-    for h in os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost,0.0.0.0").split(",")
-    if h.strip()
-]
+ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", "127.0.0.1,localhost,0.0.0.0")
 
 # ── Apps ───────────────────────────────────────────────────────────────────────
 INSTALLED_APPS = [
@@ -39,10 +43,12 @@ INSTALLED_APPS = [
 ]
 
 # ── Middleware (важно: CorsMiddleware до CommonMiddleware) ─────────────────────
+# + WhiteNoise после SecurityMiddleware (п.6)
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",   # ← добавлено (serve static в проде)
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "corsheaders.middleware.CorsMiddleware",   # ← до CommonMiddleware
+    "corsheaders.middleware.CorsMiddleware",        # ← до CommonMiddleware
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -70,18 +76,31 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-# ── Database (SQLite для dev; Postgres шаблон ниже) ────────────────────────────
-DATABASES = {
-    "default": {
-        "ENGINE": os.getenv("DB_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.getenv("DB_NAME", BASE_DIR / "db.sqlite3"),
-        # следующие поля игнорируются для SQLite, но пригодятся для Postgres
-        "USER": os.getenv("DB_USER", ""),
-        "PASSWORD": os.getenv("DB_PASSWORD", ""),
-        "HOST": os.getenv("DB_HOST", ""),
-        "PORT": os.getenv("DB_PORT", ""),
+# ── Database ───────────────────────────────────────────────────────────────────
+# При наличии DATABASE_URL используем её (прод/докер). Иначе — переменные DB_* или SQLite.
+database_url = os.getenv("DATABASE_URL", "")
+
+if database_url:
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=database_url,
+            conn_max_age=int(os.getenv("DB_CONN_MAX_AGE", "600")),
+            ssl_require=env_bool("DB_SSL_REQUIRED", False),
+        )
     }
-}
+else:
+    engine = os.getenv("DB_ENGINE", "django.db.backends.sqlite3")
+    name = os.getenv("DB_NAME", str(BASE_DIR / "db.sqlite3"))
+    DATABASES = {
+        "default": {
+            "ENGINE": engine,
+            "NAME": name,
+            "USER": os.getenv("DB_USER", ""),
+            "PASSWORD": os.getenv("DB_PASSWORD", ""),
+            "HOST": os.getenv("DB_HOST", ""),
+            "PORT": os.getenv("DB_PORT", ""),
+        }
+    }
 
 # ── I18N / TZ ──────────────────────────────────────────────────────────────────
 LANGUAGE_CODE = "en-us"
@@ -91,23 +110,31 @@ USE_TZ = True
 
 # ── Static / Media ─────────────────────────────────────────────────────────────
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"          # collectstatic кладёт сюда на проде
-STATICFILES_DIRS = []                           # напр.: [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"      # collectstatic кладёт сюда на проде
+STATICFILES_DIRS = []                       # напр.: [BASE_DIR / "static"]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# WhiteNoise storage (п.6): включаем только в проде
+if not DEBUG:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # ── DRF / Filters / Pagination / OpenAPI ───────────────────────────────────────
+_renderers = ["rest_framework.renderers.JSONRenderer"]
+if DEBUG:
+    _renderers.append("rest_framework.renderers.BrowsableAPIRenderer")
+
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 
     # Аутентификация
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-        "rest_framework.authentication.SessionAuthentication",  # удобно в админке/на dev
-        "rest_framework.authentication.BasicAuthentication",    # удобно в админке/на dev
+        "rest_framework.authentication.SessionAuthentication",  # удобно в админке/dev
+        "rest_framework.authentication.BasicAuthentication",    # удобно в админке/dev
     ),
 
     # Разрешения по умолчанию: читать всем, писать авторизованным
@@ -124,7 +151,7 @@ REST_FRAMEWORK = {
 
     # Пагинация
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 20,
+    "PAGE_SIZE": int(os.getenv("PAGE_SIZE", "20")),
 
     # Парсеры (JSON, формы и файлы — для upload картинок и т.п.)
     "DEFAULT_PARSER_CLASSES": (
@@ -133,105 +160,72 @@ REST_FRAMEWORK = {
         "rest_framework.parsers.MultiPartParser",
     ),
 
-    # Рендеры (оставь Browsable для dev; в проде обычно выключают)
-    "DEFAULT_RENDERER_CLASSES": (
-        "rest_framework.renderers.JSONRenderer",
-        "rest_framework.renderers.BrowsableAPIRenderer",
-    ),
+    # Рендеры
+    "DEFAULT_RENDERER_CLASSES": tuple(_renderers),
 }
-
-# Рендереры: в проде — только JSON; в dev — ещё Browsable API
-if not DEBUG:
-    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
-        "rest_framework.renderers.JSONRenderer",
-    )
-else:
-    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (
-        "rest_framework.renderers.JSONRenderer",
-        "rest_framework.renderers.BrowsableAPIRenderer",
-    )
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Culinary Platform API",
     "DESCRIPTION": "Backend for recipes, collections, planner, shopping lists",
     "VERSION": "0.1.0",
-    # Не встраивать /api/schema/ внутрь себя же
     "SERVE_INCLUDE_SCHEMA": False,
-    # Схемы авторизации, чтобы в Swagger работала кнопка Authorize
     "SECURITY_SCHEMES": {
-        "jwtAuth": {
-            "type": "http",
-            "scheme": "bearer",
-            "bearerFormat": "JWT",
-        },
-        "basicAuth": {
-            "type": "http",
-            "scheme": "basic",
-        },
-        "cookieAuth": {          # чтобы можно было логиниться сессией (админка/dev)
-            "type": "apiKey",
-            "in": "cookie",
-            "name": "sessionid",
-        },
+        "jwtAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"},
+        "basicAuth": {"type": "http", "scheme": "basic"},
+        "cookieAuth": {"type": "apiKey", "in": "cookie", "name": "sessionid"},
     },
-    # По умолчанию требуем JWT, но можно переключать в UI
     "SECURITY": [{"jwtAuth": []}],
-    # Красивые oneOf для body при разных serializer-ах
     "COMPONENT_SPLIT_REQUEST": True,
 }
 
+# (п.7) В проде ограничиваем доступ к Swagger/Redoc только staff/admin
+if not DEBUG:
+    SPECTACULAR_SETTINGS["SERVE_PERMISSIONS"] = ["rest_framework.permissions.IsAdminUser"]
+    SPECTACULAR_SETTINGS["SERVE_AUTHENTICATION"] = ["rest_framework.authentication.SessionAuthentication"]
+
 # ── CORS / CSRF ────────────────────────────────────────────────────────────────
 # Для локалки можно разрешить всё; на проде перечисляй домены
-CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", "True") == "True"
+CORS_ALLOW_ALL_ORIGINS = env_bool("CORS_ALLOW_ALL_ORIGINS", True)
 
 # Точечное разрешение источников (рекомендуется на проде)
-CORS_ALLOWED_ORIGINS = [
-    o.strip()
-    for o in os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
-    if o.strip()
-]
+CORS_ALLOWED_ORIGINS = env_list("CORS_ALLOWED_ORIGINS", "")
 
 # Разрешить куки (если фронт будет работать с cookie)
-CORS_ALLOW_CREDENTIALS = os.getenv("CORS_ALLOW_CREDENTIALS", "False") == "True"
+CORS_ALLOW_CREDENTIALS = env_bool("CORS_ALLOW_CREDENTIALS", False)
 
 # Django 4+ требует доверенные источники для безопасных POST с фронта
-CSRF_TRUSTED_ORIGINS = [
-    o.strip()
-    for o in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
-    if o.strip()
-]
+CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS", "")
 
 # ── Security (мягкие дефолты; ужесточай на проде) ─────────────────────────────
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https") if os.getenv("USE_PROXY", "False") == "True" else None
-SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE", "False") == "True"
-CSRF_COOKIE_SECURE = os.getenv("CSRF_COOKIE_SECURE", "False") == "True"
+SECURE_PROXY_SSL_HEADER = (
+    ("HTTP_X_FORWARDED_PROTO", "https") if env_bool("USE_PROXY", False) else None
+)
+SESSION_COOKIE_SECURE = env_bool("SESSION_COOKIE_SECURE", False)
+CSRF_COOKIE_SECURE = env_bool("CSRF_COOKIE_SECURE", False)
 
-# ── (Опционально) SIMPLE JWT конфиг — подключим, когда дойдём до auth ─────────
-# from datetime import timedelta
-# SIMPLE_JWT = {
-#     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=int(os.getenv("JWT_ACCESS_MIN", "15"))),
-#     "REFRESH_TOKEN_LIFETIME": timedelta(days=int(os.getenv("JWT_REFRESH_DAYS", "7"))),
-#     "AUTH_HEADER_TYPES": ("Bearer",),
-# }
-
-# ── Подсказка по Postgres (docker-compose/прод) ───────────────────────────────
-# В .env укажи:
-# DB_ENGINE=django.db.backends.postgresql
-# DB_NAME=culinary
-# DB_USER=postgres
-# DB_PASSWORD=postgres
-# DB_HOST=postgres
-# DB_PORT=5432
-
-
-from datetime import timedelta
+# ── Simple JWT ─────────────────────────────────────────────────────────────────
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    "ROTATE_REFRESH_TOKENS": False,
-    "BLACKLIST_AFTER_ROTATION": False,
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        minutes=int(os.getenv("JWT_ACCESS_MIN", "60"))
+    ),
+    "REFRESH_TOKEN_LIFETIME": timedelta(
+        days=int(os.getenv("JWT_REFRESH_DAYS", "7"))
+    ),
+    "ROTATE_REFRESH_TOKENS": env_bool("JWT_ROTATE", False),
+    "BLACKLIST_AFTER_ROTATION": env_bool("JWT_BLACKLIST_AFTER_ROTATION", False),
     "ALGORITHM": "HS256",
     "SIGNING_KEY": SECRET_KEY,
     "AUTH_HEADER_TYPES": ("Bearer",),
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+}
+
+# ── Логи (минимально полезные дефолты) ─────────────────────────────────────────
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler"},
+    },
+    "root": {"handlers": ["console"], "level": LOG_LEVEL},
 }

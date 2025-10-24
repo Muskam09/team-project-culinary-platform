@@ -1,0 +1,72 @@
+.banner {
+  display: flex;
+  align-items: center;
+  background-image: url(../../assets/Banner.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  padding: 32px;
+
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+
+    h2 {
+      margin: 0;
+    color:  rgba(252, 253, 253, 1);
+font-size: 34px;
+font-weight: 700;
+line-height: 46px;
+    }
+
+    p {
+      margin: 0;
+      width: 369px;
+     height: 52px;
+     color: rgba(249, 250, 251, 1);
+font-size: 18px;
+font-weight: 600;
+line-height: 25px;
+text-align: left;
+    }
+
+    .orderButton {
+      margin-top: 83px;
+  width: 216px;
+  height: 48px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; // расстояние между текстом и иконкой
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  text-decoration: none; // убираем подчеркивание у ссылки
+  background: rgba(51, 113, 121, 1);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 22px;
+      color: rgba(252, 253, 253, 1);
+      cursor: pointer;
+       transition: 0.2s;
+    &:hover{
+      background: rgba(41, 90, 97, 1);
+      transform: scale(1.02);
+    }
+      &:active{
+      background:  rgba(36, 79, 85, 1);
+    
+      }
+
+  .buttonIcon {
+    width: 24px;
+    height: 24px;
+    color: inherit; 
+  }
+}
+  }
+}
