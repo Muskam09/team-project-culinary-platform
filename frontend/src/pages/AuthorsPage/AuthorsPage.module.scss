@@ -224,3 +224,11 @@ font-size: 16px;
 font-weight: 500;
 line-height: 22px;
 }
+
+.noResults {
+ grid-column: 1 / -1; // занимает всю ширину сетки
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  padding: 40px 0;
+}

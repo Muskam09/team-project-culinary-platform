@@ -85,7 +85,7 @@ export interface Recipe {
   complexity: string;
   time?: string;
   rating?: number;
-  image?: string;
+  image?: string | null;
   authorImage?: string;
   cuisine?: string;
   category?: string;

@@ -207,3 +207,89 @@ cursor: pointer;
     color: rgba(51, 113, 121, 1);
     border-bottom: 2px solid rgba(51, 113, 121, 1);
   }
+
+  .recipeGrid{
+      margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+.navTabWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.menuIcon {
+  cursor: pointer;
+}
+
+.popupMenu {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background: white;
+  border-radius: 8px;
+  padding: 6px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  max-height: 200px;
+   overflow-y: auto; 
+  scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+    width: 8px; /* ширина скролла */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f0f0f0; /* фон дорожки */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color:  rgba(51, 113, 121, 1);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+.popupMenu button {
+  padding: 8px 14px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  font-size: 14px;
+    &:hover{
+    background-color: 
+     rgba(227, 230, 232, 1);
+  }
+}
+
+.deleteList {
+  margin-top: 4px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.menuTitle{
+  margin-left: 12px;
+  color: rgba(51, 113, 121, 1);
+  font-weight: 600;
+}

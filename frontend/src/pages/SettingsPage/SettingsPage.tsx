@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { Check, ChevronDown, Plus, X } from 'lucide-react';
 import Header from '../../components/Header/Header';
 import styles from './SettingsPage.module.scss';
-import iconAllert from '../../assets/icon-park-outline_caution.svg';
 import saveButton from '../../assets/Group.svg';
 import iconEnd from '../../assets/icon-park-outline_logout.svg';
 import iconPlat from '../../assets/icon-park-outline_afferent-four.svg';
@@ -295,16 +294,6 @@ const [regionOpen, setRegionOpen] = useState(false);
             ))}
 
             <h2 className={styles.deletetTitle}>Видалити обліковий запис</h2>
-            <div className={styles.alertGroup}>
-              <img src={iconAllert} alt="allert" />
-              <p className={styles.alertText}>
-                Попередження: цю дію неможливо скасувати.
-                <br />
-                Видалення облікового запису призведе до остаточного видалення всіх ваших даних,
-                <br />
-                включаючи збережені рецепти, плани харчування та списки покупок.
-              </p>
-            </div>
             <div className={styles.checkboxGroup}>
               <label className={styles.checkboxLabel}>
                 <input

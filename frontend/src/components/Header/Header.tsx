@@ -11,6 +11,7 @@ import iconBell from '../../assets/iconBellDufault.svg';
 import avatar from '../../assets/avatar.webp';
 import type { Message } from '../../data/messagesService';
 import { getMessages } from '../../data/messagesService';
+import logoIcon from '../../assets/instagram1.png'
 
 interface HeaderProps {
   showSearch?: boolean;
@@ -196,7 +197,16 @@ const Header: React.FC<HeaderProps> = ({
         {renderSuggestions()}
       </div>
 
-      <div className={styles.rightSection}>
+        <div className={styles.rightSection}>
+  {/* Кнопка Instagram */}
+  <button
+    className={styles.logoButton}
+    onClick={() =>
+      window.open('https://www.instagram.com/smachno.hub', '_blank')
+    }
+  >
+    <img src={logoIcon} alt="Instagram" className={styles.icon} />
+  </button>
         <button
           className={styles.bellButton}
           onClick={() => navigate('/mesage')}
