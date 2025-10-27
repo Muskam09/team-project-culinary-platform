@@ -123,18 +123,25 @@ const AuthorsPage: React.FC = () => {
         </div>
         )}
 
-        <div className={styles.grid}>
-          {filteredAuthors.map((author) => (
-            <AuthorCard
-              key={author.id}
-              name={author.name}
-              profession={author.profession}
-              recipesCount={author.recipesCount}
-              followers={author.followers}
-              image={author.image}
-            />
-          ))}
-        </div>
+       <div className={styles.grid}>
+  {filteredAuthors.length > 0 ? (
+    filteredAuthors.map((author) => (
+      <AuthorCard
+        key={author.id}
+        name={author.name}
+        profession={author.profession}
+        recipesCount={author.recipesCount}
+        followers={author.followers}
+        image={author.image}
+      />
+    ))
+  ) : (
+    <div className={styles.noResults}>
+      На жаль, авторів за цими фільтрами не знайдено.
+    </div>
+  )}
+</div>
+
 
         {/* Модалка фільтра */}
         <AuthorFilterModal
