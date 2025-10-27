@@ -170,13 +170,17 @@ const SummerOffersPage: React.FC = () => {
             {filters.diet && <span className={styles.filterTag}>{filters.diet}</span>}
           </div>
         ) : null}
-
-        <div className={styles.grid}>
-          {displayedRecipes.map((recipe) => (
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            <RecipeCard key={recipe.id} {...recipe} />
-          ))}
-        </div>
+      <div className={styles.grid}>
+  {displayedRecipes.length > 0 ? (
+    displayedRecipes.map((recipe) => (
+      <RecipeCard key={recipe.id} {...recipe} />
+    ))
+  ) : (
+    <div className={styles.noRecipesMessage}>
+      Рецептів, що відповідають вибраним фільтрам, не знайдено.
+    </div>
+  )}
+</div>
 
         {!showAll && filteredRecipes.length > 12 && (
           <button className={styles.allButton} onClick={() => setShowAll(true)}>

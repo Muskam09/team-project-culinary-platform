@@ -166,11 +166,19 @@ const PopularRecipesPage: React.FC = () => {
           </div>
         ) : null}
 
-        <div className={styles.grid}>
-          {displayedRecipes.map((recipe) => (
-            <RecipeCard key={recipe.id} {...recipe} />
-          ))}
-        </div>
+     
+      <div className={styles.grid}>
+  {displayedRecipes.length > 0 ? (
+    displayedRecipes.map((recipe) => (
+      <RecipeCard key={recipe.id} {...recipe} />
+    ))
+  ) : (
+    <div className={styles.noRecipesMessage}>
+      Рецептів, що відповідають вибраним фільтрам, не знайдено.
+    </div>
+  )}
+</div>
+
 
         {!showAll && filteredRecipes.length > 12 && (
           <button className={styles.allButton} onClick={() => setShowAll(true)}>
